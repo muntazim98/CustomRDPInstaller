@@ -74,7 +74,7 @@
                     <TextBlock
                         Margin="10,0,0,5"
                         VerticalAlignment="Center"
-                        FontFamily="{DynamicResource YaroOp}"
+                        FontFamily="{DynamicResource Furore}"
                         FontSize="30"
                         FontWeight="DemiBold"
                         Foreground="#21a1db"
@@ -114,7 +114,7 @@
                     <TextBlock
                         Margin="0,0,0,5"
                         VerticalAlignment="Center"
-                        FontFamily="{DynamicResource YaroOp}"
+                        FontFamily="{DynamicResource Furore}"
                         FontSize="13"
                         Foreground="#21a1db"
                         Text="SECURE RDP/UNC CONTROLLER" />
@@ -330,7 +330,10 @@
                             </Border>
                         </StackPanel>
                     </Grid>
-                    <Grid x:Name="SuccessCompletion" Visibility="Collapsed">
+                    <Grid
+                        x:Name="SuccessCompletion"
+                        Margin="0,0,0,35"
+                        Visibility="Collapsed">
                         <StackPanel Orientation="Vertical">
                             <Image
                                 Width="100"
@@ -379,13 +382,13 @@
                                 CornerRadius="5">
                                 <ScrollViewer
                                     Height="300"
-                                    Margin="2,0"
+                                    Margin="2"
                                     Padding="10,10,5,10"
                                     HorizontalScrollBarVisibility="Disabled"
                                     VerticalScrollBarVisibility="Auto">
                                     <TextBlock
                                         FontFamily="{DynamicResource Helvetica}"
-                                        FontSize="8"
+                                        FontSize="9"
                                         TextWrapping="WrapWithOverflow">
                                         IMPORTANT: BY DOWNLOADING, INSTALLING, ACCESSING, OR USING THE
                                         SOFTWARE, YOU (A) ACKNOWLEDGE THAT YOU HAVE READ AND UNDERSTAND
