@@ -30,7 +30,7 @@
         </Style>
     </Window.Resources>
     <Window.Background>
-        <ImageBrush ImageSource="pack://application:,,,/background.png" />
+        <ImageBrush ImageSource="pack://application:,,,/Resources/Images/background.png" />
     </Window.Background>
     <Grid x:Name="MainGrid" Margin="280,80">
         <Grid.RowDefinitions>

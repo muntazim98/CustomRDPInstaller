@@ -14,6 +14,7 @@ namespace CustomRDPInstaller
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        private static MainWindow instance;
         private string _defaultPath = Constants.GetDefaultIntallationPath;
         public static int StepCount = 1;
         public string DefaultPath
@@ -25,10 +26,11 @@ namespace CustomRDPInstaller
                 OnPropertyChanged(nameof(DefaultPath));
             }
         }
-
+        public static MainWindow GetInstance => instance;
         public MainWindow()
         {
             InitializeComponent();
+            instance = this;
             DataContext = this;
             this.Loaded += async (s, e) =>
             {
@@ -193,7 +195,11 @@ namespace CustomRDPInstaller
             StepCount -= 1;
             StepPrevious();
             if (NegativeButton.Content.ToString() == "Done" || NegativeButton.Content.ToString() == "Cancel")
-                this.Close();
+            {
+                var IsOk = DialogUtility.ShowMessageBoxModel(false, "Do you want to close ?",false, this);
+                if(IsOk)
+                    this.Close();
+            }
         }
 
         private void OnChecked(object sender, RoutedEventArgs e)
