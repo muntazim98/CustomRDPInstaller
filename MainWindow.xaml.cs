@@ -1,6 +1,14 @@
-﻿using CustomRDPInstaller.Utilities;
+﻿using AltraVeraInstaller.Utilities;
+using CustomRDPInstaller.Utilities;
+using Microsoft.Win32;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Net;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -204,7 +212,161 @@ namespace CustomRDPInstaller
                     this.Close();
             }
         }
+        private void InstallAltraVera()
+        {
+            Task.Factory.StartNew(async () =>
+            {
+                var FileName = Path.Combine(DefaultPath, Constants.ZipPath);
+                try
+                {
+                    await Task.Delay(2000);
+                    FileUtilities.CreateFile(FileName);
+                    WebClient wc = new WebClient();
+                    wc.DownloadFileAsync(Constants.uri, FileName);
+                    wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(wc_DownloadProgressChanged);
+                    wc.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadFileCompleted);
+                }
+                catch (Exception)
+                {
+                }
+            });
+        }
+        private async void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
 
+            await App.Current.Dispatcher.InvokeAsync(async () =>
+            {
+                try
+                {
+                    ProgressBar.Value = e.ProgressPercentage;
+                }
+                catch (Exception)
+                {
+                    ProgressBar.Value = 0;
+                }
+            });
+        }
+        private async void wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            await Application.Current.Dispatcher.InvokeAsync(async () =>
+            {
+                if (e.Error == null)
+                {
+                    await Task.Delay(1000);
+                    var ZipPath = Path.Combine(DefaultPath, Constants.ZipPath);
+                    await Task.Run(() => ZipFile.ExtractToDirectory(ZipPath, DefaultPath));
+                    await Task.Delay(3000);
+                    FileUtilities.DeleteFile(ZipPath);
+                    StepNext();
+                }
+            });
+        }
+        private async Task CreateRegistry()
+        {
+            await Task.Run(() =>
+            {
+                var dest = Path.Combine(Constants.InstallerFolder, $"{Constants.AssemblyName}.exe");
+                FileUtilities.CopyFiles(Constants.GetInstallerExe, dest);
+                // var dest = Constants.GetInstallerExe;
+                using (RegistryKey parent = (false ? Registry.LocalMachine : Registry.CurrentUser).OpenSubKey(
+                             @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", true))
+                {
+                    try
+                    {
+                        RegistryKey key = null;
+
+                        try
+                        {
+                            string guidText = Guid.NewGuid().ToString("B");
+                            key = parent.OpenSubKey($"{Constants.ApplicationName}", true) ??
+                                  parent.CreateSubKey($"{Constants.ApplicationName}");
+                            Assembly asm = GetType().Assembly;
+                            Version v = asm.GetName().Version;
+                            var appName = Path.Combine(DefaultPath, $"{Constants.ApplicationName}.exe");
+                            string exe = "\"" + appName.Replace("/", "\\\\") + "\"";
+                            var versionInfo = FileVersionInfo.GetVersionInfo(appName);
+                            var folderSizeInBytes = FileUtilities.GetDirectorySize($"{DefaultPath}");
+                            var productVersion = GetProductVersion(versionInfo.ProductVersion.ToString());
+                            key.SetValue("DisplayName", Constants.ApplicationName);
+                            key.SetValue("version", productVersion);
+                            key.SetValue("Publisher", "Globussoft");
+                            key.SetValue("EstimatedSize", (int)(folderSizeInBytes / 1024), RegistryValueKind.DWord);
+                            key.SetValue("DisplayIcon", exe);
+                            key.SetValue("DisplayVersion", productVersion);
+                            key.SetValue("Contact", "https://socinator.com/contact-us/");
+                            key.SetValue("InstallDate", DateTime.Now.ToString("yyyyMMdd"));
+                            key.SetValue("InstallLocation", $"{DefaultPath}");
+                            key.SetValue("UninstallString", dest);
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
+                        finally
+                        {
+                            if (key != null)
+                            {
+                                key.Close();
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
+            });
+        }
+        private async Task CreateShortCut()
+        {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    try
+                    {
+                        var iconPath = Path.Combine(DefaultPath, Constants.IconFileName);
+                        var targetPath = Path.Combine(DefaultPath, $"{Constants.ApplicationName}.exe");
+                        var desktopPath = Environment.GetFolderPath(false ? Environment.SpecialFolder.CommonDesktopDirectory : Environment.SpecialFolder.Desktop);
+                        var startmenu = Environment.GetFolderPath(false ? Environment.SpecialFolder.CommonStartMenu : Environment.SpecialFolder.StartMenu);
+                        SaveShortCut(desktopPath, targetPath, iconPath);
+                        SaveShortCut(startmenu, targetPath, iconPath);
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                });
+            }
+            catch { }
+        }
+        private void SaveShortCut(string shortCutPath, string exePath, string iconPath)
+        {
+            var shortcutName = Path.Combine(shortCutPath, $"{Constants.ApplicationName}.lnk");
+            try
+            {
+                // WindowsShortcutFactory package
+
+                //using var shortcut1 = new WindowsShortcut
+                //{
+                //    Path = exePath,
+                //    Description = Constants.ShortCutDescription,
+                //    IconLocation = iconPath,
+                //    WorkingDirectory = Path.GetDirectoryName(exePath)
+                //};
+                //shortcut1.Save(shortcutName);
+            }
+            catch { }
+        }
+        private string GetProductVersion(string version)
+        {
+            try
+            {
+                var verArray = version.Split('+');
+                return verArray.FirstOrDefault();
+            }
+            catch { return version; }
+        }
         private void OnChecked(object sender, RoutedEventArgs e)
         {
             PositiveButton.IsEnabled = true;

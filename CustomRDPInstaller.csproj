@@ -74,6 +74,12 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -98,6 +104,8 @@
     <Compile Include="Utilities\BindableBase.cs" />
     <Compile Include="Utilities\Constants.cs" />
     <Compile Include="Utilities\DialogUtility.cs" />
+    <Compile Include="Utilities\DirectoryUtility.cs" />
+    <Compile Include="Utilities\FileUtilities.cs" />
     <Compile Include="Views\CustomMessageBox.xaml.cs">
       <DependentUpon>CustomMessageBox.xaml</DependentUpon>
     </Compile>
