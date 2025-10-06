@@ -4,5 +4,59 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:CustomRDPInstaller"
     StartupUri="MainWindow.xaml">
-    <Application.Resources />
+    <Application.Resources>
+        <ResourceDictionary>
+            <FontFamily x:Key="Helvetica">pack://application:,,,/Resources/Fonts/ZillaSlabSemiBold.ttf#Helvetica</FontFamily>
+            <FontFamily x:Key="Helvetica_Bold">pack://application:,,,/Resources/Fonts/Rubik-Bold.ttf#Helvetica</FontFamily>
+            <FontFamily x:Key="helvetica_light">pack://application:,,,/Resources/Fonts/Rubik-Light.ttf#Helvetica Light</FontFamily>
+            <FontFamily x:Key="Helvetica_Oblique">pack://application:,,,/Resources/Fonts/Rubik-Regular.ttf#Helvetica</FontFamily>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="#FFFFFF" />
+                <Setter Property="Opacity" Value="0.9" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border
+                                Padding="25,10,25,10"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="#ffffff"
+                                BorderThickness="0.1"
+                                CornerRadius="5">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+
+                    </Setter.Value>
+
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.5" />
+                        <Setter Property="BorderBrush" Value="#FFFFFF" />
+                        <Setter Property="BorderThickness" Value="0" />
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                    <GradientStop Offset="1.2" Color="#a6c94a" />
+                                    <GradientStop Offset="0" Color="#69be9b" />
+                                    <LinearGradientBrush.RelativeTransform>
+                                        <RotateTransform Angle="85" />
+                                    </LinearGradientBrush.RelativeTransform>
+                                </LinearGradientBrush>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Opacity" Value="1" />
+                        <Setter Property="BorderBrush" Value="#FFFFFF" />
+                        <Setter Property="BorderThickness" Value="0" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+
+    </Application.Resources>
 </Application>
