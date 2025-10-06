@@ -10,7 +10,7 @@
     Height="450"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Grid x:Name="MainzGrid">
+    <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
