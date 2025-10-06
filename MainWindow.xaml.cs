@@ -55,6 +55,7 @@ namespace CustomRDPInstaller
                     WelcomeGrid.Visibility = Visibility.Visible;
                     NegativeButton.Visibility = Visibility.Collapsed;
                     PositiveButton.Content = "Install Now";
+                    PositiveButton.IsEnabled = false;
                     PositiveButton.Width = 300;
                     Heading1.Text = "Please wait while Setup Wizard prepares to guide you through the installation.";
                     Heading2.Visibility = Visibility.Collapsed;
@@ -68,6 +69,7 @@ namespace CustomRDPInstaller
                     WelcomeGrid.Visibility = Visibility.Visible;
                     NegativeButton.Visibility = Visibility.Collapsed;
                     PositiveButton.Content = "Install Now";
+                    PositiveButton.IsEnabled = true;
                     PositiveButton.Width = 300;
                     Heading1.Text = "This wizard will guide you through the installation of Virto Sign.";
                     Heading2.Visibility = Visibility.Visible;
@@ -196,7 +198,8 @@ namespace CustomRDPInstaller
             StepPrevious();
             if (NegativeButton.Content.ToString() == "Done" || NegativeButton.Content.ToString() == "Cancel")
             {
-                var IsOk = DialogUtility.ShowMessageBoxModel(false, "Do you want to close ?",false, this);
+                string message = NegativeButton.Content.ToString() == "Done" ? "Do you want to close ?" : "Do you want to cancel ?";
+                var IsOk = DialogUtility.ShowMessageBoxModel(false, message,false, this);
                 if(IsOk)
                     this.Close();
             }

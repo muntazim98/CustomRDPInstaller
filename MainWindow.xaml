@@ -5,9 +5,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:CustomRDPInstaller"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="1100"
+    Height="700"
     AllowsTransparency="True"
     MouseDown="DragThisWindow"
-    SizeToContent="WidthAndHeight"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
@@ -32,7 +33,7 @@
     <Window.Background>
         <ImageBrush ImageSource="pack://application:,,,/Resources/Images/background.png" />
     </Window.Background>
-    <Grid x:Name="MainGrid" Margin="280,80">
+    <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -41,7 +42,6 @@
             x:Name="StartingGrid"
             Grid.Row="0"
             Grid.RowSpan="2"
-            Margin="50,150"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Visibility="Visible">
@@ -87,7 +87,7 @@
             Grid.Row="0"
             Visibility="Collapsed">
             <StackPanel
-                Margin="0,10,0,50"
+                Margin="0,50,0,0"
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
                 <Image
@@ -125,12 +125,12 @@
         <Border
             x:Name="ContentBorder"
             Grid.Row="1"
-            MinWidth="400"
+            Width="500"
             MinHeight="300"
-            Margin="0,0,0,90"
+            Margin="0,30,0,0"
             Padding="30"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center"
+            VerticalAlignment="Top"
             Background="#FFFFFF"
             CornerRadius="5"
             Visibility="Collapsed">
@@ -239,7 +239,6 @@
                     </Grid>
                     <Grid x:Name="WelcomeGrid" Visibility="Collapsed">
                         <StackPanel
-                            MaxWidth="360"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             TextBlock.TextAlignment="Left">
@@ -375,15 +374,14 @@
                                 FontSize="16"
                                 Text="Please scroll down to see rest of the agreement." />
                             <Border
-                                Width="400"
                                 Margin="0"
                                 BorderBrush="Gray"
                                 BorderThickness="0.8"
                                 CornerRadius="5">
                                 <ScrollViewer
-                                    Height="300"
+                                    Height="230"
                                     Margin="2"
-                                    Padding="10,10,5,10"
+                                    Padding="15"
                                     HorizontalScrollBarVisibility="Disabled"
                                     VerticalScrollBarVisibility="Auto">
                                     <TextBlock
@@ -467,6 +465,7 @@
                             <CheckBox
                                 Margin="0,10"
                                 Checked="OnChecked"
+                                Cursor="Hand"
                                 FontSize="13"
                                 Unchecked="OnUnchecked">
                                 <CheckBox.Content>
