@@ -5,28 +5,44 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:CustomRDPInstaller"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="MainWindow"
     Width="800"
     Height="450"
+    AllowsTransparency="True"
+    Background="{x:Null}"
+    MouseDown="DragThisWindow"
     WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
     mc:Ignorable="d">
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid" Background="Blue">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid x:Name="LogoGrid" Grid.Row="0">
+        <Grid
+            x:Name="LogoGrid"
+            Grid.Row="0"
+            Height="100">
             <StackPanel />
 
         </Grid>
-        <Grid x:Name="HomeScreenGrid" Grid.Row="1">
-            <StackPanel />
-        </Grid>
-        <Grid x:Name="InstallingGrid" Grid.Row="1">
-            <StackPanel />
-        </Grid>
-        <Grid x:Name="ClosingGrid" Grid.Row="1">
-            <StackPanel />
-        </Grid>
+        <Border
+            x:Name="ContentBorder"
+            Grid.Row="1"
+            Width="350"
+            MinHeight="250"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="#FFFFFF"
+            CornerRadius="5">
+            <Grid>
+                <Grid x:Name="InstallingGrid">
+                    <StackPanel />
+                </Grid>
+                <Grid x:Name="ClosingGrid">
+                    <StackPanel />
+                </Grid>
+            </Grid>
+        </Border>
+
     </Grid>
 </Window>

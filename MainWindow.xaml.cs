@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace CustomRDPInstaller
 {
@@ -10,6 +11,17 @@ namespace CustomRDPInstaller
         public MainWindow()
         {
             InitializeComponent();
+        }
+        private void DragThisWindow(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (e.LeftButton == MouseButtonState.Pressed)
+                {
+                    this.DragMove();
+                }
+            }
+            catch { }
         }
     }
 }
