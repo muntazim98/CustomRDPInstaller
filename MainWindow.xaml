@@ -12,18 +12,6 @@
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.Resources>
-        <Style TargetType="ProgressBar">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ProgressBar">
-                        <Border
-                            Background="{TemplateBinding Background}"
-                            CornerRadius="2"
-                            SnapsToDevicePixels="true" />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
         <Style x:Key="TextBoxWithCornerRadiusStyle" TargetType="TextBox">
             <Setter Property="Template">
                 <Setter.Value>
@@ -32,7 +20,7 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="5">
+                            CornerRadius="3,0,0,3">
                             <!--  Adjust corner radius here  -->
                             <ScrollViewer x:Name="PART_ContentHost" />
                         </Border>
@@ -49,28 +37,36 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid x:Name="LogoGrid" Grid.Row="0">
+        <Grid
+            x:Name="StartingGrid"
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Margin="50,150"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Visibility="Visible">
             <StackPanel
                 Margin="0,10,0,50"
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
                 <Image
-                    Height="80"
-                    Source="/Resources/Images/successicon.png"
-                    Stretch="UniformToFill" />
-                <StackPanel Orientation="Vertical">
+                    Width="250"
+                    Height="250"
+                    Source="/Resources/Images/UIIcon1.png"
+                    Stretch="Uniform" />
+                <StackPanel VerticalAlignment="Center" Orientation="Vertical">
                     <TextBlock
                         x:Name="tAG"
-                        Margin="10,5,10,0"
+                        Margin="5,5,10,0"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Bottom"
-                        FontFamily="{DynamicResource Helvetica}"
-                        FontSize="42"
+                        FontFamily="{DynamicResource YaroOpBold}"
+                        FontSize="100"
                         Foreground="White"
-                        Text="AltraVera" />
+                        Text="AItraVera" />
                     <Border
                         Width="{Binding ElementName=tAG, Path=ActualWidth}"
-                        Height="2"
+                        Height="5"
                         Margin="0,-8,0,0"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Stretch"
@@ -78,8 +74,48 @@
                     <TextBlock
                         Margin="10,0,0,5"
                         VerticalAlignment="Center"
-                        FontFamily="{DynamicResource Helvetica}"
-                        FontSize="12"
+                        FontFamily="{DynamicResource YaroOp}"
+                        FontSize="30"
+                        FontWeight="DemiBold"
+                        Foreground="#21a1db"
+                        Text="SECURE RDP/UNC CONTROLLER" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid
+            x:Name="LogoGrid"
+            Grid.Row="0"
+            Visibility="Collapsed">
+            <StackPanel
+                Margin="0,10,0,50"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Image
+                    Height="80"
+                    Source="/Resources/Images/UIIconSmall.png"
+                    Stretch="Uniform" />
+                <StackPanel Orientation="Vertical">
+                    <TextBlock
+                        x:Name="tAG1"
+                        Margin="0,5,10,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        FontFamily="{DynamicResource YaroOpBold}"
+                        FontSize="42"
+                        Foreground="White"
+                        Text="AItraVera" />
+                    <Border
+                        Width="{Binding ElementName=tAG1, Path=ActualWidth}"
+                        Height="2"
+                        Margin="-8,-8,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Stretch"
+                        Background="White" />
+                    <TextBlock
+                        Margin="0,0,0,5"
+                        VerticalAlignment="Center"
+                        FontFamily="{DynamicResource YaroOp}"
+                        FontSize="13"
                         Foreground="#21a1db"
                         Text="SECURE RDP/UNC CONTROLLER" />
                 </StackPanel>
@@ -96,7 +132,8 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Background="#FFFFFF"
-            CornerRadius="5">
+            CornerRadius="5"
+            Visibility="Collapsed">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -116,125 +153,88 @@
                         <TextBlock
                             Grid.Row="0"
                             VerticalAlignment="Center"
+                            FontFamily="{StaticResource Helvetica_Bold}"
                             FontSize="32"
                             FontWeight="Bold"
                             Text="Destination Folder" />
                         <Rectangle
                             Grid.Row="1"
                             Height="1"
+                            Margin="0,25"
                             Fill="#000000" />
                         <StackPanel Grid.Row="2">
                             <Label
                                 Padding="0"
                                 Content="Click next to install to the default folder or click Change"
-                                FontSize="16" />
+                                FontFamily="{DynamicResource Helvetica}"
+                                FontSize="16"
+                                FontWeight="Regular" />
                             <Label
                                 Padding="0"
                                 Content="to choose another folder."
-                                FontSize="16" />
+                                FontFamily="{DynamicResource Helvetica}"
+                                FontSize="16"
+                                FontWeight="Regular" />
                         </StackPanel>
                         <StackPanel Grid.Row="3" Margin="0,20,0,0">
                             <Label
+                                Margin="0,10,0,0"
                                 Padding="0"
                                 Content="Install Virto Sign to:"
                                 FontSize="16" />
-                            <StackPanel Margin="0,5" Orientation="Horizontal">
+                            <Grid Margin="0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
                                 <TextBox
                                     x:Name="pathTextbox"
-                                    Width="225"
+                                    Grid.Column="0"
                                     Height="30"
                                     VerticalContentAlignment="Center"
+                                    BorderBrush="#BCBEC0"
+                                    Foreground="#BCBEC0"
                                     Style="{StaticResource TextBoxWithCornerRadiusStyle}"
                                     Text="{Binding DefaultPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Border
+
+                                <Button
+                                    Name="Browsebtn"
+                                    Grid.Column="1"
                                     Height="32"
-                                    Margin="-40,0,0,0"
-                                    BorderBrush="White"
-                                    BorderThickness="0.8"
-                                    CornerRadius="4">
-                                    <Button
-                                        Name="Browsebtn"
-                                        Height="32"
-                                        Padding="8"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        BorderBrush="White"
-                                        BorderThickness="1"
-                                        Click="Browsebtn_Click"
-                                        Content="Browse..."
-                                        Cursor="Hand"
-                                        FontSize="10"
-                                        Foreground="#FFFFFF">
-                                        <Button.Style>
-                                            <Style TargetType="{x:Type Button}">
-                                                <Setter Property="Background" Value="#092E5A" />
-                                                <Setter Property="Opacity" Value="1" />
-                                                <Setter Property="BorderBrush" Value="#092E5A" />
-                                                <Setter Property="BorderThickness" Value="1" />
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="{x:Type Button}">
-                                                            <Border
-                                                                Padding="8"
-                                                                Background="{TemplateBinding Background}"
-                                                                BorderBrush="#ffffff"
-                                                                BorderThickness="0.1"
-                                                                CornerRadius="5">
-                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                            </Border>
-                                                        </ControlTemplate>
+                                    Margin="-5,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    BorderThickness="0"
+                                    Click="Browsebtn_Click"
+                                    Content="Change"
+                                    Cursor="Hand"
+                                    FontSize="11"
+                                    Foreground="#282828">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Opacity" Value="1" />
+                                            <Setter Property="Background" Value="#FFFFFF" />
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border
+                                                            Padding="20,5"
+                                                            Background="{TemplateBinding Background}"
+                                                            BorderBrush="#EBEBEB"
+                                                            BorderThickness="2"
+                                                            CornerRadius="0,3,3,0">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        </Border>
+                                                    </ControlTemplate>
 
-                                                    </Setter.Value>
+                                                </Setter.Value>
 
-                                                </Setter>
-                                            </Style>
-                                        </Button.Style>
-                                    </Button>
-                                </Border>
-                                <Border
-                                    Height="30"
-                                    Margin="5"
-                                    BorderBrush="#092E5A"
-                                    BorderThickness="0.8"
-                                    CornerRadius="4">
-                                    <Button
-                                        Name="DiskCostBtn"
-                                        Height="30"
-                                        Padding="8"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Click="DiskCostBtn_Click"
-                                        Content="Disk Info"
-                                        Cursor="Hand"
-                                        FontSize="10"
-                                        Foreground="#092E5A">
-                                        <Button.Style>
-                                            <Style TargetType="{x:Type Button}">
-                                                <Setter Property="Background" Value="#FFFFFF" />
-                                                <Setter Property="Opacity" Value="0.9" />
-                                                <Setter Property="BorderBrush" Value="#092E5A" />
-                                                <Setter Property="BorderThickness" Value="1" />
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="{x:Type Button}">
-                                                            <Border
-                                                                Padding="8"
-                                                                Background="{TemplateBinding Background}"
-                                                                BorderBrush="#ffffff"
-                                                                BorderThickness="0.1"
-                                                                CornerRadius="5">
-                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                            </Border>
-                                                        </ControlTemplate>
+                                            </Setter>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
 
-                                                    </Setter.Value>
-
-                                                </Setter>
-                                            </Style>
-                                        </Button.Style>
-                                    </Button>
-                                </Border>
-                            </StackPanel>
+                            </Grid>
                         </StackPanel>
                     </Grid>
                     <Grid x:Name="WelcomeGrid" Visibility="Collapsed">
@@ -255,6 +255,7 @@
                                 Margin="0,0,0,20"
                                 Background="Black" />
                             <TextBlock
+                                x:Name="Heading1"
                                 Margin="0,0,0,20"
                                 FontSize="14"
                                 FontWeight="Normal"
@@ -262,6 +263,7 @@
                                 This wizard will guide you through the installation of Virto Sign.
                             </TextBlock>
                             <TextBlock
+                                x:Name="Heading2"
                                 Margin="0,0,0,20"
                                 FontSize="14"
                                 FontWeight="Normal"
@@ -269,7 +271,8 @@
                                 It is recommended that you close all other applications before starting Setup. This will make it possible to update relevant system files without having to reboot your computer.
                             </TextBlock>
                             <TextBlock
-                                Margin="0,0,0,20"
+                                x:Name="Heading3"
+                                Margin="0,0,0,40"
                                 FontSize="14"
                                 FontWeight="Normal"
                                 TextWrapping="Wrap">
@@ -278,7 +281,7 @@
                         </StackPanel>
                     </Grid>
                     <Grid
-                        x:Name="Installing"
+                        x:Name="InstallingGrid"
                         Margin="30,0,30,0"
                         Visibility="Collapsed">
                         <StackPanel
@@ -311,18 +314,21 @@
                                 TextWrapping="Wrap">
                                 Process...
                             </TextBlock>
-                            <ProgressBar
-                                Height="20"
-                                Background="Transparent"
-                                BorderBrush="LightGray"
-                                BorderThickness="1" />
+                            <Border Height="20">
+                                <ProgressBar
+                                    Background="LightGray"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1"
+                                    IsIndeterminate="True">
+                                    <ProgressBar.Foreground>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                            <GradientStop Offset="0.0" Color="#20A1DB" />
+                                            <GradientStop Offset="1.0" Color="#0D88CC" />
+                                        </LinearGradientBrush>
+                                    </ProgressBar.Foreground>
+                                </ProgressBar>
+                            </Border>
                         </StackPanel>
-                    </Grid>
-                    <Grid x:Name="InstallingGrid">
-                        <StackPanel />
-                    </Grid>
-                    <Grid x:Name="ClosingGrid">
-                        <StackPanel />
                     </Grid>
                     <Grid x:Name="SuccessCompletion" Visibility="Collapsed">
                         <StackPanel Orientation="Vertical">
@@ -346,6 +352,7 @@
                             <TextBlock
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
+                                FontFamily="{DynamicResource Helvetica}"
                                 FontSize="30"
                                 FontWeight="Bold"
                                 Text="License Agreement" />
@@ -353,13 +360,15 @@
                                 Margin="0,10"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                FontSize="11"
+                                FontFamily="{DynamicResource Helvetica}"
+                                FontSize="13"
                                 Text="Please review Licence Agreement of Virto Sign before installation" />
-                            <Border BorderBrush="Gray" BorderThickness="1" />
+                            <Border BorderBrush="#000000" BorderThickness="1" />
                             <TextBlock
                                 Margin="0,10"
-                                HorizontalAlignment="Center"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
+                                FontFamily="{DynamicResource Helvetica}"
                                 FontSize="16"
                                 Text="Please scroll down to see rest of the agreement." />
                             <Border
@@ -374,7 +383,10 @@
                                     Padding="10,10,5,10"
                                     HorizontalScrollBarVisibility="Disabled"
                                     VerticalScrollBarVisibility="Auto">
-                                    <TextBlock FontSize="8" TextWrapping="WrapWithOverflow">
+                                    <TextBlock
+                                        FontFamily="{DynamicResource Helvetica}"
+                                        FontSize="8"
+                                        TextWrapping="WrapWithOverflow">
                                         IMPORTANT: BY DOWNLOADING, INSTALLING, ACCESSING, OR USING THE
                                         SOFTWARE, YOU (A) ACKNOWLEDGE THAT YOU HAVE READ AND UNDERSTAND
                                         THIS AGREEMENT; (B) REPRESENT THAT YOU ARE OF LEGAL AGE TO ENTER
@@ -449,7 +461,11 @@
                                         This Agreement constitutes the entire agreement between you and Virto Sign regarding the Software. If any provision of this Agreement is held to be unenforceable, the remaining provisions will remain in full force and effect. Our failure to enforce any right or provision of this Agreement will not be considered a waiver of those rights.</TextBlock>
                                 </ScrollViewer>
                             </Border>
-                            <CheckBox Margin="0,10" FontSize="13">
+                            <CheckBox
+                                Margin="0,10"
+                                Checked="OnChecked"
+                                FontSize="13"
+                                Unchecked="OnUnchecked">
                                 <CheckBox.Content>
                                     <TextBlock>
                                         <Run Text="I Accept and agree with all the" />
@@ -460,34 +476,40 @@
                         </StackPanel>
                     </Grid>
                 </Grid>
-                <Grid
+                <StackPanel
                     x:Name="ButtonControl"
                     Grid.Row="1"
-                    Margin="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
                     <Button
+                        x:Name="NegativeButton"
+                        MinWidth="170"
                         Margin="10,0,0,0"
+                        HorizontalAlignment="Stretch"
                         Background="#0997D7"
                         BorderThickness="0"
+                        Click="MovePrevious"
                         Content="Done"
-                        FontFamily="{DynamicResource Helvetica_Bold}"
+                        FontFamily="{DynamicResource GilroyMedium}"
                         FontSize="16"
                         Foreground="White"
                         Style="{DynamicResource ButtonStyle}" />
                     <Button
+                        x:Name="PositiveButton"
                         Grid.Column="1"
+                        MinWidth="170"
                         Margin="15,0,10,0"
+                        HorizontalAlignment="Stretch"
                         Background="#0474A6"
                         BorderThickness="0"
+                        Click="MoveNext"
                         Content="Launch"
-                        FontFamily="{DynamicResource Helvetica_Bold}"
+                        FontFamily="{DynamicResource GilroyMedium}"
                         FontSize="16"
                         Foreground="White"
                         Style="{DynamicResource ButtonStyle}" />
-                </Grid>
+                </StackPanel>
             </Grid>
         </Border>
 
