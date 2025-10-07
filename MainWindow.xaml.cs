@@ -226,11 +226,19 @@ namespace CustomRDPInstaller
         {
             if (PositiveButton.Content.ToString() == "Launch")
             {
-                
-                var ApplicationToLaunch = Path.Combine(DefaultPath, "MainWatchdogService.exe");
-               
-                await Constants.CreateAndStartServiceAsync("AltraVeraHostService", ApplicationToLaunch);
-                this.Close();
+                var ApplicationToLaunch = Path.Combine(DefaultPath, Constants.ApplicationName + ".exe");
+                if (!string.IsNullOrEmpty(ApplicationToLaunch) && File.Exists(ApplicationToLaunch))
+                {
+                    var processInfo = new ProcessStartInfo
+                    {
+                        FileName = ApplicationToLaunch,
+                        UseShellExecute = true,
+                        WorkingDirectory = DefaultPath,
+                        CreateNoWindow = true,
+                    };
+                    Process.Start(processInfo);
+                }
+                App.Current.Shutdown();
             }
             else if(PositiveButton.Content.ToString() == "Uninstall")
             {
