@@ -4,26 +4,31 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:CustomRDPInstaller.Views"
+    Background="{x:Null}"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
     <Border
         Background="WhiteSmoke"
-        BorderThickness="0"
-        CornerRadius="5">
+        BorderThickness="1"
+        BorderBrush="#0474A6"
+        CornerRadius="10">
         <StackPanel
             Width="Auto"
             Height="Auto"
             Background="Transparent"
             Orientation="Vertical">
-            <TextBlock
-                Name="txt_Title"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Top"
-                Background="#0474A6"
-                Padding="10"
-                FontFamily="{StaticResource Helvetica_Bold}"
-                FontWeight="Bold"
-                Foreground="WhiteSmoke"
-                Text="Confirmation" />
+            <Border Background="#0474A6" Padding="10"
+                    CornerRadius="7,7,0,0">
+                <TextBlock
+                    Name="txt_Title"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    Background="Transparent"
+                    FontFamily="{StaticResource Helvetica_Bold}"
+                    FontWeight="Bold"
+                    Foreground="WhiteSmoke"
+                    Text="Confirmation" />
+            </Border>
+
             <TextBlock
                 Name="txt_Message"
                 HorizontalAlignment="Center"
@@ -77,7 +82,7 @@
                                     <Setter Property="Background">
                                         <Setter.Value>
                                             <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
-                                                <GradientStop Offset="1.2" Color="#a6c94a" />
+                                                <GradientStop Offset="1.2" Color="#0474A6" />
                                                 <GradientStop Offset="0" Color="#69be9b" />
                                                 <LinearGradientBrush.RelativeTransform>
                                                     <RotateTransform Angle="85" />
@@ -132,7 +137,7 @@
                                     <Setter Property="Background">
                                         <Setter.Value>
                                             <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
-                                                <GradientStop Offset="1.2" Color="#a6c94a" />
+                                                <GradientStop Offset="1.2" Color="#0474A6" />
                                                 <GradientStop Offset="0" Color="#69be9b" />
                                                 <LinearGradientBrush.RelativeTransform>
                                                     <RotateTransform Angle="85" />

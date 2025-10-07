@@ -65,7 +65,7 @@ namespace CustomRDPInstaller.Utilities
                 Height = 140,
                 Width = 300,
                 Background = Brushes.Transparent,
-                Clip = rect,
+                //Clip = rect,
                 Owner = MainWindow.GetInstance
             };
 
