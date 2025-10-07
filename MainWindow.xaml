@@ -140,6 +140,41 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
+                    <Grid x:Name="UninstallationGrid" Visibility="Collapsed">
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            TextBlock.TextAlignment="Left">
+                            <TextBlock
+                                x:Name="UninstallingTextBlock"
+                                Margin="0,30,0,10"
+                                FontSize="28"
+                                FontWeight="Bold"
+                                TextWrapping="Wrap">
+                                Software is already installed
+                            </TextBlock>
+                            <Separator
+                                Height="2"
+                                Margin="0,0,0,20"
+                                Background="Black" />
+                            <Border Height="20">
+                                <ProgressBar
+                                    x:Name="UnInstallingProgressBar"
+                                    Background="LightGray"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1"
+                                    IsIndeterminate="True"
+                                    Visibility="Collapsed">
+                                    <ProgressBar.Foreground>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                            <GradientStop Offset="0.0" Color="#20A1DB" />
+                                            <GradientStop Offset="1.0" Color="#0D88CC" />
+                                        </LinearGradientBrush>
+                                    </ProgressBar.Foreground>
+                                </ProgressBar>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
                     <Grid
                         x:Name="FolderSelectionGrid"
                         Margin="20"
@@ -230,6 +265,23 @@
                                                 </Setter.Value>
 
                                             </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background">
+                                                        <Setter.Value>
+                                                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                                                <GradientStop Offset="1.2" Color="#a6c94a" />
+                                                                <GradientStop Offset="0" Color="#69be9b" />
+                                                                <LinearGradientBrush.RelativeTransform>
+                                                                    <RotateTransform Angle="85" />
+                                                                </LinearGradientBrush.RelativeTransform>
+                                                            </LinearGradientBrush>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Setter Property="Foreground" Value="White" />
+
+                                                </Trigger>
+                                            </Style.Triggers>
                                         </Style>
                                     </Button.Style>
                                 </Button>
@@ -315,10 +367,10 @@
                             </TextBlock>
                             <Border Height="20">
                                 <ProgressBar
+                                    x:Name="ProgressBar"
                                     Background="LightGray"
                                     BorderBrush="LightGray"
-                                    BorderThickness="1"
-                                    x:Name="ProgressBar">
+                                    BorderThickness="1">
                                     <ProgressBar.Foreground>
                                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                             <GradientStop Offset="0.0" Color="#20A1DB" />
@@ -459,7 +511,7 @@
                                         This Agreement shall be governed by and construed in accordance with the laws of [Your State/Country, e.g., the State of Delaware] without regard to its conflict of law principles. Any legal action or proceeding arising under this Agreement will be brought exclusively in the federal or state courts located in [Your City, State, e.g., Wilmington, Delaware].<LineBreak />
                                         <LineBreak />
                                         11. MISCELLANEOUS
-                                    This Agreement constitutes the entire agreement between you and Virto Sign regarding the Software. If any provision of this Agreement is held to be unenforceable, the remaining provisions will remain in full force and effect. Our failure to enforce any right or provision of this Agreement will not be considered a waiver of those rights.</TextBlock>
+                                        This Agreement constitutes the entire agreement between you and Virto Sign regarding the Software. If any provision of this Agreement is held to be unenforceable, the remaining provisions will remain in full force and effect. Our failure to enforce any right or provision of this Agreement will not be considered a waiver of those rights.</TextBlock>
                                 </ScrollViewer>
                             </Border>
                             <CheckBox

@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using WindowsShortcutFactory;
 
 namespace CustomRDPInstaller
 {
@@ -26,6 +27,7 @@ namespace CustomRDPInstaller
         private static MainWindow instance;
         private string _defaultPath = Constants.GetDefaultIntallationPath;
         public static int StepCount = 1;
+        public static string InstalledLocation {  get; private set; }
         public string DefaultPath
         {
             get => _defaultPath;
@@ -64,17 +66,22 @@ namespace CustomRDPInstaller
             }
             instance = this;
             DataContext = this;
+            var isAlreadyInstalled = CheckInstalled(Constants.ApplicationName);
             this.Loaded += async (s, e) =>
             {
-                await Task.Delay(TimeSpan.FromSeconds(5));
-                StepNext();
-                await Task.Delay(TimeSpan.FromSeconds(4));
-                StepNext();
+                if (isAlreadyInstalled.IsInstalled)
+                {
+                    InstalledLocation = isAlreadyInstalled.InstalledLocation;
+                    showUninstallationScreen();
+                }
+                else
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(5));
+                    StepNext();
+                    await Task.Delay(TimeSpan.FromSeconds(4));
+                    StepNext();
+                }
             };
-        }
-        private void StepPrevious()
-        {
-
         }
         private void StepNext()
         {
@@ -144,6 +151,9 @@ namespace CustomRDPInstaller
                     PositiveButton.Content = "Install";
                     PositiveButton.Visibility = Visibility.Collapsed;
                     NegativeButton.HorizontalAlignment = HorizontalAlignment.Right;
+                    DefaultPath = Path.Combine(DefaultPath, Constants.ApplicationName);
+                    DirectoryUtility.CreateDirectory(DefaultPath, Overwrite: true);
+                    InstallAltraVera();
                     StepCount += 1;
                     break;
                 case 6:
@@ -214,31 +224,55 @@ namespace CustomRDPInstaller
             if (PositiveButton.Content.ToString() == "Launch")
             {
                 //Launch the Application here.
+                var ApplicationToLaunch = Path.Combine(DefaultPath,Constants.ApplicationName+".exe");
+                if(!string.IsNullOrEmpty(ApplicationToLaunch) && File.Exists(ApplicationToLaunch))
+                {
+                    var processInfo = new ProcessStartInfo
+                    {
+                        FileName = ApplicationToLaunch,
+                        UseShellExecute = true,
+                        WorkingDirectory = DefaultPath,
+                        CreateNoWindow = true,
+                    };
+                    Process.Start(processInfo);
+                }
                 this.Close();
+            }else if(PositiveButton.Content.ToString() == "Uninstall")
+            {
+                bool isOpen = await CheckByProcess();
+                var IsOkClicked = !isOpen || DialogUtility.ShowMessageBoxModel(msg: Constants.ConfirmationMessageForClosing, UI:this);
+                if (IsOkClicked)
+                {
+                    UnInstallingProgressBar.Visibility = Visibility.Visible;
+                    UninstallingTextBlock.Text = $"UnInstalling {Constants.ApplicationName},Please wait a moment...";
+                    await UnInstallByRegistry();
+                    await Task.Delay(TimeSpan.FromSeconds(4));
+                    UnInstallingProgressBar.Visibility = Visibility.Collapsed;
+                    UninstallingTextBlock.Text = "UnInstallation Completed";
+                    NegativeButton.Content = "Close";
+                    NegativeButton.Visibility = Visibility.Visible;
+                    PositiveButton.Visibility = Visibility.Collapsed;
+                }
+                return;
             }
             StepNext();
-            if(StepCount == 6)
-            {
-                await Task.Delay(TimeSpan.FromSeconds(5));
-                StepNext();
-            }
         }
 
         private void MovePrevious(object sender, RoutedEventArgs e)
         {
-            if(NegativeButton.Content.ToString() == "Done" )
+            if (NegativeButton.Content.ToString() == "Done" || NegativeButton.Content.ToString() == "Close")
             {
-                    Application.Current.Shutdown();
+                Application.Current.Shutdown();
             }
-            else if ( NegativeButton.Content.ToString() == "Cancel")
+            else if (NegativeButton.Content.ToString() == "Cancel")
             {
-                string message = NegativeButton.Content.ToString() == "Done" ? "Do you want to close ?" : "Do you want to cancel the installation ?";
-                var IsOk = DialogUtility.ShowMessageBoxModel(false, message,false, this);
+                string message = NegativeButton.Content.ToString() == "Cancel" && PositiveButton.Content.ToString() == "Uninstall" ? "Do you want to cancel the uninstallation ?" : "Do you want to cancel the installation ?";
+                var IsOk = DialogUtility.ShowMessageBoxModel(false, message, false, this);
                 if (IsOk)
                 {
                     Application.Current.Shutdown();
                 }
-                    
+
             }
         }
         private void InstallAltraVera()
@@ -259,6 +293,15 @@ namespace CustomRDPInstaller
                 {
                 }
             });
+        }
+        private async Task<bool> CheckByProcess()
+        {
+            try
+            {
+                return Process.GetProcessesByName(Constants.ApplicationName).Any(x => x.ProcessName == Constants.ApplicationName) || Process.GetProcesses().Any(x => x.ProcessName == Constants.ApplicationName);
+            }
+            catch
+            { return false; }
         }
         private async void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
@@ -286,6 +329,8 @@ namespace CustomRDPInstaller
                     await Task.Run(() => ZipFile.ExtractToDirectory(ZipPath, DefaultPath));
                     await Task.Delay(3000);
                     FileUtilities.DeleteFile(ZipPath);
+                    await CreateRegistry();
+                    await CreateShortCut();
                     StepNext();
                 }
             });
@@ -294,6 +339,7 @@ namespace CustomRDPInstaller
         {
             await Task.Run(() =>
             {
+                DirectoryUtility.CreateDirectory(Constants.InstallerFolder);
                 var dest = Path.Combine(Constants.InstallerFolder, $"{Constants.AssemblyName}.exe");
                 FileUtilities.CopyFiles(Constants.GetInstallerExe, dest);
                 // var dest = Constants.GetInstallerExe;
@@ -315,14 +361,14 @@ namespace CustomRDPInstaller
                             string exe = "\"" + appName.Replace("/", "\\\\") + "\"";
                             var versionInfo = FileVersionInfo.GetVersionInfo(appName);
                             var folderSizeInBytes = FileUtilities.GetDirectorySize($"{DefaultPath}");
-                            var productVersion = GetProductVersion(versionInfo.ProductVersion.ToString());
+                            var productVersion = GetProductVersion(versionInfo?.ProductVersion?.ToString() ?? v.ToString());
                             key.SetValue("DisplayName", Constants.ApplicationName);
                             key.SetValue("version", productVersion);
                             key.SetValue("Publisher", "Globussoft");
                             key.SetValue("EstimatedSize", (int)(folderSizeInBytes / 1024), RegistryValueKind.DWord);
                             key.SetValue("DisplayIcon", exe);
                             key.SetValue("DisplayVersion", productVersion);
-                            key.SetValue("Contact", "https://socinator.com/contact-us/");
+                            //key.SetValue("Contact", "https://socinator.com/contact-us/");
                             key.SetValue("InstallDate", DateTime.Now.ToString("yyyyMMdd"));
                             key.SetValue("InstallLocation", $"{DefaultPath}");
                             key.SetValue("UninstallString", dest);
@@ -354,7 +400,9 @@ namespace CustomRDPInstaller
                 {
                     try
                     {
-                        var iconPath = Path.Combine(DefaultPath, Constants.IconFileName);
+                        var icon = Directory.GetCurrentDirectory()+ $"\\{Constants.IconFileName}";
+                        var ApplicationIcon = Path.Combine(DefaultPath, Constants.IconFileName);
+                        var iconPath = string.IsNullOrEmpty(ApplicationIcon) || !File.Exists(ApplicationIcon) ? icon : ApplicationIcon;
                         var targetPath = Path.Combine(DefaultPath, $"{Constants.ApplicationName}.exe");
                         var desktopPath = Environment.GetFolderPath(false ? Environment.SpecialFolder.CommonDesktopDirectory : Environment.SpecialFolder.Desktop);
                         var startmenu = Environment.GetFolderPath(false ? Environment.SpecialFolder.CommonStartMenu : Environment.SpecialFolder.StartMenu);
@@ -376,14 +424,15 @@ namespace CustomRDPInstaller
             {
                 // WindowsShortcutFactory package
 
-                //using var shortcut1 = new WindowsShortcut
-                //{
-                //    Path = exePath,
-                //    Description = Constants.ShortCutDescription,
-                //    IconLocation = iconPath,
-                //    WorkingDirectory = Path.GetDirectoryName(exePath)
-                //};
-                //shortcut1.Save(shortcutName);
+                var shortcut1 = new WindowsShortcut
+                {
+                    Path = exePath,
+                    Description = Constants.ShortCutDescription,
+                    IconLocation = iconPath,
+                    WorkingDirectory = Path.GetDirectoryName(exePath)
+                };
+                shortcut1.Save(shortcutName);
+                shortcut1?.Dispose();
             }
             catch { }
         }
@@ -414,5 +463,190 @@ namespace CustomRDPInstaller
                 return principal.IsInRole(WindowsBuiltInRole.Administrator);
             }
         }
+
+
+        public InstalledInfo CheckInstalled(string findByName)
+        {
+            #region CheckInstalledByRegistry
+            string[] info = new string[3];
+            var installedInfo = new InstalledInfo();
+            try
+            {
+                var registryKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+                //64 bits computer
+                RegistryKey key64 = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default);
+                RegistryKey key = key64.OpenSubKey(registryKey);
+                if (key != null)
+                {
+                    foreach (RegistryKey subkey in key.GetSubKeyNames().Select(keyName => key.OpenSubKey(keyName)))
+                    {
+                        if (subkey.GetValue("DisplayName") is string displayName && displayName.Equals(findByName))
+                        {
+                            installedInfo.DisplayName = displayName;
+
+                            installedInfo.InstalledLocation = subkey.GetValue("InstallLocation").ToString();
+                            installedInfo.UninstallString = subkey.GetValue("UninstallString").ToString();
+
+                            installedInfo.Version = GetProductVersion(subkey.GetValue("DisplayVersion").ToString());
+                            installedInfo.IsInstalled = true;
+                            break;
+                        }
+                    }
+                    key.Close();
+                }
+                if (!installedInfo.IsInstalled)
+                {
+                    registryKey = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
+                    key64 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default);
+                    key = key64.OpenSubKey(registryKey);
+
+                    if (key != null)
+                    {
+                        foreach (RegistryKey subkey in key.GetSubKeyNames().Select(keyName => key.OpenSubKey(keyName)))
+                        {
+                            if (subkey.GetValue("DisplayName") is string displayName && displayName.Equals(findByName))
+                            {
+                                installedInfo.DisplayName = displayName;
+
+                                installedInfo.InstalledLocation = subkey.GetValue("InstallLocation").ToString();
+                                installedInfo.UninstallString = subkey.GetValue("UninstallString").ToString();
+
+                                installedInfo.Version = GetProductVersion(subkey.GetValue("DisplayVersion").ToString());
+                                installedInfo.IsInstalled = true;
+                                break;
+                            }
+                        }
+                        key.Close();
+                    }
+
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
+            return installedInfo;
+            #endregion
+        }
+        private void showUninstallationScreen()
+        {
+            StartingGrid.Visibility = Visibility.Collapsed;
+            LogoGrid.Visibility = Visibility.Visible;
+            ContentBorder.Visibility = Visibility.Visible;
+            UninstallationGrid.Visibility = Visibility.Visible;
+            PositiveButton.Content = "Uninstall";
+            NegativeButton.Content = "Cancel";
+        }
+
+        #region Uninstall By Registry
+
+        private async Task UnInstallByRegistry()
+        {
+            try
+            {
+                #region Remove Registry.
+                string InstallerRegLoc = @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
+                try
+                {
+                    RegistryKey homeKey = (Registry.CurrentUser).OpenSubKey(InstallerRegLoc, true);
+                    RegistryKey appSubKey = homeKey.OpenSubKey(Constants.ApplicationName);
+                    if (appSubKey != null)
+                        homeKey.DeleteSubKey(Constants.ApplicationName);
+                }
+                catch { }
+                try
+                {
+                    RegistryKey homeKeyforAllUser = (Registry.LocalMachine).OpenSubKey(InstallerRegLoc, true);
+                    RegistryKey appSubKeyforAllUser = homeKeyforAllUser.OpenSubKey(Constants.ApplicationName);
+                    if (appSubKeyforAllUser != null)
+                        homeKeyforAllUser.DeleteSubKey(Constants.ApplicationName);
+                }
+                catch { }
+                #endregion
+
+                #region Remove ShortCut
+                var appName = Constants.ApplicationName;
+                try
+                {
+                    string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory);
+                    string startmenu = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu);
+                    //string taskbar = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar";
+                    var dlink = Path.Combine(desktopPath, $"{appName}.lnk");
+                    var slink = Path.Combine(startmenu, $"{appName}.lnk");
+                    //string tlink = System.IO.Path.Combine(taskbar, $"{appName}.lnk");
+                    FileUtilities.DeleteFile(dlink);
+                    FileUtilities.DeleteFile(slink);
+                    //FileUtilities.DeleteFile(tlink);
+                }
+                catch { }
+                try
+                {
+                    string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    string startmenu = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);
+                    //string taskbar = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar";
+                    var dlink = Path.Combine(desktopPath, $"{appName}.lnk");
+                    var slink = Path.Combine(startmenu, $"{appName}.lnk");
+                    //string tlink = System.IO.Path.Combine(taskbar, $"{appName}.lnk");
+                    FileUtilities.DeleteFile(dlink);
+                    FileUtilities.DeleteFile(slink);
+                    //FileUtilities.DeleteFile(tlink);
+                }
+                catch { }
+                #endregion
+
+                #region Remove Directory
+                try
+                {
+                    await Task.Run(async () =>
+                    {
+                        try
+                        {
+                            if (Directory.Exists(InstalledLocation))
+                            {
+                                DeleteFilesAndDirectory(InstalledLocation);
+                            }
+                            //else
+                            //{
+                            //    //Delete Files For for all users.
+                            //    var allUsers = await GetAllSystemUsers();
+                            //    foreach (var user in allUsers)
+                            //    {
+                            //        var unInstallString = "";
+                            //        if (Directory.Exists(unInstallString))
+                            //            DeleteFilesAndDirectory(unInstallString);
+                            //    }
+                            //}
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    });
+                }
+                catch { }
+                finally
+                {
+                    FileUtilities.DeleteFile($"{Constants.InstallerFolder}\\{Constants.AssemblyName}.exe");
+                    DirectoryUtility.DeleteDirectory(InstalledLocation);
+                }
+                #endregion
+            }
+            catch { }
+        }
+        private void DeleteFilesAndDirectory(string uninstallString)
+        {
+            try
+            {
+                DirectoryInfo dirInfo = new DirectoryInfo(uninstallString);
+                var files = dirInfo.GetFiles();
+                foreach (FileInfo file in files)
+                    FileUtilities.DeleteFile(file.FullName);
+                var dirs = dirInfo.GetDirectories();
+                foreach (DirectoryInfo dir in dirs)
+                    DirectoryUtility.DeleteDirectory(dir.FullName);
+            }
+            catch { }
+        }
+        #endregion
     }
 }

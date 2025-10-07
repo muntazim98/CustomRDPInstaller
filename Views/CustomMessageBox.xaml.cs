@@ -16,6 +16,7 @@ namespace CustomRDPInstaller.Views
         public bool IsOk { get; set; }
         public CustomMessageBox(bool isYes = false, string msg = "")
         {
+            dailoguemsg = msg;
             InitializeComponent();
             if (isYes)
             {
