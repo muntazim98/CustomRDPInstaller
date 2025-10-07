@@ -224,4 +224,7 @@
     <Error Condition="!Exists('packages\Costura.Fody.6.0.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Costura.Fody.6.0.0\build\Costura.Fody.targets'))" />
   </Target>
   <Import Project="packages\Costura.Fody.6.0.0\build\Costura.Fody.targets" Condition="Exists('packages\Costura.Fody.6.0.0\build\Costura.Fody.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>if "$(Configuration)" == "Release" signtool sign /t http://timestamp.digicert.com /fd SHA256 /f "C:\Globussoft_Dotnet\code_signing_certificate_gbs.cer" "$(TargetDir)AltraVeraInstaller.exe"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
