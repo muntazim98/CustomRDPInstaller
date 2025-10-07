@@ -282,8 +282,7 @@ namespace CustomRDPInstaller
                         PositiveButton.IsEnabled = true;
                         PositiveButton.Content = "Finish";
                         PositiveButton.Visibility = Visibility.Visible;
-                        NegativeButton.Opacity = 0.5;
-                        NegativeButton.IsEnabled = false;
+                        NegativeButton.Visibility = Visibility.Collapsed;
 
 
                     }
