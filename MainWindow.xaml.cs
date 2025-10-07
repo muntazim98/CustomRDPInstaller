@@ -260,22 +260,27 @@ namespace CustomRDPInstaller
                     var IsOkClicked = !isOpen || DialogUtility.ShowMessageBoxModel(msg: Constants.ConfirmationMessageForClosing, UI: this);
                     if (IsOkClicked)
                     {
+                        PositiveButton.IsEnabled = false;
                         RemoveAltraveraTextBlock2.Visibility = Visibility.Collapsed;
                         RemoveAltraveraTextBlock3.Visibility = Visibility.Collapsed;
                         RemoveAltraveraTextBlock4.Visibility = Visibility.Collapsed;
                         pathTextbox.Visibility = Visibility.Collapsed;
                         UninstallingProgressText.Visibility = Visibility.Visible;
                         UnInstallingProgressBar.Visibility = Visibility.Visible;
-                        UninstallingTextBlock.Text = $"UnInstalling {Constants.ApplicationName},Please wait a moment...";
                         await UnInstallByRegistry();
-                        await Constants.UninstallService("AltraVeraHostService");
-                        await Task.Delay(TimeSpan.FromSeconds(2));
+                        while (UnInstallingProgressBar.Value < UnInstallingProgressBar.Maximum)
+                        {
+                            await Task.Delay(20);
+                            UnInstallingProgressBar.Value += 1;
+                        }
                         UnInstallingProgressBar.Visibility = Visibility.Collapsed;
                         CompletedImage.Visibility = Visibility.Visible;
                         UninstallingTextBlock.Text = "UnInstallation Completed";
                         RemoveAltraveraTextBlock1.Content = "AltraVera has been Successfully removed from your computer.";
+                        
                         UninstallSeparator.Visibility = Visibility.Collapsed;
                         UninstallingProgressText.Visibility = Visibility.Collapsed;
+                        PositiveButton.IsEnabled = true;
                         PositiveButton.Content = "Finish";
                         PositiveButton.Visibility = Visibility.Visible;
                         NegativeButton.Opacity = 0.5;

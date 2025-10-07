@@ -194,7 +194,7 @@
                 Grid.Row="1"
                 Width="500"
                 MinHeight="300"
-                Margin="0,30,0,0"
+                Margin="0,20,0,0"
                 Padding="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
@@ -209,7 +209,7 @@
                     <Grid Grid.Row="0">
                         <Grid x:Name="UninstallationGrid" Visibility="Collapsed">
                             <StackPanel
-                                Margin="40,0,0,0"
+                                Margin="40,0,0,10"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 TextBlock.TextAlignment="Left">
@@ -223,9 +223,9 @@
                                 <TextBlock
                                     x:Name="UninstallingTextBlock"
                                     Margin="0,30,0,10"
+                                    FontFamily="{DynamicResource Helvetica}"
                                     FontSize="28"
                                     FontWeight="Bold"
-                                    FontFamily="{DynamicResource Helvetica}"
                                     TextWrapping="Wrap">
                                     Software is already installed
                                 </TextBlock>
@@ -240,8 +240,8 @@
                                     FontSize="13"
                                     Visibility="Collapsed" />
                                 <Separator
-                                    Height="2"
                                     x:Name="UninstallSeparator"
+                                    Height="2"
                                     Margin="0,0,0,20"
                                     Background="Black" />
                                 <Label
@@ -250,18 +250,18 @@
                                     Padding="0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    FontFamily="{DynamicResource Helvetica}"
                                     Content="AltraVera will be uninstalled from the following folder."
+                                    FontFamily="{DynamicResource Helvetica}"
                                     FontSize="15"
                                     Visibility="Collapsed" />
                                 <Label
                                     x:Name="RemoveAltraveraTextBlock3"
                                     Margin="0,5,0,20"
                                     Padding="0"
-                                    FontFamily="{DynamicResource Helvetica}"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     Content="Click Next to continue."
+                                    FontFamily="{DynamicResource Helvetica}"
                                     FontSize="15"
                                     Visibility="Collapsed" />
                                 <Label
@@ -270,15 +270,15 @@
                                     Padding="0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    FontFamily="{DynamicResource Helvetica}"
                                     Content="Uninstalling AltraVera from:"
+                                    FontFamily="{DynamicResource Helvetica}"
                                     FontSize="15"
                                     Visibility="Collapsed" />
                                 <TextBox
                                     x:Name="pathTextbox"
                                     Grid.Column="0"
                                     Height="30"
-                                    Margin="0,0,0,20"
+                                    Margin="0,0,0,10"
                                     VerticalContentAlignment="Center"
                                     BorderBrush="#BCBEC0"
                                     FontSize="13"
@@ -289,22 +289,23 @@
                                 <TextBlock
                                     x:Name="UninstallingProgressText"
                                     Margin="0,0,0,10"
-                                    FontSize="14"
                                     FontFamily="{DynamicResource Helvetica}"
+                                    FontSize="14"
                                     FontWeight="SemiBold"
                                     TextWrapping="Wrap"
                                     Visibility="Collapsed">
                                     Process...
                                 </TextBlock>
-                                <Border
-                                    x:Name="UnInstallingProgressBar"
-                                    Height="20"
-                                    Visibility="Collapsed">
+                                <Border Height="20" Margin="0,0,0,20">
                                     <ProgressBar
+                                        x:Name="UnInstallingProgressBar"
+                                        Width="400"
+                                        HorizontalAlignment="Stretch"
                                         Background="LightGray"
                                         BorderBrush="LightGray"
                                         BorderThickness="1"
-                                        IsIndeterminate="True">
+                                        Maximum="100"
+                                        Visibility="Collapsed">
                                         <ProgressBar.Foreground>
                                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                                 <GradientStop Offset="0.0" Color="#20A1DB" />
@@ -471,10 +472,7 @@
                                 </TextBlock>
                             </StackPanel>
                         </Grid>
-                        <Grid
-                            x:Name="InstallingGrid"
-                            Margin="30,0,30,0"
-                            Visibility="Collapsed">
+                        <Grid x:Name="InstallingGrid" Visibility="Collapsed">
                             <StackPanel
                                 MaxWidth="400"
                                 HorizontalAlignment="Center"
@@ -505,7 +503,7 @@
                                     TextWrapping="Wrap">
                                     Process...
                                 </TextBlock>
-                                <Border Height="20">
+                                <Border Height="20" Margin="0,0,0,30">
                                     <ProgressBar
                                         x:Name="ProgressBar"
                                         Background="LightGray"
@@ -651,7 +649,7 @@
                                             This Agreement shall be governed by and construed in accordance with the laws of [Your State/Country, e.g., the State of Delaware] without regard to its conflict of law principles. Any legal action or proceeding arising under this Agreement will be brought exclusively in the federal or state courts located in [Your City, State, e.g., Wilmington, Delaware].<LineBreak />
                                             <LineBreak />
                                             11. MISCELLANEOUS
-                                        This Agreement constitutes the entire agreement between you and AltraVera regarding the Software. If any provision of this Agreement is held to be unenforceable, the remaining provisions will remain in full force and effect. Our failure to enforce any right or provision of this Agreement will not be considered a waiver of those rights.</TextBlock>
+                                            This Agreement constitutes the entire agreement between you and AltraVera regarding the Software. If any provision of this Agreement is held to be unenforceable, the remaining provisions will remain in full force and effect. Our failure to enforce any right or provision of this Agreement will not be considered a waiver of those rights.</TextBlock>
                                     </ScrollViewer>
                                 </Border>
                                 <CheckBox
