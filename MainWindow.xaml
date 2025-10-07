@@ -136,10 +136,10 @@
                             VerticalAlignment="Stretch"
                             Background="White" />
                         <TextBlock
-                            Margin="10,0,0,5"
+                            Margin="5,0,0,5"
                             VerticalAlignment="Center"
                             FontFamily="{DynamicResource Furore}"
-                            FontSize="30"
+                            FontSize="28"
                             FontWeight="DemiBold"
                             Foreground="#21a1db"
                             Text="SECURE RDP/VNC CONTROLLER" />
@@ -179,7 +179,7 @@
                             Margin="0,0,0,5"
                             VerticalAlignment="Center"
                             FontFamily="{DynamicResource Furore}"
-                            FontSize="13"
+                            FontSize="12"
                             Foreground="#21a1db"
                             Text="SECURE RDP/VNC CONTROLLER" />
                     </StackPanel>
