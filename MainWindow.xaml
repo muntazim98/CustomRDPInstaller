@@ -354,6 +354,7 @@
                                     Margin="0,10,0,0"
                                     Padding="0"
                                     Content="Install AltraVera to:"
+                                    FontFamily="{DynamicResource Helvetica}"
                                     FontSize="16" />
                                 <Grid Margin="0,5">
                                     <Grid.ColumnDefinitions>
@@ -366,7 +367,7 @@
                                         Height="30"
                                         VerticalContentAlignment="Center"
                                         BorderBrush="#BCBEC0"
-                                        Foreground="#BCBEC0"
+                                        FontFamily="{DynamicResource Helvetica}"
                                         Style="{StaticResource TextBoxWithCornerRadiusStyle}"
                                         Text="{Binding DefaultPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
@@ -483,23 +484,34 @@
                                     Installing
                                 </TextBlock>
                                 <TextBlock
+                                    x:Name="InstallingGridTextBlock1"
                                     Margin="0,0,0,20"
                                     FontSize="14"
                                     FontWeight="Normal"
-                                    TextWrapping="Wrap">
-                                    Please wait while we are installing AltraVera on your Computer.
-                                </TextBlock>
+                                    Text=""
+                                    TextWrapping="Wrap" />
                                 <Separator
                                     Height="2"
                                     Margin="0,0,0,10"
                                     Background="Black" />
-                                <TextBlock
-                                    Margin="0,0,0,10"
-                                    FontSize="14"
-                                    FontWeight="SemiBold"
-                                    TextWrapping="Wrap">
-                                    Process...
-                                </TextBlock>
+                                <UniformGrid Margin="0,0,0,10" Columns="2">
+                                    <TextBlock
+                                        FontSize="14"
+                                        FontWeight="SemiBold"
+                                        TextWrapping="Wrap">
+                                        Process...
+                                    </TextBlock>
+                                    <TextBlock
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        FontFamily="{StaticResource Helvetica}"
+                                        FontSize="12"
+                                        FontWeight="Normal"
+                                        Opacity="0.8">
+                                        <Run Text="Internet Status : " />
+                                        <Run Name="InternetStatus" Text="Connected" />
+                                    </TextBlock>
+                                </UniformGrid>
                                 <Border Height="20" Margin="0,0,0,30">
                                     <ProgressBar
                                         x:Name="ProgressBar"

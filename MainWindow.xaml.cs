@@ -8,6 +8,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security.Principal;
@@ -28,6 +29,8 @@ namespace CustomRDPInstaller
         private string _defaultPath = Constants.GetDefaultIntallationPath;
         public static int StepCount = 1;
         public static int UninstallStepCount = 1;
+
+        private bool isConnected;
         public static string InstalledLocation {  get; private set; }
         public string DefaultPath
         {
@@ -146,8 +149,22 @@ namespace CustomRDPInstaller
                     FolderSelectionGrid.Visibility = Visibility.Collapsed;
                     LicensingGrid.Visibility = Visibility.Collapsed;
                     NegativeButton.Content = "Cancel";
+                    InstallingGridTextBlock1.Text = "Please wait while we are installing AltraVera on your Computer.";
                     NegativeButton.Visibility = Visibility.Visible;
                     InstallingGrid.Visibility = Visibility.Visible;
+                    isConnected = IsInternetAvailable();
+                    if (isConnected)
+                    {
+                        InternetStatus.Text = "Connected";
+                        InternetStatus.Foreground = new SolidColorBrush(Colors.LimeGreen); ;
+                    }
+                    else
+                    {
+                        InternetStatus.Text = "Not connected";
+                        InstallingGridTextBlock1.Text = "Unable to download, please check your internet connection.";
+                        InternetStatus.Foreground = new SolidColorBrush(Colors.OrangeRed);
+                        return;
+                    }
                     NegativeButton.Background = new SolidColorBrush(Colors.Black);
                     PositiveButton.Width = 170;
                     PositiveButton.IsEnabled = false;
@@ -502,7 +519,21 @@ namespace CustomRDPInstaller
             }
         }
 
-
+        private bool IsInternetAvailable()
+        {
+            try
+            {
+                using (var ping = new Ping())
+                {
+                    var result = ping.Send("8.8.8.8", 1000);
+                    return result.Status == IPStatus.Success;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public InstalledInfo CheckInstalled(string findByName)
         {
             #region CheckInstalledByRegistry
