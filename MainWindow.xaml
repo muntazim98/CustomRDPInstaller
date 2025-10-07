@@ -85,9 +85,9 @@
                 Width="30"
                 Height="Auto"
                 Margin="0,15,15,0"
+                HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 HorizontalContentAlignment="Right"
-                HorizontalAlignment="Right"
                 Background="Transparent"
                 BorderThickness="0"
                 Click="CloseButtonClick"
@@ -225,14 +225,15 @@
                                     TextWrapping="Wrap">
                                     Service is already installed
                                 </TextBlock>
-                                <Label
+                                <TextBlock
                                     x:Name="RemoveAltraveraTextBlock1"
                                     Margin="0,10"
                                     Padding="0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    Content="Remove AltraVera Service from your computer."
                                     FontSize="13"
+                                    Text="Remove AltraVera Service from your computer."
+                                    TextWrapping="Wrap"
                                     Visibility="Collapsed" />
                                 <Separator
                                     x:Name="UninstallSeparator"
@@ -287,15 +288,16 @@
                                     Visibility="Collapsed">
                                     Process...
                                 </TextBlock>
-                                <Border
-                                    x:Name="UnInstallingProgressBar"
-                                    Height="20"
-                                    Visibility="Collapsed">
+                                <Border Height="20" Margin="0,0,0,20">
                                     <ProgressBar
+                                        x:Name="UnInstallingProgressBar"
+                                        Width="400"
+                                        HorizontalAlignment="Stretch"
                                         Background="LightGray"
                                         BorderBrush="LightGray"
                                         BorderThickness="1"
-                                        IsIndeterminate="True">
+                                        Maximum="100"
+                                        Visibility="Collapsed">
                                         <ProgressBar.Foreground>
                                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                                 <GradientStop Offset="0.0" Color="#20A1DB" />
@@ -347,6 +349,7 @@
                                     Margin="0,10,0,0"
                                     Padding="0"
                                     Content="Install AltraVera Service to:"
+                                    FontFamily="{DynamicResource Helvetica}"
                                     FontSize="16" />
                                 <Grid Margin="0,5">
                                     <Grid.ColumnDefinitions>
@@ -359,7 +362,7 @@
                                         Height="30"
                                         VerticalContentAlignment="Center"
                                         BorderBrush="#BCBEC0"
-                                        Foreground="#BCBEC0"
+                                        FontFamily="{DynamicResource Helvetica}"
                                         Style="{StaticResource TextBoxWithCornerRadiusStyle}"
                                         Text="{Binding DefaultPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
@@ -479,23 +482,34 @@
                                     Installing
                                 </TextBlock>
                                 <TextBlock
+                                    x:Name="InstallingGridTextBlock1"
                                     Margin="0,0,0,20"
                                     FontSize="14"
                                     FontWeight="Normal"
-                                    TextWrapping="Wrap">
-                                    Please wait while we are installing AltraVera Service on your Computer.
-                                </TextBlock>
+                                    Text=""
+                                    TextWrapping="Wrap" />
                                 <Separator
                                     Height="2"
                                     Margin="0,0,0,10"
                                     Background="Black" />
-                                <TextBlock
-                                    Margin="0,0,0,10"
-                                    FontSize="14"
-                                    FontWeight="SemiBold"
-                                    TextWrapping="Wrap">
-                                    Process...
-                                </TextBlock>
+                                <UniformGrid Margin="0,0,0,10" Columns="2">
+                                    <TextBlock
+                                        FontSize="14"
+                                        FontWeight="SemiBold"
+                                        TextWrapping="Wrap">
+                                        Process...
+                                    </TextBlock>
+                                    <TextBlock
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        FontFamily="{StaticResource Helvetica}"
+                                        FontSize="12"
+                                        FontWeight="Normal"
+                                        Opacity="0.8">
+                                        <Run Text="Internet Status : " />
+                                        <Run Name="InternetStatus" Text="Connected" />
+                                    </TextBlock>
+                                </UniformGrid>
                                 <Border Height="20">
                                     <ProgressBar
                                         x:Name="ProgressBar"
@@ -642,7 +656,7 @@
                                             This Agreement shall be governed by and construed in accordance with the laws of [Your State/Country, e.g., the State of Delaware] without regard to its conflict of law principles. Any legal action or proceeding arising under this Agreement will be brought exclusively in the federal or state courts located in [Your City, State, e.g., Wilmington, Delaware].<LineBreak />
                                             <LineBreak />
                                             11. MISCELLANEOUS
-                                        This Agreement constitutes the entire agreement between you and AltraVera Service regarding the Software. If any provision of this Agreement is held to be unenforceable, the remaining provisions will remain in full force and effect. Our failure to enforce any right or provision of this Agreement will not be considered a waiver of those rights.</TextBlock>
+                                            This Agreement constitutes the entire agreement between you and AltraVera Service regarding the Software. If any provision of this Agreement is held to be unenforceable, the remaining provisions will remain in full force and effect. Our failure to enforce any right or provision of this Agreement will not be considered a waiver of those rights.</TextBlock>
                                     </ScrollViewer>
                                 </Border>
                                 <CheckBox

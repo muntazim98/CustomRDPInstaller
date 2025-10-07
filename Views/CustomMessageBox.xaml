@@ -4,31 +4,37 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:CustomRDPInstaller.Views"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{x:Null}">
     <Border
         Background="WhiteSmoke"
-        BorderThickness="0"
-        CornerRadius="5">
+        BorderBrush="#0474A6"
+        BorderThickness="1"
+        CornerRadius="10">
         <StackPanel
             Width="Auto"
             Height="Auto"
             Background="Transparent"
             Orientation="Vertical">
-            <TextBlock
-                Name="txt_Title"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Top"
-                Background="#0474A6"
+            <Border
                 Padding="10"
-                FontFamily="{StaticResource Helvetica_Bold}"
-                FontWeight="Bold"
-                Foreground="WhiteSmoke"
-                Text="Confirmation" />
+                Background="#0474A6"
+                CornerRadius="7,7,0,0">
+                <TextBlock
+                    Name="txt_Title"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    Background="Transparent"
+                    FontFamily="{StaticResource Helvetica_Bold}"
+                    FontWeight="Bold"
+                    Foreground="WhiteSmoke"
+                    Text="Confirmation" />
+            </Border>
             <TextBlock
                 Name="txt_Message"
+                Padding="20"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Padding="20"
                 FontFamily="{StaticResource Helvetica_Bold}"
                 Foreground="Black"
                 Text="Are you sure want to close application ?"

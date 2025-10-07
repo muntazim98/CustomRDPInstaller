@@ -9,6 +9,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Management;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security.Principal;
@@ -30,6 +31,8 @@ namespace CustomRDPInstaller
         private string _defaultPath = Constants.GetDefaultIntallationPath;
         public static int StepCount = 1;
         public static int UninstallStepCount = 1;
+
+        private bool isConnected;
         public static string InstalledLocation {  get; private set; }
         public string DefaultPath
         {
@@ -88,6 +91,8 @@ namespace CustomRDPInstaller
                 }
             };
         }
+        private System.Timers.Timer timeoutTimer;
+        private int timeoutInMilliseconds = 30;
         private void StepNext()
         {
             switch (StepCount)
@@ -148,8 +153,22 @@ namespace CustomRDPInstaller
                     FolderSelectionGrid.Visibility = Visibility.Collapsed;
                     LicensingGrid.Visibility = Visibility.Collapsed;
                     NegativeButton.Content = "Cancel";
+                    InstallingGridTextBlock1.Text = "Please wait while we are installing AltraVera on your Computer.";
                     NegativeButton.Visibility = Visibility.Visible;
                     InstallingGrid.Visibility = Visibility.Visible;
+                    isConnected = IsInternetAvailable();
+                    if (isConnected)
+                    {
+                        InternetStatus.Text = "Connected";
+                        InternetStatus.Foreground = new SolidColorBrush(Colors.LimeGreen); ;
+                    }
+                    else
+                    {
+                        InternetStatus.Text = "Not connected";
+                        InstallingGridTextBlock1.Text = "Unable to download, please check your internet connection.";
+                        InternetStatus.Foreground = new SolidColorBrush(Colors.OrangeRed);
+                        return;
+                    }
                     NegativeButton.Background = new SolidColorBrush(Colors.Black);
                     PositiveButton.Width = 170;
                     PositiveButton.IsEnabled = false;
@@ -182,6 +201,21 @@ namespace CustomRDPInstaller
         private void Browsebtn_Click(object sender, RoutedEventArgs e)
         {
             BrowseFolder();
+        }
+        private bool IsInternetAvailable()
+        {
+            try
+            {
+                using (var ping = new Ping())
+                {
+                    var result = ping.Send("8.8.8.8", 1000);
+                    return result.Status == IPStatus.Success;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
         public bool BrowseFolder()
         {
@@ -257,11 +291,15 @@ namespace CustomRDPInstaller
                         UninstallingTextBlock.Text = $"UnInstalling {Constants.ServiceName},Please wait a moment...";
                         await Constants.UninstallService(Constants.ServiceName);
                         await UnInstallByRegistry();
-                        await Task.Delay(TimeSpan.FromSeconds(2));
+                        while (UnInstallingProgressBar.Value < UnInstallingProgressBar.Maximum)
+                        {
+                            await Task.Delay(20);
+                            UnInstallingProgressBar.Value += 1;
+                        }
                         UnInstallingProgressBar.Visibility = Visibility.Collapsed;
                         CompletedImage.Visibility = Visibility.Visible;
                         UninstallingTextBlock.Text = "UnInstallation Completed";
-                        RemoveAltraveraTextBlock1.Content = $"{Constants.ServiceName} has been Successfully removed from your computer.";
+                        RemoveAltraveraTextBlock1.Text = $"{Constants.ServiceName} has been Successfully removed from your computer.";
                         UninstallSeparator.Visibility = Visibility.Collapsed;
                         UninstallingProgressText.Visibility = Visibility.Collapsed;
                         PositiveButton.Content = "Close";

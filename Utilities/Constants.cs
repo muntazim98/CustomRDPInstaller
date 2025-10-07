@@ -11,10 +11,13 @@ namespace CustomRDPInstaller.Utilities
         public static string GetDefaultIntallationPathX86 { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
         public static string GetDefaultIntallationPath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
         public static string ApplicationName { get; set; } = "AltraVera";
+
+       
+
         public static string ConfirmationMessageForClosing { get; set; } = $"{ServiceName} is running Do you want to stop before uninstalling ?";
         public static double UIOpacityEnable = 1;
         public static double UIOpacityDisable = 0.8;
-        public static string ServiceName => "AltraVeraHostService";
+        public static string ServiceName => "AltraVeraAgentService";
         public static string ServiceExeName => "AltraVera_agent_service.exe";
         public static string ZipPath => $"{ApplicationName}Service.zip";
         public static Uri uri { get; set; } = new Uri(@"https://www.dropbox.com/scl/fi/4t9xzulxa3ltn5tgsj2z8/AltraVeraAgentService.zip?rlkey=ls6mjingtn3lllnmbi7w557m1&dl=1");
