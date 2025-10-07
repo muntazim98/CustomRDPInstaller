@@ -192,7 +192,7 @@
             <Border
                 x:Name="ContentBorder"
                 Grid.Row="1"
-                Width="500"
+                Width="505"
                 MinHeight="300"
                 Margin="0,30,0,0"
                 Padding="30"
@@ -226,7 +226,7 @@
                                     FontSize="28"
                                     FontWeight="Bold"
                                     TextWrapping="Wrap">
-                                    Software is already installed
+                                    Service is already installed
                                 </TextBlock>
                                 <Label
                                     x:Name="RemoveAltraveraTextBlock1"
@@ -234,12 +234,12 @@
                                     Padding="0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    Content="Remove AltraVera from your computer."
+                                    Content="Remove AltraVera Service from your computer."
                                     FontSize="13"
                                     Visibility="Collapsed" />
                                 <Separator
-                                    Height="2"
                                     x:Name="UninstallSeparator"
+                                    Height="2"
                                     Margin="0,0,0,20"
                                     Background="Black" />
                                 <Label
@@ -248,7 +248,7 @@
                                     Padding="0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    Content="AltraVera will be uninstalled from the following folder."
+                                    Content="AltraVera Service will be uninstalled from the following folder."
                                     FontSize="15"
                                     Visibility="Collapsed" />
                                 <Label
@@ -266,7 +266,7 @@
                                     Padding="0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    Content="Uninstalling AltraVera from:"
+                                    Content="Uninstalling AltraVera Service from:"
                                     FontSize="15"
                                     Visibility="Collapsed" />
                                 <TextBox
@@ -349,7 +349,7 @@
                                 <Label
                                     Margin="0,10,0,0"
                                     Padding="0"
-                                    Content="Install AltraVera to:"
+                                    Content="Install AltraVera Service to:"
                                     FontSize="16" />
                                 <Grid Margin="0,5">
                                     <Grid.ColumnDefinitions>
@@ -433,7 +433,7 @@
                                     FontSize="28"
                                     FontWeight="Bold"
                                     TextWrapping="Wrap">
-                                    Welcome to the AltraVera Setup Wizard
+                                    Welcome to the AltraVera Service Setup Wizard
                                 </TextBlock>
                                 <Separator
                                     Height="2"
@@ -445,7 +445,7 @@
                                     FontSize="14"
                                     FontWeight="Normal"
                                     TextWrapping="Wrap">
-                                    This wizard will guide you through the installation of AltraVera.
+                                    This wizard will guide you through the installation of AltraVera Service.
                                 </TextBlock>
                                 <TextBlock
                                     x:Name="Heading2"
@@ -486,7 +486,7 @@
                                     FontSize="14"
                                     FontWeight="Normal"
                                     TextWrapping="Wrap">
-                                    Please wait while we are installing AltraVera on your Computer.
+                                    Please wait while we are installing AltraVera Service on your Computer.
                                 </TextBlock>
                                 <Separator
                                     Height="2"
@@ -550,7 +550,7 @@
                                     VerticalAlignment="Center"
                                     FontFamily="{DynamicResource Helvetica}"
                                     FontSize="13"
-                                    Text="Please review Licence Agreement of AltraVera before installation" />
+                                    Text="Please review Licence Agreement of AltraVera Service before installation" />
                                 <Border BorderBrush="#000000" BorderThickness="1" />
                                 <TextBlock
                                     Margin="0,10"
@@ -583,7 +583,7 @@
                                             DELETE IT FROM YOUR DEVICE.<LineBreak />
                                             <LineBreak />
                                             1. LICENSE GRANT<LineBreak />
-                                            Subject to your compliance with the terms of this Agreement, AltraVera grants you a limited, non-exclusive, non-transferable, non-sublicensable, and revocable license to:<LineBreak />
+                                            Subject to your compliance with the terms of this Agreement, AltraVera Service grants you a limited, non-exclusive, non-transferable, non-sublicensable, and revocable license to:<LineBreak />
                                             <LineBreak />
                                             (a) Download and install the Software on computers or devices that you own or control.<LineBreak />
                                             <LineBreak />
@@ -602,7 +602,7 @@
                                             <LineBreak />
                                             (e) Remove, alter, or obscure any proprietary notices (including copyright and trademark notices) contained in the Software.<LineBreak />
                                             <LineBreak />
-                                            (f) Use the Software for any purpose that is competitive with AltraVera's business.<LineBreak />
+                                            (f) Use the Software for any purpose that is competitive with AltraVera's Service business.<LineBreak />
                                             <LineBreak />
                                             3. YOUR RESPONSIBILITIES &amp; ACCEPTABLE USE<LineBreak />
                                             <LineBreak />
@@ -617,16 +617,16 @@
                                             Harassing, stalking, or harming another individual or entity.<LineBreak />
                                             <LineBreak />
                                             4. INTELLECTUAL PROPERTY RIGHTS
-                                            The Software is licensed, not sold. AltraVera and our licensors retain all right, title, and interest in and to the Software, including all copyrights, patents, trade secrets, trademarks, and other intellectual property rights. The AltraVera name, logo, and all related product and service names are trademarks of AltraVera.<LineBreak />
+                                            The Software is licensed, not sold. AltraVera Service and our licensors retain all right, title, and interest in and to the Software, including all copyrights, patents, trade secrets, trademarks, and other intellectual property rights. The AltraVera Service name, logo, and all related product and service names are trademarks of AltraVera Service.<LineBreak />
                                             <LineBreak />
                                             5. COLLECTION AND USE OF DATA
                                             Your privacy is important to us. Our Privacy Policy (available at [Insert Link to Your Privacy Policy]) explains how we collect, use, and protect the information you provide to us. By using the Software, you consent to such data practices.<LineBreak />
                                             <LineBreak />
                                             6. DISCLAIMER OF WARRANTIES
-                                            THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT ANY WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. ALTRAVERA EXPLICITLY DISCLAIMS ALL IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. ALTRAVERA DOES NOT WARRANT THAT THE SOFTWARE WILL MEET YOUR REQUIREMENTS, OPERATE WITHOUT INTERRUPTION, OR BE ERROR-FREE.<LineBreak />
+                                            THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT ANY WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. ALTRAVERA SERVICE EXPLICITLY DISCLAIMS ALL IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. ALTRAVERA SERVICE DOES NOT WARRANT THAT THE SOFTWARE WILL MEET YOUR REQUIREMENTS, OPERATE WITHOUT INTERRUPTION, OR BE ERROR-FREE.<LineBreak />
                                             <LineBreak />
                                             7. LIMITATION OF LIABILITY
-                                            TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL ALTRAVERA, ITS DIRECTORS, EMPLOYEES, OR LICENSORS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS OR REVENUES, WHETHER INCURRED DIRECTLY OR INDIRECTLY, OR ANY LOSS OF DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM:<LineBreak />
+                                            TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL ALTRAVERA SERVICE, ITS DIRECTORS, EMPLOYEES, OR LICENSORS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS OR REVENUES, WHETHER INCURRED DIRECTLY OR INDIRECTLY, OR ANY LOSS OF DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM:<LineBreak />
                                             <LineBreak />
                                             (A) YOUR ACCESS TO OR USE OF OR INABILITY TO ACCESS OR USE THE SOFTWARE;<LineBreak />
                                             <LineBreak />
@@ -636,7 +636,7 @@
                                             OUR TOTAL AGGREGATE LIABILITY ARISING OUT OF THIS AGREEMENT SHALL NOT EXCEED THE AMOUNT YOU HAVE PAID TO ALTRAVERA IN THE SIX (6) MONTHS PRIOR TO THE EVENT GIVING RISE TO THE LIABILITY.<LineBreak />
                                             <LineBreak />
                                             8. INDEMNIFICATION
-                                            You agree to indemnify, defend, and hold harmless AltraVera and its officers, directors, employees, and agents from and against any and all claims, damages, obligations, losses, liabilities, costs, and expenses (including reasonable attorney's fees) arising from: (a) your use of and access to the Software; (b) your violation of any term of this Agreement; or (c) your violation of any third-party right, including without limitation any copyright, property, or privacy right.<LineBreak />
+                                            You agree to indemnify, defend, and hold harmless AltraVera Service and its officers, directors, employees, and agents from and against any and all claims, damages, obligations, losses, liabilities, costs, and expenses (including reasonable attorney's fees) arising from: (a) your use of and access to the Software; (b) your violation of any term of this Agreement; or (c) your violation of any third-party right, including without limitation any copyright, property, or privacy right.<LineBreak />
                                             <LineBreak />
                                             9. TERM AND TERMINATION
                                             This Agreement remains in effect until terminated by you or us. You may terminate this Agreement at any time by permanently deleting the Software from all devices. We may terminate this Agreement immediately if you fail to comply with any term. Upon termination, all licenses granted will immediately cease, and you must cease all use of the Software and delete all copies.<LineBreak />
@@ -645,7 +645,7 @@
                                             This Agreement shall be governed by and construed in accordance with the laws of [Your State/Country, e.g., the State of Delaware] without regard to its conflict of law principles. Any legal action or proceeding arising under this Agreement will be brought exclusively in the federal or state courts located in [Your City, State, e.g., Wilmington, Delaware].<LineBreak />
                                             <LineBreak />
                                             11. MISCELLANEOUS
-                                            This Agreement constitutes the entire agreement between you and AltraVera regarding the Software. If any provision of this Agreement is held to be unenforceable, the remaining provisions will remain in full force and effect. Our failure to enforce any right or provision of this Agreement will not be considered a waiver of those rights.</TextBlock>
+                                            This Agreement constitutes the entire agreement between you and AltraVera Service regarding the Software. If any provision of this Agreement is held to be unenforceable, the remaining provisions will remain in full force and effect. Our failure to enforce any right or provision of this Agreement will not be considered a waiver of those rights.</TextBlock>
                                     </ScrollViewer>
                                 </Border>
                                 <CheckBox

@@ -11,11 +11,13 @@ namespace CustomRDPInstaller.Utilities
         public static string GetDefaultIntallationPathX86 { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
         public static string GetDefaultIntallationPath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
         public static string ApplicationName { get; set; } = "AltraVera";
-        public static string ConfirmationMessageForClosing { get; set; } = $"{ApplicationName} is running Do you want to close before uninstalling ?";
+        public static string ConfirmationMessageForClosing { get; set; } = $"{ServiceName} is running Do you want to stop before uninstalling ?";
         public static double UIOpacityEnable = 1;
         public static double UIOpacityDisable = 0.8;
-        public static string ZipPath => $"{ApplicationName}.zip";
-        public static Uri uri { get; set; } = new Uri(@"https://www.dropbox.com/scl/fi/0grqq0x1bruspuuppxsgy/AltraVeraHost.zip?rlkey=un2td1ueeddzy1730ehidzdzu&dl=1");
+        public static string ServiceName => "AltraVeraHostService";
+        public static string ServiceExeName => "AltraVera_agent_service.exe";
+        public static string ZipPath => $"{ApplicationName}Service.zip";
+        public static Uri uri { get; set; } = new Uri(@"https://www.dropbox.com/scl/fi/4t9xzulxa3ltn5tgsj2z8/AltraVeraAgentService.zip?rlkey=ls6mjingtn3lllnmbi7w557m1&dl=1");
         public static string GetLocalFolder => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         public static string InstallerFolder => $"{GetLocalFolder}\\{ApplicationName}Installer";
         public static string AssemblyName => System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
@@ -48,7 +50,7 @@ namespace CustomRDPInstaller.Utilities
 
             return true;
         }
-        private static bool ServiceExists(string serviceName)
+        public static bool ServiceExists(string serviceName)
         {
             return ServiceController.GetServices().Any(s => s.ServiceName.Equals(serviceName, StringComparison.OrdinalIgnoreCase));
         }
