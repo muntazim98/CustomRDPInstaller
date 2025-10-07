@@ -4,6 +4,7 @@ using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -279,13 +280,17 @@ namespace CustomRDPInstaller
                         PositiveButton.Visibility = Visibility.Visible;
                         NegativeButton.Opacity = 0.5;
                         NegativeButton.IsEnabled = false;
-                        
+
 
                     }
                 }
-                return;
+                    return;
             }
-            StepNext();
+            else if(PositiveButton.Content.ToString() == "Finish")
+            {
+                Application.Current.Shutdown();
+            }
+                StepNext();
         }
 
         private void MovePrevious(object sender, RoutedEventArgs e)

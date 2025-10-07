@@ -158,13 +158,13 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <Image
-                        Height="80"
+                        Height="100"
                         Source="/Resources/Images/UIIconSmall.png"
                         Stretch="Uniform" />
                     <StackPanel Orientation="Vertical">
                         <TextBlock
                             x:Name="tAG1"
-                            Margin="0,5,10,0"
+                            Margin="0,10,10,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom"
                             FontFamily="{DynamicResource YaroOpBold}"
@@ -173,13 +173,13 @@
                             Text="AItraVera" />
                         <Border
                             Width="{Binding ElementName=tAG1, Path=ActualWidth}"
-                            Height="2"
+                            Height="4"
                             Margin="-8,-8,0,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Stretch"
                             Background="White" />
                         <TextBlock
-                            Margin="0,0,0,5"
+                            Margin="0,0,0,0"
                             VerticalAlignment="Center"
                             FontFamily="{DynamicResource Furore}"
                             FontSize="13"
@@ -225,6 +225,7 @@
                                     Margin="0,30,0,10"
                                     FontSize="28"
                                     FontWeight="Bold"
+                                    FontFamily="{DynamicResource Helvetica}"
                                     TextWrapping="Wrap">
                                     Software is already installed
                                 </TextBlock>
@@ -235,6 +236,7 @@
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     Content="Remove AltraVera from your computer."
+                                    FontFamily="{DynamicResource Helvetica}"
                                     FontSize="13"
                                     Visibility="Collapsed" />
                                 <Separator
@@ -248,6 +250,7 @@
                                     Padding="0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Helvetica}"
                                     Content="AltraVera will be uninstalled from the following folder."
                                     FontSize="15"
                                     Visibility="Collapsed" />
@@ -255,6 +258,7 @@
                                     x:Name="RemoveAltraveraTextBlock3"
                                     Margin="0,5,0,20"
                                     Padding="0"
+                                    FontFamily="{DynamicResource Helvetica}"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     Content="Click Next to continue."
@@ -266,6 +270,7 @@
                                     Padding="0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Helvetica}"
                                     Content="Uninstalling AltraVera from:"
                                     FontSize="15"
                                     Visibility="Collapsed" />
@@ -273,7 +278,7 @@
                                     x:Name="pathTextbox"
                                     Grid.Column="0"
                                     Height="30"
-                                    Margin="0,10"
+                                    Margin="0,0,0,20"
                                     VerticalContentAlignment="Center"
                                     BorderBrush="#BCBEC0"
                                     FontSize="13"
@@ -285,6 +290,7 @@
                                     x:Name="UninstallingProgressText"
                                     Margin="0,0,0,10"
                                     FontSize="14"
+                                    FontFamily="{DynamicResource Helvetica}"
                                     FontWeight="SemiBold"
                                     TextWrapping="Wrap"
                                     Visibility="Collapsed">
@@ -645,7 +651,7 @@
                                             This Agreement shall be governed by and construed in accordance with the laws of [Your State/Country, e.g., the State of Delaware] without regard to its conflict of law principles. Any legal action or proceeding arising under this Agreement will be brought exclusively in the federal or state courts located in [Your City, State, e.g., Wilmington, Delaware].<LineBreak />
                                             <LineBreak />
                                             11. MISCELLANEOUS
-                                            This Agreement constitutes the entire agreement between you and AltraVera regarding the Software. If any provision of this Agreement is held to be unenforceable, the remaining provisions will remain in full force and effect. Our failure to enforce any right or provision of this Agreement will not be considered a waiver of those rights.</TextBlock>
+                                        This Agreement constitutes the entire agreement between you and AltraVera regarding the Software. If any provision of this Agreement is held to be unenforceable, the remaining provisions will remain in full force and effect. Our failure to enforce any right or provision of this Agreement will not be considered a waiver of those rights.</TextBlock>
                                     </ScrollViewer>
                                 </Border>
                                 <CheckBox
