@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -38,6 +39,29 @@ namespace CustomRDPInstaller
         public MainWindow()
         {
             InitializeComponent();
+            if (!IsAdministrator())
+            {
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.GetInstallerExe,
+                    Arguments = string.Empty,
+                    UseShellExecute = true,
+                    Verb = "runas"
+                };
+
+
+                try
+                {
+                    Process.Start(startInfo);
+                }
+                catch (Exception) { }
+                finally
+                {
+                    Application.Current.Shutdown();
+                    Environment.Exit(0);
+                }
+                return;
+            }
             instance = this;
             DataContext = this;
             this.Loaded += async (s, e) =>
@@ -380,6 +404,15 @@ namespace CustomRDPInstaller
         private void OnUnchecked(object sender, RoutedEventArgs e)
         {
             PositiveButton.IsEnabled = false;
+        }
+
+        private static bool IsAdministrator()
+        {
+            using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
+            {
+                WindowsPrincipal principal = new WindowsPrincipal(identity);
+                return principal.IsInRole(WindowsBuiltInRole.Administrator);
+            }
         }
     }
 }
