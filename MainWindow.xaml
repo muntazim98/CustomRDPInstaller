@@ -74,37 +74,34 @@
         <ImageBrush ImageSource="pack://application:,,,/Resources/Images/background.png" />
     </Window.Background>
     <Grid x:Name="MainGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Button
-            x:Name="CloseButton"
-            Grid.Column="1"
-            Width="30"
-            Height="Auto"
-            Margin="0,15,15,0"
-            VerticalAlignment="Top"
-            HorizontalContentAlignment="Center"
-            Background="Transparent"
-            BorderThickness="0"
-            Click="CloseButtonClick"
-            Cursor="Hand"
-            Style="{DynamicResource ButtonStyle1}"
-            ToolTip="Close"
-            Visibility="Visible">
-            <Button.Content>
-                <Path
-                    Data="M16.3333 16.3333L1.66666 1.66663M16.3333 1.66663L1.66666 16.3333"
-                    Stroke="White"
-                    StrokeThickness="2" />
-            </Button.Content>
-        </Button>
-        <Grid Grid.Column="0">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            <Button
+                x:Name="CloseButton"
+                Grid.Row="0"
+                Width="30"
+                Height="Auto"
+                Margin="0,15,15,0"
+                VerticalAlignment="Top"
+                HorizontalContentAlignment="Right"
+                HorizontalAlignment="Right"
+                Background="Transparent"
+                BorderThickness="0"
+                Click="CloseButtonClick"
+                Cursor="Hand"
+                Style="{DynamicResource ButtonStyle1}"
+                ToolTip="Close"
+                Visibility="Visible">
+                <Button.Content>
+                    <Path
+                        Data="M16.3333 16.3333L1.66666 1.66663M16.3333 1.66663L1.66666 16.3333"
+                        Stroke="White"
+                        StrokeThickness="2" />
+                </Button.Content>
+            </Button>
             <Grid
                 x:Name="StartingGrid"
                 Grid.Row="0"
@@ -645,7 +642,7 @@
                                             This Agreement shall be governed by and construed in accordance with the laws of [Your State/Country, e.g., the State of Delaware] without regard to its conflict of law principles. Any legal action or proceeding arising under this Agreement will be brought exclusively in the federal or state courts located in [Your City, State, e.g., Wilmington, Delaware].<LineBreak />
                                             <LineBreak />
                                             11. MISCELLANEOUS
-                                            This Agreement constitutes the entire agreement between you and AltraVera Service regarding the Software. If any provision of this Agreement is held to be unenforceable, the remaining provisions will remain in full force and effect. Our failure to enforce any right or provision of this Agreement will not be considered a waiver of those rights.</TextBlock>
+                                        This Agreement constitutes the entire agreement between you and AltraVera Service regarding the Software. If any provision of this Agreement is held to be unenforceable, the remaining provisions will remain in full force and effect. Our failure to enforce any right or provision of this Agreement will not be considered a waiver of those rights.</TextBlock>
                                     </ScrollViewer>
                                 </Border>
                                 <CheckBox

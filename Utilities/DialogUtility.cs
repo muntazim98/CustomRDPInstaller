@@ -1,6 +1,7 @@
 ﻿using CustomRDPInstaller.Views;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 
 namespace CustomRDPInstaller.Utilities
 {
@@ -8,12 +9,16 @@ namespace CustomRDPInstaller.Utilities
     {
         public static bool ShowMessageBoxModel(bool isyes = false, string msg = "", bool isAsync = false, Window UI = null)
         {
-            var IsOkClicked = false;
+            bool IsOkClicked = false;
             CustomMessageBox msgBox = new CustomMessageBox(isyes, msg);
-            RectangleGeometry rect = new RectangleGeometry();
-            rect.Rect = new Rect(0, 0, 300, 140);
-            rect.RadiusX = 10;
-            rect.RadiusY = 10;
+
+            RectangleGeometry rect = new RectangleGeometry
+            {
+                Rect = new Rect(0, 0, 300, 140),
+                RadiusX = 10,
+                RadiusY = 10
+            };
+
             Window window = new Window
             {
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
@@ -24,22 +29,39 @@ namespace CustomRDPInstaller.Utilities
                 Height = 140,
                 Width = 300,
                 Background = Brushes.Transparent,
-                Clip = rect
+                Clip = rect,
+                Owner = MainWindow.GetInstance
             };
-            window.Owner = MainWindow.GetInstance;
+
             msgBox.MyWindow = window;
             window.Content = msgBox;
+
+            BlurEffect blurEffect = null;
+
             if (UI != null)
-                UI.Opacity = Constants.UIOpacityDisable;
+            {
+                // Apply blur effect to parent window
+                blurEffect = new BlurEffect
+                {
+                    Radius = 8, // Adjust blur intensity (range 0–100)
+                    KernelType = KernelType.Gaussian
+                };
+                UI.Effect = blurEffect;
+            }
+
             window.Closing += (s, e) =>
             {
                 IsOkClicked = msgBox.IsOk;
+                // Remove blur effect when closing
                 if (UI != null)
-                    UI.Opacity = Constants.UIOpacityEnable;
+                    UI.Effect = null;
             };
+
             window.ShowDialog();
             window.Activate();
+
             return IsOkClicked;
         }
+
     }
 }
