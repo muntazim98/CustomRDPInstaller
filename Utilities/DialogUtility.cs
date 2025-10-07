@@ -11,7 +11,7 @@ namespace CustomRDPInstaller.Utilities
             var IsOkClicked = false;
             CustomMessageBox msgBox = new CustomMessageBox(isyes, msg);
             RectangleGeometry rect = new RectangleGeometry();
-            rect.Rect = new Rect(0, 50, 300, 108);
+            rect.Rect = new Rect(0, 0, 300, 140);
             rect.RadiusX = 10;
             rect.RadiusY = 10;
             Window window = new Window
@@ -21,7 +21,7 @@ namespace CustomRDPInstaller.Utilities
                 BorderThickness = new Thickness(0),
                 AllowsTransparency = true,
                 WindowStyle = WindowStyle.None,
-                Height = 160,
+                Height = 140,
                 Width = 300,
                 Background = Brushes.Transparent,
                 Clip = rect

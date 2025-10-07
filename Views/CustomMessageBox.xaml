@@ -9,35 +9,33 @@
         Background="WhiteSmoke"
         BorderThickness="0"
         CornerRadius="5">
-        <Grid
+        <StackPanel
             Width="Auto"
             Height="Auto"
-            Margin="0,48,0,0"
-            Background="Transparent">
+            Background="Transparent"
+            Orientation="Vertical">
             <TextBlock
                 Name="txt_Title"
-                Height="30"
-                Padding="10,8,5,25"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
-                Background="#092E5A"
+                Background="#0474A6"
+                Padding="10"
                 FontFamily="{StaticResource Helvetica_Bold}"
                 FontWeight="Bold"
                 Foreground="WhiteSmoke"
                 Text="Confirmation" />
             <TextBlock
                 Name="txt_Message"
-                Height="50"
-                Padding="15"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
+                Padding="20"
                 FontFamily="{StaticResource Helvetica_Bold}"
                 Foreground="Black"
                 Text="Are you sure want to close application ?"
                 TextWrapping="Wrap" />
             <StackPanel
                 Name="dpTitleBar"
-                Margin="5,55,15,10"
+                Margin="20,0,20,10"
                 HorizontalAlignment="Right"
                 Background="Transparent"
                 Orientation="Horizontal">
@@ -50,12 +48,11 @@
                     Click="clk_Yes"
                     Content="Yes"
                     Cursor="Hand"
-                    DockPanel.Dock="Bottom"
                     FontFamily="{StaticResource Helvetica}"
                     Foreground="WhiteSmoke">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
-                            <Setter Property="Background" Value="#092E5A" />
+                            <Setter Property="Background" Value="#0474A6" />
                             <Setter Property="Opacity" Value="0.9" />
                             <Setter Property="BorderBrush" Value="#FFFFFF" />
                             <Setter Property="BorderThickness" Value="1" />
@@ -106,12 +103,11 @@
                     Click="clk_No"
                     Content="No"
                     Cursor="Hand"
-                    DockPanel.Dock="Bottom"
                     FontFamily="{StaticResource helvetica_light}"
                     Foreground="WhiteSmoke">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
-                            <Setter Property="Background" Value="#092E5A" />
+                            <Setter Property="Background" Value="Black" />
                             <Setter Property="Opacity" Value="0.9" />
                             <Setter Property="BorderBrush" Value="#FFFFFF" />
                             <Setter Property="BorderThickness" Value="1" />
@@ -161,7 +157,6 @@
                     VerticalAlignment="Bottom"
                     Click="clk_No"
                     Content="Ok"
-                    DockPanel.Dock="Bottom"
                     FontFamily="{StaticResource helvetica_light}"
                     Foreground="WhiteSmoke"
                     Visibility="Collapsed">
@@ -206,6 +201,6 @@
                     </Button.Style>
                 </Button>
             </StackPanel>
-        </Grid>
+        </StackPanel>
     </Border>
 </UserControl>
