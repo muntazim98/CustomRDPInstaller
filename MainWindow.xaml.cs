@@ -202,14 +202,16 @@ namespace CustomRDPInstaller
 
         private void MovePrevious(object sender, RoutedEventArgs e)
         {
-            StepCount -= 1;
-            StepPrevious();
+            
             if (NegativeButton.Content.ToString() == "Done" || NegativeButton.Content.ToString() == "Cancel")
             {
-                string message = NegativeButton.Content.ToString() == "Done" ? "Do you want to close ?" : "Do you want to cancel ?";
+                string message = NegativeButton.Content.ToString() == "Done" ? "Do you want to close ?" : "Do you want to cancel the installation ?";
                 var IsOk = DialogUtility.ShowMessageBoxModel(false, message,false, this);
-                if(IsOk)
-                    this.Close();
+                if (IsOk)
+                {
+                    Application.Current.Shutdown();
+                }
+                    
             }
         }
         private void InstallAltraVera()
