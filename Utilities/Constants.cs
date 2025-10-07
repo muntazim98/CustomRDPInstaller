@@ -8,7 +8,8 @@ namespace CustomRDPInstaller.Utilities
 {
     public class Constants
     {
-        public static string GetDefaultIntallationPath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+        public static string GetDefaultIntallationPathX86 { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+        public static string GetDefaultIntallationPath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
         public static string ApplicationName { get; set; } = "AltraVera";
         public static string ConfirmationMessageForClosing { get; set; } = $"{ApplicationName} is running Do you want to close before uninstalling ?";
         public static double UIOpacityEnable = 1;
@@ -19,7 +20,7 @@ namespace CustomRDPInstaller.Utilities
         public static string InstallerFolder => $"{GetLocalFolder}\\{ApplicationName}Installer";
         public static string AssemblyName => System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
 
-        public static string ShortCutDescription { get; set; } = "";
+        public static string ShortCutDescription { get; set; } = "AltraVera";
         public static string IconFileName { get; internal set; } = "AltraVera.ico";
         public static string GetInstallerExe => System.Reflection.Assembly.GetEntryAssembly().Location;
 

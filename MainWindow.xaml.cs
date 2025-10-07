@@ -27,6 +27,7 @@ namespace CustomRDPInstaller
         private static MainWindow instance;
         private string _defaultPath = Constants.GetDefaultIntallationPath;
         public static int StepCount = 1;
+        public static int UninstallStepCount = 1;
         public static string InstalledLocation {  get; private set; }
         public string DefaultPath
         {
@@ -37,6 +38,8 @@ namespace CustomRDPInstaller
                 OnPropertyChanged(nameof(DefaultPath));
             }
         }
+
+        
         public static MainWindow GetInstance => instance;
         public MainWindow()
         {
@@ -110,7 +113,7 @@ namespace CustomRDPInstaller
                     PositiveButton.Content = "Install Now";
                     PositiveButton.IsEnabled = true;
                     PositiveButton.Width = 300;
-                    Heading1.Text = "This wizard will guide you through the installation of Virto Sign.";
+                    Heading1.Text = "This wizard will guide you through the installation of AltraVera.";
                     Heading2.Visibility = Visibility.Visible;
                     Heading2.Text = "It is recommended that you close all other applications before starting Setup. This will make it possible to update relevant system files without having to reboot your computer.";
                     Heading3.Text = "Click Install Now to continue.";
@@ -223,35 +226,54 @@ namespace CustomRDPInstaller
         {
             if (PositiveButton.Content.ToString() == "Launch")
             {
-                //Launch the Application here.
-                var ApplicationToLaunch = Path.Combine(DefaultPath,Constants.ApplicationName+".exe");
-                if(!string.IsNullOrEmpty(ApplicationToLaunch) && File.Exists(ApplicationToLaunch))
-                {
-                    var processInfo = new ProcessStartInfo
-                    {
-                        FileName = ApplicationToLaunch,
-                        UseShellExecute = true,
-                        WorkingDirectory = DefaultPath,
-                        CreateNoWindow = true,
-                    };
-                    Process.Start(processInfo);
-                }
+                
+                var ApplicationToLaunch = Path.Combine(DefaultPath, "MainWatchdogService.exe");
+               
+                await Constants.CreateAndStartServiceAsync("AltraVeraHostService", ApplicationToLaunch);
                 this.Close();
-            }else if(PositiveButton.Content.ToString() == "Uninstall")
+            }
+            else if(PositiveButton.Content.ToString() == "Uninstall")
             {
-                bool isOpen = await CheckByProcess();
-                var IsOkClicked = !isOpen || DialogUtility.ShowMessageBoxModel(msg: Constants.ConfirmationMessageForClosing, UI:this);
-                if (IsOkClicked)
+                if (UninstallStepCount == 1)
                 {
-                    UnInstallingProgressBar.Visibility = Visibility.Visible;
-                    UninstallingTextBlock.Text = $"UnInstalling {Constants.ApplicationName},Please wait a moment...";
-                    await UnInstallByRegistry();
-                    await Task.Delay(TimeSpan.FromSeconds(4));
-                    UnInstallingProgressBar.Visibility = Visibility.Collapsed;
-                    UninstallingTextBlock.Text = "UnInstallation Completed";
-                    NegativeButton.Content = "Close";
-                    NegativeButton.Visibility = Visibility.Visible;
-                    PositiveButton.Visibility = Visibility.Collapsed;
+                    UninstallingTextBlock.Text = "Uninstalling";
+                    RemoveAltraveraTextBlock1.Visibility = Visibility.Visible;
+                    RemoveAltraveraTextBlock2.Visibility = Visibility.Visible;
+                    RemoveAltraveraTextBlock3.Visibility = Visibility.Visible;
+                    RemoveAltraveraTextBlock4.Visibility = Visibility.Visible;
+                    pathTextbox.Text = InstalledLocation;
+                    pathTextbox.Visibility = Visibility.Visible;
+                    UninstallStepCount++;
+                }
+                else
+                {
+                    bool isOpen = await CheckByProcess();
+                    var IsOkClicked = !isOpen || DialogUtility.ShowMessageBoxModel(msg: Constants.ConfirmationMessageForClosing, UI: this);
+                    if (IsOkClicked)
+                    {
+                        RemoveAltraveraTextBlock2.Visibility = Visibility.Collapsed;
+                        RemoveAltraveraTextBlock3.Visibility = Visibility.Collapsed;
+                        RemoveAltraveraTextBlock4.Visibility = Visibility.Collapsed;
+                        pathTextbox.Visibility = Visibility.Collapsed;
+                        UninstallingProgressText.Visibility = Visibility.Visible;
+                        UnInstallingProgressBar.Visibility = Visibility.Visible;
+                        UninstallingTextBlock.Text = $"UnInstalling {Constants.ApplicationName},Please wait a moment...";
+                        await UnInstallByRegistry();
+                        await Constants.UninstallService("AltraVeraHostService");
+                        await Task.Delay(TimeSpan.FromSeconds(2));
+                        UnInstallingProgressBar.Visibility = Visibility.Collapsed;
+                        CompletedImage.Visibility = Visibility.Visible;
+                        UninstallingTextBlock.Text = "UnInstallation Completed";
+                        RemoveAltraveraTextBlock1.Content = "AltraVera has been Successfully removed from your computer.";
+                        UninstallSeparator.Visibility = Visibility.Collapsed;
+                        UninstallingProgressText.Visibility = Visibility.Collapsed;
+                        PositiveButton.Content = "Finish";
+                        PositiveButton.Visibility = Visibility.Visible;
+                        NegativeButton.Opacity = 0.5;
+                        NegativeButton.IsEnabled = false;
+                        
+
+                    }
                 }
                 return;
             }
@@ -537,6 +559,7 @@ namespace CustomRDPInstaller
             UninstallationGrid.Visibility = Visibility.Visible;
             PositiveButton.Content = "Uninstall";
             NegativeButton.Content = "Cancel";
+            NegativeButton.Background = new SolidColorBrush(Colors.Black);
         }
 
         #region Uninstall By Registry
@@ -648,5 +671,19 @@ namespace CustomRDPInstaller
             catch { }
         }
         #endregion
+
+        private void CloseButtonClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string message =  "Do you want to close the installer ?";
+                var IsOk = DialogUtility.ShowMessageBoxModel(false, message, false, this);
+                if (IsOk)
+                {
+                    Application.Current.Shutdown();
+                }
+            }
+            catch { }
+        }
     }
 }

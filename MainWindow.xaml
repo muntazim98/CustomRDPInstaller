@@ -13,6 +13,46 @@
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.Resources>
+        <Style
+            x:Key="ButtonStyle1"
+            BasedOn="{StaticResource {x:Type Button}}"
+            TargetType="Button">
+            <Setter Property="Width" Value="240" />
+            <Setter Property="Height" Value="55" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Background" Value="#07486A" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontFamily" Value="{StaticResource Helvetica}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="Transparent"
+                            CornerRadius="30">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                <GradientStop Offset="1" Color="#07486A" />
+                                <GradientStop Offset="0" Color="#69be9b" />
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="TextBoxWithCornerRadiusStyle" TargetType="TextBox">
             <Setter Property="Template">
                 <Setter.Value>
@@ -34,538 +74,633 @@
         <ImageBrush ImageSource="pack://application:,,,/Resources/Images/background.png" />
     </Window.Background>
     <Grid x:Name="MainGrid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid
-            x:Name="StartingGrid"
-            Grid.Row="0"
-            Grid.RowSpan="2"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Visibility="Visible">
-            <StackPanel
-                Margin="0,10,0,50"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <Image
-                    Width="250"
-                    Height="250"
-                    Source="/Resources/Images/UIIcon1.png"
-                    Stretch="Uniform" />
-                <StackPanel VerticalAlignment="Center" Orientation="Vertical">
-                    <TextBlock
-                        x:Name="tAG"
-                        Margin="5,5,10,0"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Bottom"
-                        FontFamily="{DynamicResource YaroOpBold}"
-                        FontSize="100"
-                        Foreground="White"
-                        Text="AItraVera" />
-                    <Border
-                        Width="{Binding ElementName=tAG, Path=ActualWidth}"
-                        Height="5"
-                        Margin="0,-8,0,0"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Stretch"
-                        Background="White" />
-                    <TextBlock
-                        Margin="10,0,0,5"
-                        VerticalAlignment="Center"
-                        FontFamily="{DynamicResource Furore}"
-                        FontSize="30"
-                        FontWeight="DemiBold"
-                        Foreground="#21a1db"
-                        Text="SECURE RDP/UNC CONTROLLER" />
-                </StackPanel>
-            </StackPanel>
-        </Grid>
-        <Grid
-            x:Name="LogoGrid"
-            Grid.Row="0"
-            Visibility="Collapsed">
-            <StackPanel
-                Margin="0,50,0,0"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <Image
-                    Height="80"
-                    Source="/Resources/Images/UIIconSmall.png"
-                    Stretch="Uniform" />
-                <StackPanel Orientation="Vertical">
-                    <TextBlock
-                        x:Name="tAG1"
-                        Margin="0,5,10,0"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Bottom"
-                        FontFamily="{DynamicResource YaroOpBold}"
-                        FontSize="42"
-                        Foreground="White"
-                        Text="AItraVera" />
-                    <Border
-                        Width="{Binding ElementName=tAG1, Path=ActualWidth}"
-                        Height="2"
-                        Margin="-8,-8,0,0"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Stretch"
-                        Background="White" />
-                    <TextBlock
-                        Margin="0,0,0,5"
-                        VerticalAlignment="Center"
-                        FontFamily="{DynamicResource Furore}"
-                        FontSize="13"
-                        Foreground="#21a1db"
-                        Text="SECURE RDP/UNC CONTROLLER" />
-                </StackPanel>
-            </StackPanel>
-
-        </Grid>
-        <Border
-            x:Name="ContentBorder"
-            Grid.Row="1"
-            Width="500"
-            MinHeight="300"
-            Margin="0,30,0,0"
-            Padding="30"
-            HorizontalAlignment="Center"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Button
+            x:Name="CloseButton"
+            Grid.Column="1"
+            Width="30"
+            Height="Auto"
+            Margin="0,15,15,0"
             VerticalAlignment="Top"
-            Background="#FFFFFF"
-            CornerRadius="5"
-            Visibility="Collapsed">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Grid x:Name="UninstallationGrid" Visibility="Collapsed">
-                        <StackPanel
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            TextBlock.TextAlignment="Left">
-                            <TextBlock
-                                x:Name="UninstallingTextBlock"
-                                Margin="0,30,0,10"
-                                FontSize="28"
-                                FontWeight="Bold"
-                                TextWrapping="Wrap">
-                                Software is already installed
-                            </TextBlock>
-                            <Separator
-                                Height="2"
-                                Margin="0,0,0,20"
-                                Background="Black" />
-                            <Border Height="20">
-                                <ProgressBar
-                                    x:Name="UnInstallingProgressBar"
-                                    Background="LightGray"
-                                    BorderBrush="LightGray"
-                                    BorderThickness="1"
-                                    IsIndeterminate="True"
-                                    Visibility="Collapsed">
-                                    <ProgressBar.Foreground>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                            <GradientStop Offset="0.0" Color="#20A1DB" />
-                                            <GradientStop Offset="1.0" Color="#0D88CC" />
-                                        </LinearGradientBrush>
-                                    </ProgressBar.Foreground>
-                                </ProgressBar>
-                            </Border>
-                        </StackPanel>
-                    </Grid>
-                    <Grid
-                        x:Name="FolderSelectionGrid"
-                        Margin="20"
-                        Visibility="Collapsed">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
+            HorizontalContentAlignment="Center"
+            Background="Transparent"
+            BorderThickness="0"
+            Click="CloseButtonClick"
+            Cursor="Hand"
+            Style="{DynamicResource ButtonStyle1}"
+            ToolTip="Close"
+            Visibility="Visible">
+            <Button.Content>
+                <Path
+                    Data="M16.3333 16.3333L1.66666 1.66663M16.3333 1.66663L1.66666 16.3333"
+                    Stroke="White"
+                    StrokeThickness="2" />
+            </Button.Content>
+        </Button>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid
+                x:Name="StartingGrid"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Visibility="Visible">
+                <StackPanel
+                    Margin="0,10,0,50"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Image
+                        Width="250"
+                        Height="250"
+                        Source="/Resources/Images/UIIcon1.png"
+                        Stretch="Uniform" />
+                    <StackPanel VerticalAlignment="Center" Orientation="Vertical">
                         <TextBlock
-                            Grid.Row="0"
+                            x:Name="tAG"
+                            Margin="5,5,10,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            FontFamily="{DynamicResource YaroOpBold}"
+                            FontSize="100"
+                            Foreground="White"
+                            Text="AItraVera" />
+                        <Border
+                            Width="{Binding ElementName=tAG, Path=ActualWidth}"
+                            Height="5"
+                            Margin="0,-8,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Stretch"
+                            Background="White" />
+                        <TextBlock
+                            Margin="10,0,0,5"
                             VerticalAlignment="Center"
-                            FontFamily="{StaticResource Helvetica_Bold}"
-                            FontSize="32"
-                            FontWeight="Bold"
-                            Text="Destination Folder" />
-                        <Rectangle
-                            Grid.Row="1"
-                            Height="1"
-                            Margin="0,25"
-                            Fill="#000000" />
-                        <StackPanel Grid.Row="2">
-                            <Label
-                                Padding="0"
-                                Content="Click next to install to the default folder or click Change"
-                                FontFamily="{DynamicResource Helvetica}"
-                                FontSize="16"
-                                FontWeight="Regular" />
-                            <Label
-                                Padding="0"
-                                Content="to choose another folder."
-                                FontFamily="{DynamicResource Helvetica}"
-                                FontSize="16"
-                                FontWeight="Regular" />
-                        </StackPanel>
-                        <StackPanel Grid.Row="3" Margin="0,20,0,0">
-                            <Label
-                                Margin="0,10,0,0"
-                                Padding="0"
-                                Content="Install Virto Sign to:"
-                                FontSize="16" />
-                            <Grid Margin="0,5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                            FontFamily="{DynamicResource Furore}"
+                            FontSize="30"
+                            FontWeight="DemiBold"
+                            Foreground="#21a1db"
+                            Text="SECURE RDP/UNC CONTROLLER" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            <Grid
+                x:Name="LogoGrid"
+                Grid.Row="0"
+                Visibility="Collapsed">
+                <StackPanel
+                    Margin="0,50,0,0"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Image
+                        Height="80"
+                        Source="/Resources/Images/UIIconSmall.png"
+                        Stretch="Uniform" />
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock
+                            x:Name="tAG1"
+                            Margin="0,5,10,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            FontFamily="{DynamicResource YaroOpBold}"
+                            FontSize="42"
+                            Foreground="White"
+                            Text="AItraVera" />
+                        <Border
+                            Width="{Binding ElementName=tAG1, Path=ActualWidth}"
+                            Height="2"
+                            Margin="-8,-8,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Stretch"
+                            Background="White" />
+                        <TextBlock
+                            Margin="0,0,0,5"
+                            VerticalAlignment="Center"
+                            FontFamily="{DynamicResource Furore}"
+                            FontSize="13"
+                            Foreground="#21a1db"
+                            Text="SECURE RDP/UNC CONTROLLER" />
+                    </StackPanel>
+                </StackPanel>
+
+            </Grid>
+            <Border
+                x:Name="ContentBorder"
+                Grid.Row="1"
+                Width="500"
+                MinHeight="300"
+                Margin="0,30,0,0"
+                Padding="30"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Background="#FFFFFF"
+                CornerRadius="5"
+                Visibility="Collapsed">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid x:Name="UninstallationGrid" Visibility="Collapsed">
+                            <StackPanel
+                                Margin="40,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                TextBlock.TextAlignment="Left">
+                                <Image
+                                    x:Name="CompletedImage"
+                                    Width="100"
+                                    Height="110"
+                                    Margin="0,30,0,10"
+                                    Source="pack://application:,,,/Resources/Images/successicon.png"
+                                    Visibility="Collapsed" />
+                                <TextBlock
+                                    x:Name="UninstallingTextBlock"
+                                    Margin="0,30,0,10"
+                                    FontSize="28"
+                                    FontWeight="Bold"
+                                    TextWrapping="Wrap">
+                                    Software is already installed
+                                </TextBlock>
+                                <Label
+                                    x:Name="RemoveAltraveraTextBlock1"
+                                    Margin="0,10"
+                                    Padding="0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Content="Remove AltraVera from your computer."
+                                    FontSize="13"
+                                    Visibility="Collapsed" />
+                                <Separator
+                                    Height="2"
+                                    x:Name="UninstallSeparator"
+                                    Margin="0,0,0,20"
+                                    Background="Black" />
+                                <Label
+                                    x:Name="RemoveAltraveraTextBlock2"
+                                    Margin="0,20,0,0"
+                                    Padding="0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Content="AltraVera will be uninstalled from the following folder."
+                                    FontSize="15"
+                                    Visibility="Collapsed" />
+                                <Label
+                                    x:Name="RemoveAltraveraTextBlock3"
+                                    Margin="0,5,0,20"
+                                    Padding="0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Content="Click Next to continue."
+                                    FontSize="15"
+                                    Visibility="Collapsed" />
+                                <Label
+                                    x:Name="RemoveAltraveraTextBlock4"
+                                    Margin="0,10"
+                                    Padding="0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Content="Uninstalling AltraVera from:"
+                                    FontSize="15"
+                                    Visibility="Collapsed" />
                                 <TextBox
                                     x:Name="pathTextbox"
                                     Grid.Column="0"
                                     Height="30"
+                                    Margin="0,10"
                                     VerticalContentAlignment="Center"
                                     BorderBrush="#BCBEC0"
+                                    FontSize="13"
                                     Foreground="#BCBEC0"
+                                    IsReadOnly="True"
                                     Style="{StaticResource TextBoxWithCornerRadiusStyle}"
-                                    Text="{Binding DefaultPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    Visibility="Collapsed" />
+                                <TextBlock
+                                    x:Name="UninstallingProgressText"
+                                    Margin="0,0,0,10"
+                                    FontSize="14"
+                                    FontWeight="SemiBold"
+                                    TextWrapping="Wrap"
+                                    Visibility="Collapsed">
+                                    Process...
+                                </TextBlock>
+                                <Border
+                                    x:Name="UnInstallingProgressBar"
+                                    Height="20"
+                                    Visibility="Collapsed">
+                                    <ProgressBar
+                                        Background="LightGray"
+                                        BorderBrush="LightGray"
+                                        BorderThickness="1"
+                                        IsIndeterminate="True">
+                                        <ProgressBar.Foreground>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                <GradientStop Offset="0.0" Color="#20A1DB" />
+                                                <GradientStop Offset="1.0" Color="#0D88CC" />
+                                            </LinearGradientBrush>
+                                        </ProgressBar.Foreground>
+                                    </ProgressBar>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                        <Grid
+                            x:Name="FolderSelectionGrid"
+                            Margin="20"
+                            Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource Helvetica_Bold}"
+                                FontSize="32"
+                                FontWeight="Bold"
+                                Text="Destination Folder" />
+                            <Rectangle
+                                Grid.Row="1"
+                                Height="1"
+                                Margin="0,25"
+                                Fill="#000000" />
+                            <StackPanel Grid.Row="2">
+                                <Label
+                                    Padding="0"
+                                    Content="Click next to install to the default folder or click Change"
+                                    FontFamily="{DynamicResource Helvetica}"
+                                    FontSize="16"
+                                    FontWeight="Regular" />
+                                <Label
+                                    Padding="0"
+                                    Content="to choose another folder."
+                                    FontFamily="{DynamicResource Helvetica}"
+                                    FontSize="16"
+                                    FontWeight="Regular" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="3" Margin="0,20,0,0">
+                                <Label
+                                    Margin="0,10,0,0"
+                                    Padding="0"
+                                    Content="Install AltraVera to:"
+                                    FontSize="16" />
+                                <Grid Margin="0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox
+                                        x:Name="pathInstalledTextbox"
+                                        Grid.Column="0"
+                                        Height="30"
+                                        VerticalContentAlignment="Center"
+                                        BorderBrush="#BCBEC0"
+                                        Foreground="#BCBEC0"
+                                        Style="{StaticResource TextBoxWithCornerRadiusStyle}"
+                                        Text="{Binding DefaultPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                                <Button
-                                    Name="Browsebtn"
-                                    Grid.Column="1"
-                                    Height="32"
-                                    Margin="-5,0,0,0"
+                                    <Button
+                                        Name="Browsebtn"
+                                        Grid.Column="1"
+                                        Height="32"
+                                        Margin="-5,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        BorderThickness="0"
+                                        Click="Browsebtn_Click"
+                                        Content="Change"
+                                        Cursor="Hand"
+                                        FontSize="11"
+                                        Foreground="#282828">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Opacity" Value="1" />
+                                                <Setter Property="Background" Value="#FFFFFF" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Border
+                                                                Padding="20,5"
+                                                                Background="{TemplateBinding Background}"
+                                                                BorderBrush="#EBEBEB"
+                                                                BorderThickness="2"
+                                                                CornerRadius="0,3,3,0">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                            </Border>
+                                                        </ControlTemplate>
+
+                                                    </Setter.Value>
+
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background">
+                                                            <Setter.Value>
+                                                                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                                                    <GradientStop Offset="1.2" Color="#a6c94a" />
+                                                                    <GradientStop Offset="0" Color="#69be9b" />
+                                                                    <LinearGradientBrush.RelativeTransform>
+                                                                        <RotateTransform Angle="85" />
+                                                                    </LinearGradientBrush.RelativeTransform>
+                                                                </LinearGradientBrush>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Setter Property="Foreground" Value="White" />
+
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                        <Grid x:Name="WelcomeGrid" Visibility="Collapsed">
+                            <StackPanel
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                TextBlock.TextAlignment="Left">
+                                <TextBlock
+                                    Margin="0,30,0,10"
+                                    FontSize="28"
+                                    FontWeight="Bold"
+                                    TextWrapping="Wrap">
+                                    Welcome to the AltraVera Setup Wizard
+                                </TextBlock>
+                                <Separator
+                                    Height="2"
+                                    Margin="0,0,0,20"
+                                    Background="Black" />
+                                <TextBlock
+                                    x:Name="Heading1"
+                                    Margin="0,0,0,20"
+                                    FontSize="14"
+                                    FontWeight="Normal"
+                                    TextWrapping="Wrap">
+                                    This wizard will guide you through the installation of AltraVera.
+                                </TextBlock>
+                                <TextBlock
+                                    x:Name="Heading2"
+                                    Margin="0,0,0,20"
+                                    FontSize="14"
+                                    FontWeight="Normal"
+                                    TextWrapping="Wrap">
+                                    It is recommended that you close all other applications before starting Setup. This will make it possible to update relevant system files without having to reboot your computer.
+                                </TextBlock>
+                                <TextBlock
+                                    x:Name="Heading3"
+                                    Margin="0,0,0,40"
+                                    FontSize="14"
+                                    FontWeight="Normal"
+                                    TextWrapping="Wrap">
+                                    Click Install Now to continue.
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                        <Grid
+                            x:Name="InstallingGrid"
+                            Margin="30,0,30,0"
+                            Visibility="Collapsed">
+                            <StackPanel
+                                MaxWidth="400"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                TextBlock.TextAlignment="Left">
+                                <TextBlock
+                                    Margin="0,0,0,10"
+                                    FontSize="28"
+                                    FontWeight="Bold"
+                                    TextWrapping="Wrap">
+                                    Installing
+                                </TextBlock>
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    FontSize="14"
+                                    FontWeight="Normal"
+                                    TextWrapping="Wrap">
+                                    Please wait while we are installing AltraVera on your Computer.
+                                </TextBlock>
+                                <Separator
+                                    Height="2"
+                                    Margin="0,0,0,10"
+                                    Background="Black" />
+                                <TextBlock
+                                    Margin="0,0,0,10"
+                                    FontSize="14"
+                                    FontWeight="SemiBold"
+                                    TextWrapping="Wrap">
+                                    Process...
+                                </TextBlock>
+                                <Border Height="20">
+                                    <ProgressBar
+                                        x:Name="ProgressBar"
+                                        Background="LightGray"
+                                        BorderBrush="LightGray"
+                                        BorderThickness="1">
+                                        <ProgressBar.Foreground>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                <GradientStop Offset="0.0" Color="#20A1DB" />
+                                                <GradientStop Offset="1.0" Color="#0D88CC" />
+                                            </LinearGradientBrush>
+                                        </ProgressBar.Foreground>
+                                    </ProgressBar>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                        <Grid
+                            x:Name="SuccessCompletion"
+                            Margin="0,0,0,35"
+                            Visibility="Collapsed">
+                            <StackPanel Orientation="Vertical">
+                                <Image
+                                    Width="100"
+                                    Height="110"
+                                    Margin="0,30,0,10"
+                                    Source="pack://application:,,,/Resources/Images/successicon.png" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    FontFamily="{DynamicResource Helvetica}"
+                                    FontSize="31"
+                                    FontWeight="Bold"
+                                    Foreground="#000000"
+                                    Text="Installation Successful" />
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid x:Name="LicensingGrid" Visibility="Collapsed">
+                            <StackPanel>
+                                <TextBlock
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    BorderThickness="0"
-                                    Click="Browsebtn_Click"
-                                    Content="Change"
+                                    FontFamily="{DynamicResource Helvetica}"
+                                    FontSize="30"
+                                    FontWeight="Bold"
+                                    Text="License Agreement" />
+                                <TextBlock
+                                    Margin="0,10"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Helvetica}"
+                                    FontSize="13"
+                                    Text="Please review Licence Agreement of AltraVera before installation" />
+                                <Border BorderBrush="#000000" BorderThickness="1" />
+                                <TextBlock
+                                    Margin="0,10"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Helvetica}"
+                                    FontSize="16"
+                                    Text="Please scroll down to see rest of the agreement." />
+                                <Border
+                                    Margin="0"
+                                    BorderBrush="Gray"
+                                    BorderThickness="0.8"
+                                    CornerRadius="5">
+                                    <ScrollViewer
+                                        Height="230"
+                                        Margin="2"
+                                        Padding="15"
+                                        HorizontalScrollBarVisibility="Disabled"
+                                        VerticalScrollBarVisibility="Auto">
+                                        <TextBlock
+                                            FontFamily="{DynamicResource Helvetica}"
+                                            FontSize="10"
+                                            TextWrapping="WrapWithOverflow">
+                                            IMPORTANT: BY DOWNLOADING, INSTALLING, ACCESSING, OR USING THE
+                                            SOFTWARE, YOU (A) ACKNOWLEDGE THAT YOU HAVE READ AND UNDERSTAND
+                                            THIS AGREEMENT; (B) REPRESENT THAT YOU ARE OF LEGAL AGE TO ENTER
+                                            INTO A BINDING AGREEMENT; AND (C) ACCEPT THIS AGREEMENT AND AGREE
+                                            THAT YOU ARE LEGALLY BOUND BY ITS TERMS. IF YOU DO NOT AGREE TO
+                                            THESE TERMS, DO NOT DOWNLOAD, INSTALL, OR USE THE SOFTWARE AND
+                                            DELETE IT FROM YOUR DEVICE.<LineBreak />
+                                            <LineBreak />
+                                            1. LICENSE GRANT<LineBreak />
+                                            Subject to your compliance with the terms of this Agreement, AltraVera grants you a limited, non-exclusive, non-transferable, non-sublicensable, and revocable license to:<LineBreak />
+                                            <LineBreak />
+                                            (a) Download and install the Software on computers or devices that you own or control.<LineBreak />
+                                            <LineBreak />
+                                            (b) Use the Software solely for your internal business or personal purposes to establish remote desktop connections via supported protocols like RDP and VNC.<LineBreak />
+                                            <LineBreak />
+                                            2. LICENSE RESTRICTIONS<LineBreak />
+                                            You shall not:<LineBreak />
+                                            <LineBreak />
+                                            (a) Copy, modify, create derivative works of, reverse engineer, decompile, disassemble, or otherwise attempt to derive the source code of the Software.<LineBreak />
+                                            <LineBreak />
+                                            (b) Rent, lease, lend, sell, sublicense, assign, distribute, publish, transfer, or otherwise make the Software available to any third party.<LineBreak />
+                                            <LineBreak />
+                                            (c) Use the Software to violate any law, statute, ordinance, or regulation, including laws governing data privacy and cybersecurity.<LineBreak />
+                                            <LineBreak />
+                                            (d) Use the Software to access any computer system without explicit authorization from the system's owner.<LineBreak />
+                                            <LineBreak />
+                                            (e) Remove, alter, or obscure any proprietary notices (including copyright and trademark notices) contained in the Software.<LineBreak />
+                                            <LineBreak />
+                                            (f) Use the Software for any purpose that is competitive with AltraVera's business.<LineBreak />
+                                            <LineBreak />
+                                            3. YOUR RESPONSIBILITIES &amp; ACCEPTABLE USE<LineBreak />
+                                            <LineBreak />
+                                            (a) Authorization: You are solely responsible for ensuring you have all necessary rights, permissions, and authorizations to access and control any remote computer or system through the Software.<LineBreak />
+                                            <LineBreak />
+                                            (b) Security: You are responsible for maintaining the confidentiality of your login credentials, connection details, and any passwords used within the Software. You agree to notify us immediately of any unauthorized use of your account.<LineBreak />
+                                            <LineBreak />
+                                            (c) Prohibited Conduct: You agree not to use the Software for any illegal, harmful, or abusive purpose, including but not limited to:
+                                            Gaining unauthorized access to any computer, network, or data.
+                                            Transmitting viruses, malware, or other destructive code.
+                                            Interfering with or disrupting the integrity or performance of any network or system.
+                                            Harassing, stalking, or harming another individual or entity.<LineBreak />
+                                            <LineBreak />
+                                            4. INTELLECTUAL PROPERTY RIGHTS
+                                            The Software is licensed, not sold. AltraVera and our licensors retain all right, title, and interest in and to the Software, including all copyrights, patents, trade secrets, trademarks, and other intellectual property rights. The AltraVera name, logo, and all related product and service names are trademarks of AltraVera.<LineBreak />
+                                            <LineBreak />
+                                            5. COLLECTION AND USE OF DATA
+                                            Your privacy is important to us. Our Privacy Policy (available at [Insert Link to Your Privacy Policy]) explains how we collect, use, and protect the information you provide to us. By using the Software, you consent to such data practices.<LineBreak />
+                                            <LineBreak />
+                                            6. DISCLAIMER OF WARRANTIES
+                                            THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT ANY WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. ALTRAVERA EXPLICITLY DISCLAIMS ALL IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. ALTRAVERA DOES NOT WARRANT THAT THE SOFTWARE WILL MEET YOUR REQUIREMENTS, OPERATE WITHOUT INTERRUPTION, OR BE ERROR-FREE.<LineBreak />
+                                            <LineBreak />
+                                            7. LIMITATION OF LIABILITY
+                                            TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL ALTRAVERA, ITS DIRECTORS, EMPLOYEES, OR LICENSORS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS OR REVENUES, WHETHER INCURRED DIRECTLY OR INDIRECTLY, OR ANY LOSS OF DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM:<LineBreak />
+                                            <LineBreak />
+                                            (A) YOUR ACCESS TO OR USE OF OR INABILITY TO ACCESS OR USE THE SOFTWARE;<LineBreak />
+                                            <LineBreak />
+                                            (B) ANY UNAUTHORIZED ACCESS TO OR USE OF OUR SERVERS AND/OR ANY PERSONAL INFORMATION STORED THEREIN;<LineBreak />
+                                            <LineBreak />
+                                            (C) ANY CONDUCT OR CONTENT OF ANY THIRD PARTY ON THE SOFTWARE.
+                                            OUR TOTAL AGGREGATE LIABILITY ARISING OUT OF THIS AGREEMENT SHALL NOT EXCEED THE AMOUNT YOU HAVE PAID TO ALTRAVERA IN THE SIX (6) MONTHS PRIOR TO THE EVENT GIVING RISE TO THE LIABILITY.<LineBreak />
+                                            <LineBreak />
+                                            8. INDEMNIFICATION
+                                            You agree to indemnify, defend, and hold harmless AltraVera and its officers, directors, employees, and agents from and against any and all claims, damages, obligations, losses, liabilities, costs, and expenses (including reasonable attorney's fees) arising from: (a) your use of and access to the Software; (b) your violation of any term of this Agreement; or (c) your violation of any third-party right, including without limitation any copyright, property, or privacy right.<LineBreak />
+                                            <LineBreak />
+                                            9. TERM AND TERMINATION
+                                            This Agreement remains in effect until terminated by you or us. You may terminate this Agreement at any time by permanently deleting the Software from all devices. We may terminate this Agreement immediately if you fail to comply with any term. Upon termination, all licenses granted will immediately cease, and you must cease all use of the Software and delete all copies.<LineBreak />
+                                            <LineBreak />
+                                            10. GOVERNING LAW AND DISPUTE RESOLUTION
+                                            This Agreement shall be governed by and construed in accordance with the laws of [Your State/Country, e.g., the State of Delaware] without regard to its conflict of law principles. Any legal action or proceeding arising under this Agreement will be brought exclusively in the federal or state courts located in [Your City, State, e.g., Wilmington, Delaware].<LineBreak />
+                                            <LineBreak />
+                                            11. MISCELLANEOUS
+                                            This Agreement constitutes the entire agreement between you and AltraVera regarding the Software. If any provision of this Agreement is held to be unenforceable, the remaining provisions will remain in full force and effect. Our failure to enforce any right or provision of this Agreement will not be considered a waiver of those rights.</TextBlock>
+                                    </ScrollViewer>
+                                </Border>
+                                <CheckBox
+                                    Margin="0,10"
+                                    Checked="OnChecked"
                                     Cursor="Hand"
-                                    FontSize="11"
-                                    Foreground="#282828">
-                                    <Button.Style>
-                                        <Style TargetType="{x:Type Button}">
-                                            <Setter Property="Opacity" Value="1" />
-                                            <Setter Property="Background" Value="#FFFFFF" />
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="{x:Type Button}">
-                                                        <Border
-                                                            Padding="20,5"
-                                                            Background="{TemplateBinding Background}"
-                                                            BorderBrush="#EBEBEB"
-                                                            BorderThickness="2"
-                                                            CornerRadius="0,3,3,0">
-                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                        </Border>
-                                                    </ControlTemplate>
-
-                                                </Setter.Value>
-
-                                            </Setter>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background">
-                                                        <Setter.Value>
-                                                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
-                                                                <GradientStop Offset="1.2" Color="#a6c94a" />
-                                                                <GradientStop Offset="0" Color="#69be9b" />
-                                                                <LinearGradientBrush.RelativeTransform>
-                                                                    <RotateTransform Angle="85" />
-                                                                </LinearGradientBrush.RelativeTransform>
-                                                            </LinearGradientBrush>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Setter Property="Foreground" Value="White" />
-
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                </Button>
-
-                            </Grid>
-                        </StackPanel>
+                                    FontSize="13"
+                                    Unchecked="OnUnchecked">
+                                    <CheckBox.Content>
+                                        <TextBlock>
+                                            <Run Text="I Accept and agree with all the" />
+                                            <Run Foreground="#0474A6" Text="Terms &#38; Conditions" />
+                                        </TextBlock>
+                                    </CheckBox.Content>
+                                </CheckBox>
+                            </StackPanel>
+                        </Grid>
                     </Grid>
-                    <Grid x:Name="WelcomeGrid" Visibility="Collapsed">
-                        <StackPanel
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            TextBlock.TextAlignment="Left">
-                            <TextBlock
-                                Margin="0,30,0,10"
-                                FontSize="28"
-                                FontWeight="Bold"
-                                TextWrapping="Wrap">
-                                Welcome to the Virto Sign Setup Wizard
-                            </TextBlock>
-                            <Separator
-                                Height="2"
-                                Margin="0,0,0,20"
-                                Background="Black" />
-                            <TextBlock
-                                x:Name="Heading1"
-                                Margin="0,0,0,20"
-                                FontSize="14"
-                                FontWeight="Normal"
-                                TextWrapping="Wrap">
-                                This wizard will guide you through the installation of Virto Sign.
-                            </TextBlock>
-                            <TextBlock
-                                x:Name="Heading2"
-                                Margin="0,0,0,20"
-                                FontSize="14"
-                                FontWeight="Normal"
-                                TextWrapping="Wrap">
-                                It is recommended that you close all other applications before starting Setup. This will make it possible to update relevant system files without having to reboot your computer.
-                            </TextBlock>
-                            <TextBlock
-                                x:Name="Heading3"
-                                Margin="0,0,0,40"
-                                FontSize="14"
-                                FontWeight="Normal"
-                                TextWrapping="Wrap">
-                                Click Install Now to continue.
-                            </TextBlock>
-                        </StackPanel>
-                    </Grid>
-                    <Grid
-                        x:Name="InstallingGrid"
-                        Margin="30,0,30,0"
-                        Visibility="Collapsed">
-                        <StackPanel
-                            MaxWidth="400"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            TextBlock.TextAlignment="Left">
-                            <TextBlock
-                                Margin="0,0,0,10"
-                                FontSize="28"
-                                FontWeight="Bold"
-                                TextWrapping="Wrap">
-                                Installing
-                            </TextBlock>
-                            <TextBlock
-                                Margin="0,0,0,20"
-                                FontSize="14"
-                                FontWeight="Normal"
-                                TextWrapping="Wrap">
-                                Please wait while we are installing Virto Sign on your Computer.
-                            </TextBlock>
-                            <Separator
-                                Height="2"
-                                Margin="0,0,0,10"
-                                Background="Black" />
-                            <TextBlock
-                                Margin="0,0,0,10"
-                                FontSize="14"
-                                FontWeight="SemiBold"
-                                TextWrapping="Wrap">
-                                Process...
-                            </TextBlock>
-                            <Border Height="20">
-                                <ProgressBar
-                                    x:Name="ProgressBar"
-                                    Background="LightGray"
-                                    BorderBrush="LightGray"
-                                    BorderThickness="1">
-                                    <ProgressBar.Foreground>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                            <GradientStop Offset="0.0" Color="#20A1DB" />
-                                            <GradientStop Offset="1.0" Color="#0D88CC" />
-                                        </LinearGradientBrush>
-                                    </ProgressBar.Foreground>
-                                </ProgressBar>
-                            </Border>
-                        </StackPanel>
-                    </Grid>
-                    <Grid
-                        x:Name="SuccessCompletion"
-                        Margin="0,0,0,35"
-                        Visibility="Collapsed">
-                        <StackPanel Orientation="Vertical">
-                            <Image
-                                Width="100"
-                                Height="110"
-                                Margin="0,30,0,10"
-                                Source="pack://application:,,,/Resources/Images/successicon.png" />
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                FontFamily="{DynamicResource Helvetica}"
-                                FontSize="31"
-                                FontWeight="Bold"
-                                Foreground="#000000"
-                                Text="Installation Successful" />
-                        </StackPanel>
-                    </Grid>
-
-                    <Grid x:Name="LicensingGrid" Visibility="Collapsed">
-                        <StackPanel>
-                            <TextBlock
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                FontFamily="{DynamicResource Helvetica}"
-                                FontSize="30"
-                                FontWeight="Bold"
-                                Text="License Agreement" />
-                            <TextBlock
-                                Margin="0,10"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                FontFamily="{DynamicResource Helvetica}"
-                                FontSize="13"
-                                Text="Please review Licence Agreement of Virto Sign before installation" />
-                            <Border BorderBrush="#000000" BorderThickness="1" />
-                            <TextBlock
-                                Margin="0,10"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                FontFamily="{DynamicResource Helvetica}"
-                                FontSize="16"
-                                Text="Please scroll down to see rest of the agreement." />
-                            <Border
-                                Margin="0"
-                                BorderBrush="Gray"
-                                BorderThickness="0.8"
-                                CornerRadius="5">
-                                <ScrollViewer
-                                    Height="230"
-                                    Margin="2"
-                                    Padding="15"
-                                    HorizontalScrollBarVisibility="Disabled"
-                                    VerticalScrollBarVisibility="Auto">
-                                    <TextBlock
-                                        FontFamily="{DynamicResource Helvetica}"
-                                        FontSize="9"
-                                        TextWrapping="WrapWithOverflow">
-                                        IMPORTANT: BY DOWNLOADING, INSTALLING, ACCESSING, OR USING THE
-                                        SOFTWARE, YOU (A) ACKNOWLEDGE THAT YOU HAVE READ AND UNDERSTAND
-                                        THIS AGREEMENT; (B) REPRESENT THAT YOU ARE OF LEGAL AGE TO ENTER
-                                        INTO A BINDING AGREEMENT; AND (C) ACCEPT THIS AGREEMENT AND AGREE
-                                        THAT YOU ARE LEGALLY BOUND BY ITS TERMS. IF YOU DO NOT AGREE TO
-                                        THESE TERMS, DO NOT DOWNLOAD, INSTALL, OR USE THE SOFTWARE AND
-                                        DELETE IT FROM YOUR DEVICE.<LineBreak />
-                                        <LineBreak />
-                                        1. LICENSE GRANT<LineBreak />
-                                        Subject to your compliance with the terms of this Agreement, Virto Sign grants you a limited, non-exclusive, non-transferable, non-sublicensable, and revocable license to:<LineBreak />
-                                        <LineBreak />
-                                        (a) Download and install the Software on computers or devices that you own or control.<LineBreak />
-                                        <LineBreak />
-                                        (b) Use the Software solely for your internal business or personal purposes to establish remote desktop connections via supported protocols like RDP and VNC.<LineBreak />
-                                        <LineBreak />
-                                        2. LICENSE RESTRICTIONS<LineBreak />
-                                        You shall not:<LineBreak />
-                                        <LineBreak />
-                                        (a) Copy, modify, create derivative works of, reverse engineer, decompile, disassemble, or otherwise attempt to derive the source code of the Software.<LineBreak />
-                                        <LineBreak />
-                                        (b) Rent, lease, lend, sell, sublicense, assign, distribute, publish, transfer, or otherwise make the Software available to any third party.<LineBreak />
-                                        <LineBreak />
-                                        (c) Use the Software to violate any law, statute, ordinance, or regulation, including laws governing data privacy and cybersecurity.<LineBreak />
-                                        <LineBreak />
-                                        (d) Use the Software to access any computer system without explicit authorization from the system's owner.<LineBreak />
-                                        <LineBreak />
-                                        (e) Remove, alter, or obscure any proprietary notices (including copyright and trademark notices) contained in the Software.<LineBreak />
-                                        <LineBreak />
-                                        (f) Use the Software for any purpose that is competitive with Virto Sign's business.<LineBreak />
-                                        <LineBreak />
-                                        3. YOUR RESPONSIBILITIES &amp; ACCEPTABLE USE<LineBreak />
-                                        <LineBreak />
-                                        (a) Authorization: You are solely responsible for ensuring you have all necessary rights, permissions, and authorizations to access and control any remote computer or system through the Software.<LineBreak />
-                                        <LineBreak />
-                                        (b) Security: You are responsible for maintaining the confidentiality of your login credentials, connection details, and any passwords used within the Software. You agree to notify us immediately of any unauthorized use of your account.<LineBreak />
-                                        <LineBreak />
-                                        (c) Prohibited Conduct: You agree not to use the Software for any illegal, harmful, or abusive purpose, including but not limited to:
-                                        Gaining unauthorized access to any computer, network, or data.
-                                        Transmitting viruses, malware, or other destructive code.
-                                        Interfering with or disrupting the integrity or performance of any network or system.
-                                        Harassing, stalking, or harming another individual or entity.<LineBreak />
-                                        <LineBreak />
-                                        4. INTELLECTUAL PROPERTY RIGHTS
-                                        The Software is licensed, not sold. Virto Sign and our licensors retain all right, title, and interest in and to the Software, including all copyrights, patents, trade secrets, trademarks, and other intellectual property rights. The Virto Sign name, logo, and all related product and service names are trademarks of Virto Sign.<LineBreak />
-                                        <LineBreak />
-                                        5. COLLECTION AND USE OF DATA
-                                        Your privacy is important to us. Our Privacy Policy (available at [Insert Link to Your Privacy Policy]) explains how we collect, use, and protect the information you provide to us. By using the Software, you consent to such data practices.<LineBreak />
-                                        <LineBreak />
-                                        6. DISCLAIMER OF WARRANTIES
-                                        THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT ANY WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. VIRTO SIGN EXPLICITLY DISCLAIMS ALL IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. VIRTO SIGN DOES NOT WARRANT THAT THE SOFTWARE WILL MEET YOUR REQUIREMENTS, OPERATE WITHOUT INTERRUPTION, OR BE ERROR-FREE.<LineBreak />
-                                        <LineBreak />
-                                        7. LIMITATION OF LIABILITY
-                                        TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL VIRTO SIGN, ITS DIRECTORS, EMPLOYEES, OR LICENSORS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS OR REVENUES, WHETHER INCURRED DIRECTLY OR INDIRECTLY, OR ANY LOSS OF DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM:<LineBreak />
-                                        <LineBreak />
-                                        (A) YOUR ACCESS TO OR USE OF OR INABILITY TO ACCESS OR USE THE SOFTWARE;<LineBreak />
-                                        <LineBreak />
-                                        (B) ANY UNAUTHORIZED ACCESS TO OR USE OF OUR SERVERS AND/OR ANY PERSONAL INFORMATION STORED THEREIN;<LineBreak />
-                                        <LineBreak />
-                                        (C) ANY CONDUCT OR CONTENT OF ANY THIRD PARTY ON THE SOFTWARE.
-                                        OUR TOTAL AGGREGATE LIABILITY ARISING OUT OF THIS AGREEMENT SHALL NOT EXCEED THE AMOUNT YOU HAVE PAID TO VIRTO SIGN IN THE SIX (6) MONTHS PRIOR TO THE EVENT GIVING RISE TO THE LIABILITY.<LineBreak />
-                                        <LineBreak />
-                                        8. INDEMNIFICATION
-                                        You agree to indemnify, defend, and hold harmless Virto Sign and its officers, directors, employees, and agents from and against any and all claims, damages, obligations, losses, liabilities, costs, and expenses (including reasonable attorney's fees) arising from: (a) your use of and access to the Software; (b) your violation of any term of this Agreement; or (c) your violation of any third-party right, including without limitation any copyright, property, or privacy right.<LineBreak />
-                                        <LineBreak />
-                                        9. TERM AND TERMINATION
-                                        This Agreement remains in effect until terminated by you or us. You may terminate this Agreement at any time by permanently deleting the Software from all devices. We may terminate this Agreement immediately if you fail to comply with any term. Upon termination, all licenses granted will immediately cease, and you must cease all use of the Software and delete all copies.<LineBreak />
-                                        <LineBreak />
-                                        10. GOVERNING LAW AND DISPUTE RESOLUTION
-                                        This Agreement shall be governed by and construed in accordance with the laws of [Your State/Country, e.g., the State of Delaware] without regard to its conflict of law principles. Any legal action or proceeding arising under this Agreement will be brought exclusively in the federal or state courts located in [Your City, State, e.g., Wilmington, Delaware].<LineBreak />
-                                        <LineBreak />
-                                        11. MISCELLANEOUS
-                                        This Agreement constitutes the entire agreement between you and Virto Sign regarding the Software. If any provision of this Agreement is held to be unenforceable, the remaining provisions will remain in full force and effect. Our failure to enforce any right or provision of this Agreement will not be considered a waiver of those rights.</TextBlock>
-                                </ScrollViewer>
-                            </Border>
-                            <CheckBox
-                                Margin="0,10"
-                                Checked="OnChecked"
-                                Cursor="Hand"
-                                FontSize="13"
-                                Unchecked="OnUnchecked">
-                                <CheckBox.Content>
-                                    <TextBlock>
-                                        <Run Text="I Accept and agree with all the" />
-                                        <Run Foreground="#0474A6" Text="Terms &#38; Conditions" />
-                                    </TextBlock>
-                                </CheckBox.Content>
-                            </CheckBox>
-                        </StackPanel>
-                    </Grid>
+                    <StackPanel
+                        x:Name="ButtonControl"
+                        Grid.Row="1"
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Button
+                            x:Name="NegativeButton"
+                            MinWidth="170"
+                            Margin="10,0,0,0"
+                            HorizontalAlignment="Stretch"
+                            Background="#0997D7"
+                            BorderThickness="0"
+                            Click="MovePrevious"
+                            Content="Done"
+                            FontFamily="{DynamicResource GilroyMedium}"
+                            FontSize="16"
+                            Foreground="White"
+                            Style="{DynamicResource ButtonStyle}" />
+                        <Button
+                            x:Name="PositiveButton"
+                            Grid.Column="1"
+                            MinWidth="170"
+                            Margin="15,0,10,0"
+                            HorizontalAlignment="Stretch"
+                            Background="#0474A6"
+                            BorderThickness="0"
+                            Click="MoveNext"
+                            Content="Launch"
+                            FontFamily="{DynamicResource GilroyMedium}"
+                            FontSize="16"
+                            Foreground="White"
+                            Style="{DynamicResource ButtonStyle}" />
+                    </StackPanel>
                 </Grid>
-                <StackPanel
-                    x:Name="ButtonControl"
-                    Grid.Row="1"
-                    Margin="10"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <Button
-                        x:Name="NegativeButton"
-                        MinWidth="170"
-                        Margin="10,0,0,0"
-                        HorizontalAlignment="Stretch"
-                        Background="#0997D7"
-                        BorderThickness="0"
-                        Click="MovePrevious"
-                        Content="Done"
-                        FontFamily="{DynamicResource GilroyMedium}"
-                        FontSize="16"
-                        Foreground="White"
-                        Style="{DynamicResource ButtonStyle}" />
-                    <Button
-                        x:Name="PositiveButton"
-                        Grid.Column="1"
-                        MinWidth="170"
-                        Margin="15,0,10,0"
-                        HorizontalAlignment="Stretch"
-                        Background="#0474A6"
-                        BorderThickness="0"
-                        Click="MoveNext"
-                        Content="Launch"
-                        FontFamily="{DynamicResource GilroyMedium}"
-                        FontSize="16"
-                        Foreground="White"
-                        Style="{DynamicResource ButtonStyle}" />
-                </StackPanel>
-            </Grid>
-        </Border>
+            </Border>
+        </Grid>
 
     </Grid>
 </Window>
