@@ -108,7 +108,7 @@ namespace CustomRDPInstaller
                     PositiveButton.Width = 300;
                     Heading1.Text = "Please wait while Setup Wizard prepares to guide you through the installation.";
                     Heading2.Visibility = Visibility.Collapsed;
-                    Heading3.Text = "Computing space requirements";
+                    Heading3.Text = "Computing space requirements ...";
                     StepCount += 1;
                     break;
                 case 2:
@@ -153,7 +153,7 @@ namespace CustomRDPInstaller
                     FolderSelectionGrid.Visibility = Visibility.Collapsed;
                     LicensingGrid.Visibility = Visibility.Collapsed;
                     NegativeButton.Content = "Cancel";
-                    InstallingGridTextBlock1.Text = "Please wait while we are installing AltraVera on your Computer.";
+                    InstallingGridTextBlock1.Text = "Please wait while we are installing AltraVera Service on your Computer.";
                     NegativeButton.Visibility = Visibility.Visible;
                     InstallingGrid.Visibility = Visibility.Visible;
                     isConnected = IsInternetAvailable();
@@ -288,7 +288,7 @@ namespace CustomRDPInstaller
                         pathTextbox.Visibility = Visibility.Collapsed;
                         UninstallingProgressText.Visibility = Visibility.Visible;
                         UnInstallingProgressBar.Visibility = Visibility.Visible;
-                        UninstallingTextBlock.Text = $"UnInstalling {Constants.ServiceName},Please wait a moment...";
+                        UninstallingTextBlock.Text = $"Uninstalling {Constants.ServiceName},Please wait a moment...";
                         await Constants.UninstallService(Constants.ServiceName);
                         await UnInstallByRegistry();
                         while (UnInstallingProgressBar.Value < UnInstallingProgressBar.Maximum)
@@ -298,7 +298,7 @@ namespace CustomRDPInstaller
                         }
                         UnInstallingProgressBar.Visibility = Visibility.Collapsed;
                         CompletedImage.Visibility = Visibility.Visible;
-                        UninstallingTextBlock.Text = "UnInstallation Completed";
+                        UninstallingTextBlock.Text = "Uninstallation Completed";
                         RemoveAltraveraTextBlock1.Text = $"{Constants.ServiceName} has been Successfully removed from your computer.";
                         UninstallSeparator.Visibility = Visibility.Collapsed;
                         UninstallingProgressText.Visibility = Visibility.Collapsed;
