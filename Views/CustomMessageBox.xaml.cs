@@ -59,9 +59,8 @@ namespace CustomRDPInstaller.Views
             }
             else
             {
-                IsOk = false;
+                IsOk = true;
                 MyWindow.Close();
-                Application.Current.Shutdown();
             }
 
         }
