@@ -1,5 +1,5 @@
 ﻿using AltraVeraInstaller.Utilities;
-using CustomRDPInstaller.Utilities;
+using AltraVeraHostInstaller.Utilities;
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;
@@ -19,7 +19,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using WindowsShortcutFactory;
 
-namespace CustomRDPInstaller
+namespace AltraVeraHostInstaller
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -312,6 +312,7 @@ namespace CustomRDPInstaller
             }
             else if(PositiveButton.Content.ToString() == "Finish")
             {
+                Constants.RunFolderDelete(Constants.InstallerFolder);
                 Application.Current.Shutdown();
             }
                 StepNext();
@@ -694,7 +695,7 @@ namespace CustomRDPInstaller
                 #region Remove Directory
                 try
                 {
-                    await Task.Run(async () =>
+                    await Task.Run( () =>
                     {
                         try
                         {
@@ -720,11 +721,7 @@ namespace CustomRDPInstaller
                     });
                 }
                 catch { }
-                finally
-                {
-                    FileUtilities.DeleteFile($"{Constants.InstallerFolder}\\{Constants.AssemblyName}.exe");
-                    DirectoryUtility.DeleteDirectory(InstalledLocation);
-                }
+                
                 #endregion
             }
             catch { }
@@ -753,6 +750,8 @@ namespace CustomRDPInstaller
                 var IsOk = DialogUtility.ShowMessageBoxModel(false, message, false, this);
                 if (IsOk)
                 {
+                    if(PositiveButton.Content.ToString() == "Finish")
+                        Constants.RunFolderDelete(Constants.InstallerFolder);
                     Application.Current.Shutdown();
                 }
             }

@@ -1,9 +1,9 @@
-﻿using CustomRDPInstaller.Views;
+﻿using AltraVeraHostInstaller.Views;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 
-namespace CustomRDPInstaller.Utilities
+namespace AltraVeraHostInstaller.Utilities
 {
     public class DialogUtility
     {

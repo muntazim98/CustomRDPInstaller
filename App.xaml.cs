@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace CustomRDPInstaller
+namespace AltraVeraHostInstaller
 {
     /// <summary>
     /// Interaction logic for App.xaml

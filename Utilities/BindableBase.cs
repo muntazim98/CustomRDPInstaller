@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace CustomRDPInstaller.Utilities
+namespace AltraVeraHostInstaller.Utilities
 {
     [Serializable]
     public class BindableBase : INotifyPropertyChanged

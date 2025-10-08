@@ -1,8 +1,8 @@
 ﻿<Application
-    x:Class="CustomRDPInstaller.App"
+    x:Class="AltraVeraHostInstaller.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:CustomRDPInstaller"
+    xmlns:local="clr-namespace:AltraVeraHostInstaller"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>

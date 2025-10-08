@@ -1,9 +1,9 @@
 ﻿<UserControl
-    x:Class="CustomRDPInstaller.Views.CustomMessageBox"
+    x:Class="AltraVeraHostInstaller.Views.CustomMessageBox"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:CustomRDPInstaller.Views"
+    xmlns:local="clr-namespace:AltraVeraHostInstaller.Views"
     Background="{x:Null}"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
     <Border

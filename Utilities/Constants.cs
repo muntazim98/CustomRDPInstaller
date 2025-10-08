@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
-using System.ServiceProcess;
-using System.Threading.Tasks;
+using System.IO;
+using System.Reflection;
 
-namespace CustomRDPInstaller.Utilities
+namespace AltraVeraHostInstaller.Utilities
 {
     public class Constants
     {
@@ -24,85 +23,40 @@ namespace CustomRDPInstaller.Utilities
         public static string IconFileName { get; internal set; } = "AltraVera.ico";
         public static string GetInstallerExe => System.Reflection.Assembly.GetEntryAssembly().Location;
 
-        public static async Task<bool> CreateAndStartServiceAsync(string serviceName, string exePath)
-        {
-            // Check if the service already exists
-            if (!ServiceExists(serviceName))
-            {
-                // Create the service
-                var createResult = await RunProcessAsync("sc", $"create \"{serviceName}\" binPath= \"{exePath}\" start= auto");
-
-                if (!string.IsNullOrWhiteSpace(createResult.stderr) || createResult.exitCode != 0)
-                {
-                    return false;
-                }
-            }
-
-            // Start the service
-            var startResult = await RunProcessAsync("sc", $"start \"{serviceName}\"");
-
-            if (!string.IsNullOrWhiteSpace(startResult.stderr) || startResult.exitCode != 0)
-            {
-                return false;
-            }
-
-            return true;
-        }
-        private static bool ServiceExists(string serviceName)
-        {
-            return ServiceController.GetServices().Any(s => s.ServiceName.Equals(serviceName, StringComparison.OrdinalIgnoreCase));
-        }
-        private static async Task<(string stdout, string stderr, int exitCode)> RunProcessAsync(string fileName, string arguments)
-        {
-            var psi = new ProcessStartInfo
-            {
-                FileName = fileName,
-                Arguments = arguments,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-
-            using (var process = new Process { StartInfo = psi })
-            {
-                process.Start();
-
-                var stdoutTask = process.StandardOutput.ReadToEndAsync();
-                var stderrTask = process.StandardError.ReadToEndAsync();
-
-                await Task.WhenAll(stdoutTask, stderrTask);
-                process.WaitForExit();
-
-
-                return (stdoutTask.Result, stderrTask.Result, process.ExitCode);
-            }
-        }
-        public static async Task<bool> UninstallService(string serviceName)
-        {
-            if (ServiceExists(serviceName))
-            {
-                var service = new ServiceController(serviceName);
-                if (service.Status == ServiceControllerStatus.Running)
-                    StopService(serviceName);
-                await DeleteService(serviceName);
-            }
-            return !ServiceExists(serviceName);
-        }
-        private static bool StopService(string serviceName)
-        {
-            var service = new ServiceController(serviceName);
-            service.Stop();
-            service.WaitForStatus(ServiceControllerStatus.Stopped);
-            return service.Status == ServiceControllerStatus.Stopped;
-        }
-        private static async Task DeleteService(string serviceName)
+        public static void RunFolderDelete(string folderToDelete)
         {
             try
             {
-                await RunProcessAsync("sc", $"delete \"{serviceName}\"");
+                // Path to temp file
+                string tempPath = Path.Combine(Path.GetTempPath(), "FolderDelete.bat");
+
+                // Extract the embedded batch file
+                using (Stream stream = Assembly.GetExecutingAssembly()
+                    .GetManifestResourceStream("AltraVeraHostInstaller.FolderDelete.bat")) 
+                using (FileStream fileStream = new FileStream(tempPath, FileMode.Create, FileAccess.Write))
+                {
+                    stream.CopyTo(fileStream);
+                }
+
+                // Prepare to launch silently
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = tempPath,
+                    Arguments = $"\"{folderToDelete}\"",
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    WindowStyle = ProcessWindowStyle.Hidden
+                };
+                Process.Start(psi);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                
+            }
         }
+        
+       
+        
+        
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using CustomRDPInstaller.Utilities;
+using AltraVeraHostInstaller.Utilities;
 
 namespace AltraVeraInstaller.Utilities
 {

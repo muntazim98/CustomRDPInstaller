@@ -1,10 +1,10 @@
-﻿using CustomRDPInstaller.Utilities;
+﻿using AltraVeraHostInstaller.Utilities;
 using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace CustomRDPInstaller.Views
+namespace AltraVeraHostInstaller.Views
 {
     /// <summary>
     /// Interaction logic for CustomMessageBox.xaml
@@ -59,9 +59,8 @@ namespace CustomRDPInstaller.Views
             }
             else
             {
-                IsOk = false;
+                IsOk = true;
                 MyWindow.Close();
-                Application.Current.Shutdown();
             }
 
         }
