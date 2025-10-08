@@ -108,7 +108,7 @@ namespace CustomRDPInstaller
                     PositiveButton.Width = 300;
                     Heading1.Text = "Please wait while Setup Wizard prepares to guide you through the installation.";
                     Heading2.Visibility = Visibility.Collapsed;
-                    Heading3.Text = "Computing space requirements ...";
+                    Heading3.Text = "Computing space requirements...";
                     StepCount += 1;
                     break;
                 case 2:
@@ -126,29 +126,29 @@ namespace CustomRDPInstaller
                     Heading3.Text = "Click Install Now to continue.";
                     StepCount += 1;
                     break;
+                //case 3:
+                //    WelcomeGrid.Visibility = Visibility.Collapsed;
+                //    FolderSelectionGrid.Visibility = Visibility.Visible;
+                //    NegativeButton.Content = "Cancel";
+                //    NegativeButton.Visibility = Visibility.Visible;
+                //    NegativeButton.Background = new SolidColorBrush(Colors.Black);
+                //    PositiveButton.Width = 170;
+                //    PositiveButton.Content = "Install";
+                //    StepCount += 1;
+                //    break;
+                //case 4:
+                //    WelcomeGrid.Visibility = Visibility.Collapsed;
+                //    FolderSelectionGrid.Visibility = Visibility.Collapsed;
+                //    LicensingGrid.Visibility = Visibility.Visible;
+                //    NegativeButton.Content = "Cancel";
+                //    NegativeButton.Visibility = Visibility.Visible;
+                //    NegativeButton.Background = new SolidColorBrush(Colors.Black);
+                //    PositiveButton.Width = 170;
+                //    PositiveButton.IsEnabled = false;
+                //    PositiveButton.Content = "Install";
+                //    StepCount += 1;
+                //    break;
                 case 3:
-                    WelcomeGrid.Visibility = Visibility.Collapsed;
-                    FolderSelectionGrid.Visibility = Visibility.Visible;
-                    NegativeButton.Content = "Cancel";
-                    NegativeButton.Visibility = Visibility.Visible;
-                    NegativeButton.Background = new SolidColorBrush(Colors.Black);
-                    PositiveButton.Width = 170;
-                    PositiveButton.Content = "Install";
-                    StepCount += 1;
-                    break;
-                case 4:
-                    WelcomeGrid.Visibility = Visibility.Collapsed;
-                    FolderSelectionGrid.Visibility = Visibility.Collapsed;
-                    LicensingGrid.Visibility = Visibility.Visible;
-                    NegativeButton.Content = "Cancel";
-                    NegativeButton.Visibility = Visibility.Visible;
-                    NegativeButton.Background = new SolidColorBrush(Colors.Black);
-                    PositiveButton.Width = 170;
-                    PositiveButton.IsEnabled = false;
-                    PositiveButton.Content = "Install";
-                    StepCount += 1;
-                    break;
-                case 5:
                     WelcomeGrid.Visibility = Visibility.Collapsed;
                     FolderSelectionGrid.Visibility = Visibility.Collapsed;
                     LicensingGrid.Visibility = Visibility.Collapsed;
@@ -180,7 +180,7 @@ namespace CustomRDPInstaller
                     InstallAltraVera();
                     StepCount += 1;
                     break;
-                case 6:
+                case 4:
                     WelcomeGrid.Visibility = Visibility.Collapsed;
                     FolderSelectionGrid.Visibility = Visibility.Collapsed;
                     LicensingGrid.Visibility = Visibility.Collapsed;
@@ -265,19 +265,19 @@ namespace CustomRDPInstaller
             }
             else if(PositiveButton.Content.ToString() == "Uninstall")
             {
-                if (UninstallStepCount == 1)
-                {
-                    UninstallingTextBlock.Text = "Uninstalling";
-                    RemoveAltraveraTextBlock1.Visibility = Visibility.Visible;
-                    RemoveAltraveraTextBlock2.Visibility = Visibility.Visible;
-                    RemoveAltraveraTextBlock3.Visibility = Visibility.Visible;
-                    RemoveAltraveraTextBlock4.Visibility = Visibility.Visible;
-                    pathTextbox.Text = InstalledLocation;
-                    pathTextbox.Visibility = Visibility.Visible;
-                    UninstallStepCount++;
-                }
-                else
-                {
+                //if (UninstallStepCount == 1)
+                //{
+                //    UninstallingTextBlock.Text = "Uninstalling";
+                //    RemoveAltraveraTextBlock1.Visibility = Visibility.Visible;
+                //    RemoveAltraveraTextBlock2.Visibility = Visibility.Visible;
+                //    RemoveAltraveraTextBlock3.Visibility = Visibility.Visible;
+                //    RemoveAltraveraTextBlock4.Visibility = Visibility.Visible;
+                //    pathTextbox.Text = InstalledLocation;
+                //    pathTextbox.Visibility = Visibility.Visible;
+                //    UninstallStepCount++;
+                //}
+                //else
+                //{
                     bool isOpen = await CheckByProcess();
                     var IsOkClicked = !isOpen || DialogUtility.ShowMessageBoxModel(msg: Constants.ConfirmationMessageForClosing, UI: this);
                     if (IsOkClicked)
@@ -288,7 +288,7 @@ namespace CustomRDPInstaller
                         pathTextbox.Visibility = Visibility.Collapsed;
                         UninstallingProgressText.Visibility = Visibility.Visible;
                         UnInstallingProgressBar.Visibility = Visibility.Visible;
-                        UninstallingTextBlock.Text = $"Uninstalling {Constants.ServiceName},Please wait a moment...";
+                        UninstallingTextBlock.Text = $"Uninstalling {Constants.ServiceName}, Please wait a moment...";
                         await Constants.UninstallService(Constants.ServiceName);
                         await UnInstallByRegistry();
                         while (UnInstallingProgressBar.Value < UnInstallingProgressBar.Maximum)
@@ -308,7 +308,7 @@ namespace CustomRDPInstaller
                         NegativeButton.Opacity = 0.5;
                         NegativeButton.IsEnabled = false;
                     }
-                }
+                //}
                 return;
             }
             StepNext();
@@ -631,6 +631,7 @@ namespace CustomRDPInstaller
             UninstallationGrid.Visibility = Visibility.Visible;
             PositiveButton.Content = "Uninstall";
             NegativeButton.Content = "Cancel";
+            RemoveAltraveraTextBlock1.Visibility = Visibility.Visible;
             NegativeButton.Background = new SolidColorBrush(Colors.Black);
         }
 

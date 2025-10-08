@@ -14,7 +14,7 @@ namespace CustomRDPInstaller.Utilities
 
        
 
-        public static string ConfirmationMessageForClosing { get; set; } = $"{ServiceName} is running ... Do you want to stop before uninstalling ?";
+        public static string ConfirmationMessageForClosing { get; set; } = $"{ServiceName} is running... Do you want to stop & uninstall ?";
         public static double UIOpacityEnable = 1;
         public static double UIOpacityDisable = 0.8;
         public static string ServiceName => "AltraVeraAgentService";
