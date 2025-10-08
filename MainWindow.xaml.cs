@@ -104,7 +104,7 @@ namespace CustomRDPInstaller
                     PositiveButton.Width = 300;
                     Heading1.Text = "Please wait while Setup Wizard prepares to guide you through the installation.";
                     Heading2.Visibility = Visibility.Collapsed;
-                    Heading3.Text = "Computing space requirements";
+                    Heading3.Text = "Computing space requirements ...";
                     StepCount += 1;
                     break;
                 case 2:
@@ -291,7 +291,7 @@ namespace CustomRDPInstaller
                         }
                         UnInstallingProgressBar.Visibility = Visibility.Collapsed;
                         CompletedImage.Visibility = Visibility.Visible;
-                        UninstallingTextBlock.Text = "UnInstallation Completed";
+                        UninstallingTextBlock.Text = "Uninstallation Completed";
                         RemoveAltraveraTextBlock1.Content = "AltraVera has been Successfully removed from your computer.";
                         
                         UninstallSeparator.Visibility = Visibility.Collapsed;

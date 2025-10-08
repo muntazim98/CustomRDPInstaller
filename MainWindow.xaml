@@ -279,8 +279,9 @@
                                     VerticalContentAlignment="Center"
                                     BorderBrush="#BCBEC0"
                                     FontSize="13"
-                                    Foreground="#BCBEC0"
-                                    IsReadOnly="True"
+                                    Foreground="#707373"
+                                    IsEnabled="False"
+                                    IsReadOnly="False"
                                     Style="{StaticResource TextBoxWithCornerRadiusStyle}"
                                     Visibility="Collapsed" />
                                 <TextBlock
@@ -366,7 +367,7 @@
                                         Grid.Column="0"
                                         Height="30"
                                         VerticalContentAlignment="Center"
-                                        BorderBrush="#BCBEC0"
+                                        BorderBrush="#959696"
                                         FontFamily="{DynamicResource Helvetica}"
                                         Style="{StaticResource TextBoxWithCornerRadiusStyle}"
                                         Text="{Binding DefaultPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
