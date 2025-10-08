@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security.Principal;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -30,6 +31,9 @@ namespace CustomRDPInstaller
         public static int StepCount = 1;
         public static int UninstallStepCount = 1;
 
+        private WebClient wc;
+        private System.Timers.Timer timeoutTimer;
+        private int timeoutInMilliseconds = 30;
         private bool isConnected;
         public static string InstalledLocation {  get; private set; }
         public string DefaultPath
@@ -339,15 +343,23 @@ namespace CustomRDPInstaller
                 {
                     await Task.Delay(2000);
                     FileUtilities.CreateFile(FileName);
-                    WebClient wc = new WebClient();
-                    wc.DownloadFileAsync(Constants.uri, FileName);
+                    wc = new WebClient();
                     wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(wc_DownloadProgressChanged);
                     wc.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadFileCompleted);
+                    timeoutTimer = new System.Timers.Timer(timeoutInMilliseconds * 1000);
+                    timeoutTimer.Elapsed += TimeoutTimer_Elapsed;
+                    timeoutTimer.Start();
+                    wc.DownloadFileAsync(Constants.uri, FileName);
                 }
                 catch (Exception)
                 {
                 }
             });
+        }
+        private void TimeoutTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            timeoutTimer.Stop();
+            wc.CancelAsync();
         }
         private async Task<bool> CheckByProcess()
         {
@@ -371,12 +383,17 @@ namespace CustomRDPInstaller
                 {
                     ProgressBar.Value = 0;
                 }
+                timeoutTimer.Stop();
+                timeoutTimer.Start();
             });
         }
         private async void wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
             await Application.Current.Dispatcher.InvokeAsync(async () =>
             {
+                timeoutTimer?.Stop();
+                timeoutTimer?.Dispose();
+                wc?.Dispose();
                 if (e.Error == null)
                 {
                     await Task.Delay(1000);
@@ -387,6 +404,15 @@ namespace CustomRDPInstaller
                     await CreateRegistry();
                     await CreateShortCut();
                     StepNext();
+                }
+                else
+                {
+                    isConnected = IsInternetAvailable();
+                    InternetStatus.Text = "Not connected";
+                    InternetStatus.Foreground = new SolidColorBrush(Colors.OrangeRed);
+                    InstallingGridTextBlock1.Text = "Unable to download, please check your internet connection.";
+                    DialogUtility.ShowMessageBoxModel(true, "Unable to download, please check your internet connection.");
+                    //btn_Retry.Visibility = Visibility.Visible;
                 }
             });
         }

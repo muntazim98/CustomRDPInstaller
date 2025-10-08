@@ -69,6 +69,22 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="TextBoxWithCornerRadiusStyle2" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="3">
+                            <!--  Adjust corner radius here  -->
+                            <ScrollViewer x:Name="PART_ContentHost" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Window.Background>
         <ImageBrush ImageSource="pack://application:,,,/Resources/Images/background.png" />
@@ -257,7 +273,7 @@
                                     Padding="0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    Content="Click Next to continue."
+                                    Content="Click Uninstall to continue."
                                     FontFamily="{DynamicResource Helvetica}"
                                     FontSize="15"
                                     Visibility="Collapsed" />
@@ -279,10 +295,9 @@
                                     VerticalContentAlignment="Center"
                                     BorderBrush="#BCBEC0"
                                     FontSize="13"
-                                    Foreground="#707373"
                                     IsEnabled="False"
                                     IsReadOnly="False"
-                                    Style="{StaticResource TextBoxWithCornerRadiusStyle}"
+                                    Style="{StaticResource TextBoxWithCornerRadiusStyle2}"
                                     Visibility="Collapsed" />
                                 <TextBlock
                                     x:Name="UninstallingProgressText"
@@ -339,13 +354,13 @@
                             <StackPanel Grid.Row="2">
                                 <Label
                                     Padding="0"
-                                    Content="Click next to install to the default folder or click Change"
+                                    Content="Click Install for the installation to the default folder"
                                     FontFamily="{DynamicResource Helvetica}"
                                     FontSize="16"
                                     FontWeight="Regular" />
                                 <Label
                                     Padding="0"
-                                    Content="to choose another folder."
+                                    Content="or click Change to choose another folder."
                                     FontFamily="{DynamicResource Helvetica}"
                                     FontSize="16"
                                     FontWeight="Regular" />
@@ -383,7 +398,7 @@
                                         Click="Browsebtn_Click"
                                         Content="Change"
                                         Cursor="Hand"
-                                        FontSize="11"
+                                        FontSize="12"
                                         Foreground="#282828">
                                         <Button.Style>
                                             <Style TargetType="{x:Type Button}">
@@ -401,9 +416,7 @@
                                                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                             </Border>
                                                         </ControlTemplate>
-
                                                     </Setter.Value>
-
                                                 </Setter>
                                                 <Style.Triggers>
                                                     <Trigger Property="IsMouseOver" Value="True">
@@ -419,7 +432,6 @@
                                                             </Setter.Value>
                                                         </Setter>
                                                         <Setter Property="Foreground" Value="White" />
-
                                                     </Trigger>
                                                 </Style.Triggers>
                                             </Style>
