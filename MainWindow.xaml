@@ -126,17 +126,18 @@
                             VerticalAlignment="Bottom"
                             FontFamily="{DynamicResource YaroOpBold}"
                             FontSize="60"
+                            Panel.ZIndex="1"
                             Foreground="White"
                             Text="AItraVera-Agent" />
                         <Border
                             Width="{Binding ElementName=tAG, Path=ActualWidth}"
                             Height="5"
-                            Margin="0,-8,0,0"
+                            Margin="0,-10,0,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Stretch"
                             Background="White" />
                         <TextBlock
-                            Margin="5,0,0,5"
+                            Margin="5,-4,0,5"
                             VerticalAlignment="Center"
                             FontFamily="{DynamicResource Furore}"
                             FontSize="30"
@@ -167,6 +168,7 @@
                             FontFamily="{DynamicResource YaroOpBold}"
                             FontSize="30"
                             Foreground="White"
+                            Panel.ZIndex="1"
                             Text="AItraVera-Agent" />
                         <Border
                             Width="{Binding ElementName=tAG1, Path=ActualWidth}"
@@ -174,7 +176,7 @@
                             Margin="-8,-4,0,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Stretch"
-                            Background="White" />
+                            Background="LightGray" />
                         <TextBlock
                             Margin="0,0,0,5"
                             VerticalAlignment="Center"
@@ -223,7 +225,7 @@
                                     FontSize="28"
                                     FontWeight="Bold"
                                     TextWrapping="Wrap">
-                                    Service is already installed
+                                    AltraVera-Agent is already installed
                                 </TextBlock>
                                 <TextBlock
                                     x:Name="RemoveAltraveraTextBlock1"
@@ -232,7 +234,7 @@
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     FontSize="15"
-                                    Text="Remove AltraVera Service from your computer."
+                                    Text="Remove AltraVera-Agent from your computer."
                                     TextWrapping="Wrap"
                                     Visibility="Collapsed" />
                                 <Separator
@@ -246,7 +248,7 @@
                                     Padding="0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    Content="AltraVera Service will be uninstalled from the following folder."
+                                    Content="AltraVera-Agent will be uninstalled from the following folder."
                                     FontSize="15"
                                     Visibility="Collapsed" />
                                 <Label
@@ -264,7 +266,7 @@
                                     Padding="0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    Content="Uninstalling AltraVera Service from:"
+                                    Content="Uninstalling AltraVera-Agent from:"
                                     FontSize="15"
                                     Visibility="Collapsed" />
                                 <TextBox
@@ -348,7 +350,7 @@
                                 <Label
                                     Margin="0,10,0,0"
                                     Padding="0"
-                                    Content="Install AltraVera Service to:"
+                                    Content="Install AltraVera-Agent to:"
                                     FontFamily="{DynamicResource Helvetica}"
                                     FontSize="16" />
                                 <Grid Margin="0,5">
@@ -433,7 +435,7 @@
                                     FontSize="28"
                                     FontWeight="Bold"
                                     TextWrapping="Wrap">
-                                    Welcome to the AltraVera Service Setup Wizard
+                                    Welcome to the AltraVera-Agent Setup Wizard
                                 </TextBlock>
                                 <Separator
                                     Height="2"
@@ -445,7 +447,7 @@
                                     FontSize="14"
                                     FontWeight="Normal"
                                     TextWrapping="Wrap">
-                                    This wizard will guide you through the installation of AltraVera Service.
+                                    This wizard will guide you through the installation of AltraVera-Agent.
                                 </TextBlock>
                                 <TextBlock
                                     x:Name="Heading2"
@@ -561,7 +563,7 @@
                                     VerticalAlignment="Center"
                                     FontFamily="{DynamicResource Helvetica}"
                                     FontSize="13"
-                                    Text="Please review Licence Agreement of AltraVera Service before installation" />
+                                    Text="Please review Licence Agreement of AltraVera-Agent before installation" />
                                 <Border BorderBrush="#000000" BorderThickness="1" />
                                 <TextBlock
                                     Margin="0,10"
@@ -594,7 +596,7 @@
                                             DELETE IT FROM YOUR DEVICE.<LineBreak />
                                             <LineBreak />
                                             1. LICENSE GRANT<LineBreak />
-                                            Subject to your compliance with the terms of this Agreement, AltraVera Service grants you a limited, non-exclusive, non-transferable, non-sublicensable, and revocable license to:<LineBreak />
+                                            Subject to your compliance with the terms of this Agreement, AltraVera-Agent grants you a limited, non-exclusive, non-transferable, non-sublicensable, and revocable license to:<LineBreak />
                                             <LineBreak />
                                             (a) Download and install the Software on computers or devices that you own or control.<LineBreak />
                                             <LineBreak />

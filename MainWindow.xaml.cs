@@ -120,7 +120,7 @@ namespace CustomRDPInstaller
                     PositiveButton.Content = "Install Now";
                     PositiveButton.IsEnabled = true;
                     PositiveButton.Width = 300;
-                    Heading1.Text = "This wizard will guide you through the installation of AltraVera Service.";
+                    Heading1.Text = $"This wizard will guide you through the installation of {Constants.AgentName}.";
                     Heading2.Visibility = Visibility.Visible;
                     Heading2.Text = "It is recommended that you close all other applications before starting Setup. This will make it possible to update relevant system files without having to reboot your computer.";
                     Heading3.Text = "Click Install Now to continue.";
@@ -153,7 +153,7 @@ namespace CustomRDPInstaller
                     FolderSelectionGrid.Visibility = Visibility.Collapsed;
                     LicensingGrid.Visibility = Visibility.Collapsed;
                     NegativeButton.Content = "Cancel";
-                    InstallingGridTextBlock1.Text = "Please wait while we are installing AltraVera Service on your Computer.";
+                    InstallingGridTextBlock1.Text = $"Please wait while we are installing {Constants.AgentName} on your Computer.";
                     NegativeButton.Visibility = Visibility.Visible;
                     InstallingGrid.Visibility = Visibility.Visible;
                     isConnected = IsInternetAvailable();
@@ -288,18 +288,21 @@ namespace CustomRDPInstaller
                         pathTextbox.Visibility = Visibility.Collapsed;
                         UninstallingProgressText.Visibility = Visibility.Visible;
                         UnInstallingProgressBar.Visibility = Visibility.Visible;
-                        UninstallingTextBlock.Text = $"Uninstalling {Constants.ServiceName}, Please wait a moment...";
-                        await Constants.UninstallService(Constants.ServiceName);
-                        await UnInstallByRegistry();
+                        UninstallingTextBlock.Text = $"Uninstalling {Constants.AgentName}, Please wait a moment...";
+                        //await Constants.UninstallService(Constants.ServiceName);
+                        var installService = Path.Combine(InstalledLocation, Constants.UnInstallServiceName);
+                        Constants.UnInstallService(installService);
+                        await Task.Delay(5000);
                         while (UnInstallingProgressBar.Value < UnInstallingProgressBar.Maximum)
                         {
-                            await Task.Delay(20);
+                            await Task.Delay(25);
                             UnInstallingProgressBar.Value += 1;
                         }
+                        await UnInstallByRegistry();
                         UnInstallingProgressBar.Visibility = Visibility.Collapsed;
                         CompletedImage.Visibility = Visibility.Visible;
                         UninstallingTextBlock.Text = "Uninstallation Completed";
-                        RemoveAltraveraTextBlock1.Text = $"{Constants.ServiceName} has been Successfully removed from your computer.";
+                        RemoveAltraveraTextBlock1.Text = $"{Constants.AgentName} has been Successfully removed from your computer.";
                         UninstallSeparator.Visibility = Visibility.Collapsed;
                         UninstallingProgressText.Visibility = Visibility.Collapsed;
                         PositiveButton.Content = "Close";
@@ -392,7 +395,9 @@ namespace CustomRDPInstaller
                     //await CreateRegistry();
                     //await CreateShortCut();
                     var ApplicationToLaunch = Path.Combine(DefaultPath, Constants.ServiceExeName);
-                    await Constants.CreateAndStartServiceAsync(Constants.ServiceName, ApplicationToLaunch);
+                    //await Constants.CreateAndStartServiceAsync(Constants.ServiceName, ApplicationToLaunch);
+                    var installService = Path.Combine(DefaultPath, Constants.InstallServiceName);
+                    Constants.InstallService(installService);
                     StepNext();
                 }
             });
@@ -718,7 +723,7 @@ namespace CustomRDPInstaller
                             //    }
                             //}
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
                         }
                     });

@@ -11,7 +11,8 @@ namespace CustomRDPInstaller.Utilities
         public static string GetDefaultIntallationPathX86 { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
         public static string GetDefaultIntallationPath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
         public static string ApplicationName { get; set; } = "AltraVera";
-        public static string ConfirmationMessageForClosing { get; set; } = $"{ServiceName} is running... Do you want to stop & uninstall ?";
+        public static string AgentName = "AltraVera-Agent";
+        public static string ConfirmationMessageForClosing { get; set; } = $"{AgentName} is running... Do you want to stop & uninstall ?";
         public static double UIOpacityEnable = 1;
         public static double UIOpacityDisable = 0.8;
         public static string ServiceName => "AltraVeraAgentService";
@@ -26,6 +27,9 @@ namespace CustomRDPInstaller.Utilities
         public static string IconFileName { get; internal set; } = "AltraVera.ico";
         public static string GetInstallerExe => System.Reflection.Assembly.GetEntryAssembly().Location;
 
+        public static string InstallServiceName = "install_service.bat";
+        public static string UnInstallServiceName = "uninstall_service.bat";
+         
         public static async Task<bool> CreateAndStartServiceAsync(string serviceName, string exePath)
         {
             // Check if the service already exists
@@ -105,6 +109,46 @@ namespace CustomRDPInstaller.Utilities
                 await RunProcessAsync("sc", $"delete \"{serviceName}\"");
             }
             catch { }
+        }
+
+        public static void InstallService(string filepath)
+        {
+            try
+            {
+                ProcessStartInfo processStartInfo = new ProcessStartInfo
+                {
+                    FileName = filepath,
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    WindowStyle= ProcessWindowStyle.Hidden,
+                    Verb = "runas"
+                };
+                Process.Start(processStartInfo);
+            }
+            catch (Exception)
+            {
+
+            }
+
+        }
+        public static void UnInstallService(string filepath)
+        {
+            try
+            {
+                ProcessStartInfo processStartInfo = new ProcessStartInfo
+                {
+                    FileName = filepath,
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    Verb = "runas"
+                };
+                Process.Start(processStartInfo);
+            }
+            catch (Exception)
+            {
+
+            }
         }
     }
 }
