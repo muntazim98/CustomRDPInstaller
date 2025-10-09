@@ -737,6 +737,11 @@ namespace AltraVeraHostInstaller
                 var dirs = dirInfo.GetDirectories();
                 foreach (DirectoryInfo dir in dirs)
                     DirectoryUtility.DeleteDirectory(dir.FullName);
+                if(dirInfo.Name == "AltraVera")
+                {
+                    dirInfo.Attributes = FileAttributes.Normal;
+                    dirInfo.Delete();
+                }
             }
             catch { }
         }

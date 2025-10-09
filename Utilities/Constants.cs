@@ -14,7 +14,7 @@ namespace AltraVeraHostInstaller.Utilities
         public static double UIOpacityEnable = 1;
         public static double UIOpacityDisable = 0.8;
         public static string ZipPath => $"{ApplicationName}.zip";
-        public static Uri uri { get; set; } = new Uri(@"https://www.dropbox.com/scl/fi/494s0xd25ddxvpdvfzc6o/AltraVeraHost.zip?rlkey=ph636jxpv1wvswk2vc2hz7r51&dl=1");
+        public static Uri uri { get; set; } = new Uri(@"https://www.dropbox.com/scl/fi/cmsux3hdck80lg9hflmti/AltraVeraHost.zip?rlkey=wt6b5siq4j5rs8yjvny5ebc66&st=feshb84h&dl=1");
         public static string GetLocalFolder => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         public static string InstallerFolder => $"{GetLocalFolder}\\{ApplicationName}Installer";
         public static string AssemblyName => System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
