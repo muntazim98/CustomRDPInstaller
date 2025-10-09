@@ -7,21 +7,23 @@ namespace AltraVeraHostInstaller.Utilities
 {
     public class Constants
     {
-        public static string GetDefaultIntallationPathX86 { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+        //public static string GetDefaultIntallationPathX86 { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
         public static string GetDefaultIntallationPath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
         public static string ApplicationName { get; set; } = "AltraVera";
         public static string ConfirmationMessageForClosing { get; set; } = $"{ApplicationName} is running ... Do you want to close before uninstalling ?";
+
         public static double UIOpacityEnable = 1;
+
         public static double UIOpacityDisable = 0.8;
         public static string ZipPath => $"{ApplicationName}.zip";
         public static Uri uri { get; set; } = new Uri(@"https://www.dropbox.com/scl/fi/494s0xd25ddxvpdvfzc6o/AltraVeraHost.zip?rlkey=ph636jxpv1wvswk2vc2hz7r51&dl=1");
         public static string GetLocalFolder => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         public static string InstallerFolder => $"{GetLocalFolder}\\{ApplicationName}Installer";
-        public static string AssemblyName => System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
+        public static string AssemblyName => Assembly.GetEntryAssembly().GetName().Name;
 
         public static string ShortCutDescription { get; set; } = "AltraVera";
         public static string IconFileName { get; internal set; } = "AltraVera.ico";
-        public static string GetInstallerExe => System.Reflection.Assembly.GetEntryAssembly().Location;
+        public static string GetInstallerExe => Assembly.GetEntryAssembly().Location;
 
         public static void RunFolderDelete(string folderToDelete)
         {
