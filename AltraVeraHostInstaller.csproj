@@ -107,7 +107,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Utilities\BindableBase.cs" />
     <Compile Include="Utilities\Constants.cs" />
     <Compile Include="Utilities\DialogUtility.cs" />
     <Compile Include="Utilities\DirectoryUtility.cs" />

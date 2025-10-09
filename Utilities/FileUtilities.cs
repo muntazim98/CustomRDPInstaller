@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
-using AltraVeraHostInstaller.Utilities;
 
 namespace AltraVeraInstaller.Utilities
 {
@@ -16,55 +14,6 @@ namespace AltraVeraInstaller.Utilities
                 return true;
             }
             catch { return false; }
-        }
-        public static string GetTempInstallationFile()
-        {
-            DirectoryUtility.CreateDirectory(Constants.InstallerFolder);
-            return $"{Constants.InstallerFolder}\\{Constants.ApplicationName}.zip";
-        }
-        public static string GetCurrentDirectory => Directory.GetCurrentDirectory();
-
-        public static string ReadResource(string ResourceName)
-        {
-            var json = string.Empty;
-            Stream stream = null;
-            try
-            {
-                using (stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(ResourceName))
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    json = reader.ReadToEnd();
-                }
-            }
-            catch { }
-            finally
-            {
-                stream?.Close();
-                stream?.Dispose();
-            }
-            return json;
-        }
-        public static string ReadServiceAccountConfig()
-        {
-            var json = string.Empty;
-            try
-            {
-                json = ReadResource($"SocialDominatorInstaller.ServiceAccountGLB.json");
-            }
-            catch { }
-            return json;
-        }
-        public static string GetServiceAccountFileName => $"{GetCurrentDirectory}/ServiceAccountGLB.json";
-
-        public static string GetDownloadPath(string Config, string Version)
-        {
-            var downloadPath = Path.Combine(GetCurrentDirectory, Constants.ApplicationName);
-            DirectoryUtility.CreateDirectory(downloadPath);
-            downloadPath = Path.Combine(downloadPath, Config);
-            DirectoryUtility.CreateDirectory(downloadPath);
-            downloadPath = Path.Combine(downloadPath, $"{Constants.ApplicationName}_{Version.Replace(".", "_")}");
-            DirectoryUtility.CreateDirectory(downloadPath);
-            return downloadPath;
         }
         public static bool DeleteFile(string FilePath)
         {
@@ -106,22 +55,6 @@ namespace AltraVeraInstaller.Utilities
             catch { return false; }
         }
 
-        public static void CopyInstaller(string dest)
-        {
-            try
-            {
-                using (var resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SocialDominatorInstaller.UnInstaller.exe"))
-                {
-                    if (resourceStream != null)
-                    {
-                        using (var fileStream = new FileStream(dest, FileMode.Create, FileAccess.Write))
-                        {
-                            resourceStream.CopyTo(fileStream);
-                        }
-                    }
-                }
-            }
-            catch { }
-        }
+        
     }
 }

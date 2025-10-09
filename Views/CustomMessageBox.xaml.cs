@@ -12,7 +12,9 @@ namespace AltraVeraHostInstaller.Views
     public partial class CustomMessageBox : UserControl
     {
         public Window MyWindow { get; set; }
+
         private string dailoguemsg = string.Empty;
+
         public bool IsOk { get; set; }
         public CustomMessageBox(bool isYes = false, string msg = "")
         {
