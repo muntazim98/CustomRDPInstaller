@@ -114,20 +114,20 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <Image
-                        Width="250"
-                        Height="250"
+                        Width="150"
+                        Height="150"
                         Source="/Resources/Images/UIIcon1.png"
                         Stretch="Uniform" />
                     <StackPanel VerticalAlignment="Center" Orientation="Vertical">
                         <TextBlock
                             x:Name="tAG"
-                            Margin="5,5,10,0"
+                            Margin="5,0,10,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom"
                             FontFamily="{DynamicResource YaroOpBold}"
-                            FontSize="100"
+                            FontSize="60"
                             Foreground="White"
-                            Text="AItraVera" />
+                            Text="AItraVera-Agent" />
                         <Border
                             Width="{Binding ElementName=tAG, Path=ActualWidth}"
                             Height="5"
@@ -139,7 +139,7 @@
                             Margin="5,0,0,5"
                             VerticalAlignment="Center"
                             FontFamily="{DynamicResource Furore}"
-                            FontSize="28"
+                            FontSize="30"
                             FontWeight="DemiBold"
                             Foreground="#21a1db"
                             Text="SECURE RDP/VNC CONTROLLER" />
@@ -161,17 +161,17 @@
                     <StackPanel Orientation="Vertical">
                         <TextBlock
                             x:Name="tAG1"
-                            Margin="0,5,10,0"
+                            Margin="0,8,10,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom"
                             FontFamily="{DynamicResource YaroOpBold}"
-                            FontSize="42"
+                            FontSize="30"
                             Foreground="White"
-                            Text="AItraVera" />
+                            Text="AItraVera-Agent" />
                         <Border
                             Width="{Binding ElementName=tAG1, Path=ActualWidth}"
-                            Height="2"
-                            Margin="-8,-8,0,0"
+                            Height="4"
+                            Margin="-8,-4,0,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Stretch"
                             Background="White" />
@@ -179,7 +179,7 @@
                             Margin="0,0,0,5"
                             VerticalAlignment="Center"
                             FontFamily="{DynamicResource Furore}"
-                            FontSize="12"
+                            FontSize="15"
                             Foreground="#21a1db"
                             Text="SECURE RDP/VNC CONTROLLER" />
                     </StackPanel>
