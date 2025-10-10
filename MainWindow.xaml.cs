@@ -271,7 +271,7 @@ namespace CustomRDPInstaller
         {
             if (NegativeButton.Content.ToString() == "Done" || NegativeButton.Content.ToString() == "Close")
             {
-                Application.Current.Shutdown();
+                Application.Current.Shutdown(0);
             }
             else if (NegativeButton.Content.ToString() == "Cancel")
             {
@@ -279,7 +279,7 @@ namespace CustomRDPInstaller
                 var IsOk = DialogUtility.ShowMessageBoxModel(false, message, false, this);
                 if (IsOk)
                 {
-                    Application.Current.Shutdown();
+                    Application.Current.Shutdown(0);
                 }
 
             }
@@ -469,7 +469,7 @@ namespace CustomRDPInstaller
                 var IsOk = DialogUtility.ShowMessageBoxModel(false, message, false, this);
                 if (IsOk)
                 {
-                    Application.Current.Shutdown();
+                    Application.Current.Shutdown(0);
                 }
             }
             catch { }
