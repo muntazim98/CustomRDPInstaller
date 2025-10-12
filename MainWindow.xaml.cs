@@ -259,7 +259,7 @@ namespace AltraVeraHostInstaller
                     };
                     Process.Start(processInfo);
                 }
-                App.Current.Shutdown();
+                Application.Current.Shutdown(0);
             }
             else if(PositiveButton.Content.ToString() == "Uninstall")
             {
@@ -313,7 +313,7 @@ namespace AltraVeraHostInstaller
             else if(PositiveButton.Content.ToString() == "Finish")
             {
                 Constants.RunFolderDelete(Constants.InstallerFolder);
-                Application.Current.Shutdown();
+                Application.Current.Shutdown(0);
             }
                 StepNext();
         }
@@ -322,7 +322,7 @@ namespace AltraVeraHostInstaller
         {
             if (NegativeButton.Content.ToString() == "Done" || NegativeButton.Content.ToString() == "Close")
             {
-                Application.Current.Shutdown();
+                Application.Current.Shutdown(0);
             }
             else if (NegativeButton.Content.ToString() == "Cancel")
             {
@@ -330,7 +330,7 @@ namespace AltraVeraHostInstaller
                 var IsOk = DialogUtility.ShowMessageBoxModel(false, message, false, this);
                 if (IsOk)
                 {
-                    Application.Current.Shutdown();
+                    Application.Current.Shutdown(0);
                 }
 
             }
@@ -757,7 +757,7 @@ namespace AltraVeraHostInstaller
                 {
                     if(PositiveButton.Content.ToString() == "Finish")
                         Constants.RunFolderDelete(Constants.InstallerFolder);
-                    Application.Current.Shutdown();
+                    Application.Current.Shutdown(0);
                 }
             }
             catch { }
