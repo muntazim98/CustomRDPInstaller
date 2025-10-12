@@ -17,7 +17,7 @@ namespace CustomRDPInstaller.Utilities
         public static string ServiceName => "AltraVeraAgentService";
         public static string ServiceExeName => "AltraVera_agent_service.exe";
         public static string ZipPath => $"{ApplicationName}Service.zip";
-        public static Uri uri { get; set; } = new Uri(@"https://www.dropbox.com/scl/fi/nrj1th2xz1w6so2zog9p3/AltraVeraAgent.zip?rlkey=zlpji3leybhjzznvmfnknkzgf&dl=1");
+        public static Uri uri { get; set; } = new Uri(@"https://www.dropbox.com/scl/fi/iskoq68iqy1o4wg7kqpxm/AltraVeraAgent.zip?rlkey=li9g8t5u4ipyc00v9wm3qfsve&dl=1");
         public static string GetLocalFolder => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         public static string InstallerFolder => $"{GetLocalFolder}\\{ApplicationName}Installer";
         public static string AssemblyName => System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
