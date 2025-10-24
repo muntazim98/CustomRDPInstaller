@@ -703,6 +703,11 @@ namespace AltraVeraHostInstaller
                             {
                                 DeleteFilesAndDirectory(InstalledLocation);
                             }
+                            var appPath = Path.Combine(Constants.GetRoamingFolder, Constants.ApplicationName);
+                            if (Directory.Exists(appPath))
+                            {
+                                DeleteFilesAndDirectory(appPath);
+                            }
                             //else
                             //{
                             //    //Delete Files For for all users.
