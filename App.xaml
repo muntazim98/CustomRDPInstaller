@@ -9,11 +9,8 @@
             <FontFamily x:Key="Helvetica">pack://application:,,,/Resources/Fonts/Helvetica.ttf#Helvetica</FontFamily>
             <FontFamily x:Key="Helvetica_Bold">pack://application:,,,/Resources/Fonts/Helvetica_Bold.ttf#Helvetica</FontFamily>
             <FontFamily x:Key="helvetica_light">pack://application:,,,/Resources/Fonts/helvetica_light.ttf#Helvetica Light</FontFamily>
-            <FontFamily x:Key="Helvetica_Oblique">pack://application:,,,/Resources/Fonts/Helvetica_Oblique.ttf#Helvetica</FontFamily>
-            <FontFamily x:Key="YaroOp">pack://application:,,,/Resources/Fonts/YaroOp.ttf#Yaro Op</FontFamily>
             <FontFamily x:Key="YaroOpBold">pack://application:,,,/Resources/Fonts/YaroOpBold.ttf#Yaro Op Bold</FontFamily>
             <FontFamily x:Key="GilroyMedium">pack://application:,,,/Resources/Fonts/GilroyMedium.ttf#Gilroy-Medium</FontFamily>
-            <FontFamily x:Key="Furore">pack://application:,,,/Resources/Fonts/Furore.otf#Furore</FontFamily>
             <Style x:Key="ButtonStyle" TargetType="Button">
                 <Setter Property="Background" Value="#FFFFFF" />
                 <Setter Property="Opacity" Value="0.9" />
